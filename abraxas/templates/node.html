@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load markup %}
+{% load thumbnail %}
+
+{% block title %}{{ node.title }}{% endblock %}
+{% block js %}<script type="text/javascript" src="/site_media/js/comments.js"></script>{% endblock %}
+
+{% block breadcrumbs %}
+
+<a href="/">//thraxil.org</a>/<a href="/users/">users</a>/<a href="{{ node.user.get_absolute_url }}">{{ node.user.username }}</a>/<a href="{{ node.user.get_absolute_url }}{{node.type}}s/">{{ node.type }}s</a>/<a href="{{ node.user.get_absolute_url }}{{node.type}}s/{{node.created.year}}/">{{ node.created.year }}</a>/<a href="{{node.user.get_absolute_url}}{{node.type}}s/{{node.created.year}}/{{node.created.month}}/">{{ node.created.month}}</a>/<a href="{{node.user.get_absolute_url}}{{node.type}}s/{{node.created.year}}/{{node.created.month}}/{{node.created.day}}/">{{ node.created.day }}</a>/{{node.slug}}/
+{% endblock %}
+
+{% block nav %}history{% endblock %}
+
+{% block content %}
+
+<h2>{{ node.title }}</h2>
+<p class="byline">by <a href="{{node.user.get_absolute_url}}">{{ node.user.fullname }}</a>
+{{ node.created|date:"D d M Y H:i:s" }}</p>
+
+{% if node.is_post %}
+{% if node.p.textile %}
+{{ node.p.body|textile }}
+{% else %}
+{{ node.p.body|markdown }}
+{% endif %}
+{% endif %}
+
+{% if node.is_bookmark %}
+<p>Link: <a href="{{ node.b.url }}">{{ node.b.url}}</a></p>
+
+{% if node.b.textile %}
+{{ node.b.description|textile }}
+{% else %}
+{{ node.b.description|markdown }}
+{% endif %}
+{% endif %}
+
+{% if node.is_image %}
+<p><img src="{{ node.i.scaled_image_url }}"/></p>
+
+{% if node.i.textile %}
+{{ node.i.description|textile }}
+{% else %}
+{{ node.i.description|markdown }}
+{% endif %}
+{% endif %}
+
+{% if node.has_tags %}
+<div class="tags">
+TAGS: {% for tag in node.get_tags %}
+<a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
+{% endfor %}
+</div>
+{% endif %}
+
+{% if node.has_comments %}
+<div id="comments">
+<h3>comments</h3>
+{% for comment in node.top_level_comments %}
+
+<div class="comment">
+<p class="byline"> {% if comment.has_author_url %}<a href="{{comment.author_url}}">{% endif %}{{ comment.author_name }}{% if comment.has_author_url %}</a>{% endif %} - <a href="{{ comment.get_absolute_url}}">{{ comment.created|date:"D d M Y H:i:s" }}</a></p>
+{{ comment.body|textile }}
+
+
+{% if comment.has_replies %}
+{{ comment.replies_html|safe }}
+{% endif %}
+
+</div>
+{% endfor %}
+</div>
+{% endif %}
+
+{% if node.comments_allowed %}
+<div id="comment-form">
+<form action="{{ node.get_absolute_url }}add_comment/"
+      method="post" onsubmit="return commentSubmit()">
+
+<textarea name="content" id="comment-textarea"></textarea><br />
+<p style="font-size: .8em;">formatting is
+  with <a href="http://hobix.com/textile/">Textile</a> syntax. Comments are not displayed until they are approved by a
+  moderator. Moderators will not approve unless the comment
+  contributes value to the discussion.</p>
+<table>
+<tr><th>name</th><td><input type="text" name="name"
+			    id="comment-name"/></td><td>required</td></tr>
+<tr><th>email</th><td><input type="text" name="email"
+			     id="comment-email"/></td><td>required</td></tr>
+<tr><th>url</th><td><input type="text" name="url"
+			   id="comment-url"/></td><td></td></tr>
+<tr><th></th><td><input type="checkbox" checked="checked"
+                                 name="remember" id="comment-remember"
+                                 />
+remember info?
+</td><td></td></tr>
+</table><br />
+<input type="submit" value="preview comment" />
+</form>
+</div>
+<div class="clear"></div>
+{% endif %}
+
+</div>
+
+
+{% endblock %}

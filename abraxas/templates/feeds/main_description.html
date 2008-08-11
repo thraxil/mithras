@@ -1,0 +1,12 @@
+{% load thumbnail %}
+{% load markup %}
+
+<p class="byline">by {{ obj.user.fullname }}</a>
+{{ obj.created }}</p>
+{% if obj.p.textile %}
+{{ obj.p.textile }}
+{% else %}
+{{ obj.p.body|markdown }}
+{% endif %}
+
+

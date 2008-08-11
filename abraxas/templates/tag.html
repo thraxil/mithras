@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load markup %}
+{% load thumbnail %}
+
+{% block title %}{{ tag.name }}{% endblock %}
+
+{% block breadcrumbs %}
+
+<a href="/">//thraxil.org</a>/<a href="/tags/">tags</a>/{{tag.name}}/
+{% endblock %}
+
+{% block content %}
+<table>
+{% for node in tag.node_set.all %}
+<tr><th><a href="{{ node.get_absolute_url }}">{{node.title}}</a></th>
+<td>by <a href="{{ node.user.get_absolute_url}}">{{ node.user.fullname }}</a></td><td>{{ node.created|date:"D d M Y"}}</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

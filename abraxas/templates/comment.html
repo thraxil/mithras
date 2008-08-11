@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load markup %}
+{% load thumbnail %}
+{% block js %}<script type="text/javascript" src="/site_media/js/comments.js"></script>{% endblock %}
+{% block breadcrumbs %}
+
+<a href="/">//thraxil.org</a>/<a href="/users/">users</a>/<a href="{{ node.user.get_absolute_url }}">{{ node.user.username }}</a>/<a href="{{ node.user.get_absolute_url }}{{node.type}}s/">{{ node.type }}s</a>/<a href="{{ node.user.get_absolute_url }}{{node.type}}s/{{node.created.year}}/">{{ node.created.year }}</a>/<a href="{{node.user.get_absolute_url}}{{node.type}}s/{{node.created.year}}/{{node.created.month}}/">{{ node.created.month}}</a>/<a href="{{node.user.get_absolute_url}}{{node.type}}s/{{node.created.year}}/{{node.created.month}}/{{node.created.day}}/">{{ node.created.day }}</a>/<a href="{{node.get_absolute_url}}">{{node.slug}}</a>/comments/{{comment.created}}/
+{% endblock %}
+
+
+{% block content %}
+
+<h2>Reply to: <a href="{{node.get_absolute_url}}">{{ node.title }}</a></h2>
+
+<div class="comment">
+<p class="byline">{{ comment.author_name }} - <a href="{{ comment.get_absolute_url}}">{{ comment.created }}</a></p>
+{{ comment.body|textile }}
+
+{% if comment.has_replies %}
+{{ comment.replies_html|safe }}
+{% endif %}
+</div>
+
+{% if node.comments_allowed %}
+<div id="comment-form">
+<form action="{{ node.get_absolute_url }}add_comment/"
+      method="post" onsubmit="return commentSubmit()">
+<input type="hidden" name="reply_to" value="{{ comment.id }}" />
+<textarea name="content" id="comment-textarea"></textarea><br />
+<p style="font-size: .8em;">formatting is
+  with <a href="http://hobix.com/textile/">Textile</a> syntax.
+Comments are not displayed until they are approved by a
+  moderator. Moderators will not approve unless the comment
+  contributes value to the discussion.
+</p>
+<table>
+<tr><th>name</th><td><input type="text" name="name"
+			    id="comment-name"/></td><td>required</td></tr>
+<tr><th>email</th><td><input type="text" name="email"
+			     id="comment-email"/></td><td>required</td></tr>
+<tr><th>url</th><td><input type="text" name="url"
+			   id="comment-url"/></td><td></td></tr>
+<tr><th></th><td><input type="checkbox" checked="checked"
+                                 name="remember" id="comment-remember"
+                                 />
+remember info?
+</td><td></td></tr>
+</table><br />
+<input type="submit" value="preview comment" />
+</form>
+</div>
+<div class="clear"></div>
+{% endif %}
+
+</div>
+
+{% endblock %}

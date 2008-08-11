@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load markup %}
+{% block js %}<script type="text/javascript" src="/site_media/js/comments.js"></script>{% endblock %}
+{% block content %}
+{% if node.comments_allowed %}
+
+<h1>Preview of Comment:</h1>
+<p style="color: red">This is only a preview. If you're OK with
+  the formatting, you must hit the Submit link below. Otherwise, make
+  changes and hit Preview again. </p>
+
+{{ content|textile }}
+
+
+<div id="comment-form">
+<form action="{{ node.get_absolute_url }}add_comment/"
+      method="post" onsubmit="return commentSubmit()">
+<input type="hidden" name="original_referer" value="{{ original_referer }}" />
+<input type="hidden" name="reply_to" value="{{ reply_to }}" />
+<textarea name="content" id="comment-textarea">{{content}}</textarea><br />
+<p style="font-size: .8em;">formatting is
+  with <a href="http://hobix.com/textile/">Textile</a> syntax. Comments are not displayed until they are approved by a
+  moderator. Moderators will not approve unless the comment
+  contributes value to the discussion.</p>
+<table>
+<tr><th>name</th><td><input type="text" name="name" value="{{name}}"
+			    id="comment-name"/></td><td>required</td></tr>
+<tr><th>email</th><td><input type="text" name="email" value="{{email}}"
+			     id="comment-email"/></td><td>required</td></tr>
+<tr><th>url</th><td><input type="text" name="url" value="{{url}}"
+			   id="comment-url"/></td><td></td></tr>
+<tr><th></th><td><input type="checkbox" checked="checked"
+                                 name="remember" id="comment-remember"
+                                 />
+remember info?
+</td><td></td></tr>
+</table><br />
+<input type="submit" name="submit" value="preview comment" />
+<input type="submit" name="submit" value="submit comment" />
+</form>
+</div>
+<div class="clear"></div>
+{% endif %}
+{% endblock %}

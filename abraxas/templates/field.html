@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load markup %}
+{% load thumbnail %}
+{% block breadcrumbs %}
+<a href="/">//thraxil.org</a>/<a href="/fields/">fields</a>/{{ name }}/
+{% endblock %}
+
+{% block content %}
+<h2>field: {{ name }}</h2>
+
+<table>
+{% for field in fields %}
+<tr><td><a href="/fields/{{field.field_name }}/{{ field.field_value|urlencode }}/">{{ field.field_value }}</a></td></tr>
+{% endfor %}
+</table>
+
+{% endblock %}

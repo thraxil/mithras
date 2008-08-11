@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load markup %}
+{% load thumbnail %}
+
+{% block title %}{{ user.fullname }}{% endblock %}
+{% block breadcrumbs %}
+<a href="/">//thraxil.org</a>/<a href="/users/">users</a>/{{ user.username }}/
+{% endblock %}
+
+{% block nav %}
+tags
+fields
+archives |
+<a href="posts/">posts</a>
+<a href="images/">images</a>
+<a href="bookmarks/">bookmarks</a>
+{% endblock %}
+
+{% block content %}
+
+<div id="bio">
+<h2>{{ user.fullname }}</h2>
+{% if user.bio %}
+
+{{ user.bio|textile }}
+{% endif %}
+</div>
+
+
+{% for post in posts %}
+<div class="post">
+<h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+<p class="byline">{{ post.created|date:"D d M Y" }}</p>
+{% if post.p.textile %}{{ post.p.body|textile }}{% else %}{{ post.p.body|markdown }}{% endif %}
+</div>
+{% endfor %}
+
+{% endblock %}

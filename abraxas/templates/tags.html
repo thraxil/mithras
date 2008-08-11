@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load markup %}
+{% load thumbnail %}
+
+{% block title %}{{ node.title }}{% endblock %}
+
+{% block breadcrumbs %}
+
+<a href="/">//thraxil.org</a>/tags/
+{% endblock %}
+
+{% block content %}
+{% for tag in tags %}
+<a href="/tags/{{tag.slug|urlencode}}/" class="tag-{{tag.weight}}">{{tag.name}}</a>
+{% endfor %}
+
+{% endblock %}

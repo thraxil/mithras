@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load markup %}
+{% load thumbnail %}
+
+{% block title %}{{ user.fullname }}/{{ type }}/{{ year }}{% endblock %}
+{% block breadcrumbs %}
+<a href="/">//thraxil.org</a>/<a href="/users/">users</a>/<a href="{{ user.get_absolute_url }}">{{ user.username }}</a>/<a href="{{ user.get_absolute_url }}{{type}}s/">{{ type }}s</a>/{{ year }}/
+{% endblock %}
+
+{% block content %}
+
+<table>
+{% for month in months %}
+<tr><td><a href="{{ month }}/">{{ month }}</a></td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}
