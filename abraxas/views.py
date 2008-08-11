@@ -78,6 +78,13 @@ def comment(request,username,type,year,month,day,slug,cyear,cmonth,cday,chour,cm
     return render_to_response("comment.html",dict(node=node,comment=comment))
 
 def add_comment(request,username,type,year,month,day,slug):
+    # some spammers submit reply_to with non-integers for some reason
+    # so if we see that we can reject it immediately
+    try:
+        reply_to = int(request.POST.get('reply_to','0'))
+    except ValueError:
+        return HttpResponse("go away")
+    
     user = get_object_or_404(Users,username=username)
     node = get_node_or_404(user=user,type=type,
                            created__startswith="%04d-%02d-%02d" % (int(year),int(month),int(day)),
