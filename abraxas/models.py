@@ -101,6 +101,9 @@ class Node(models.Model):
     def has_comments(self):
         return self.comment_set.filter(status='approved').count() > 0
 
+    def num_comments(self):
+        return self.comment_set.filter(status='approved').count()
+
     def top_level_comments(self):
         return self.comment_set.filter(reply_to=0,status='approved').order_by("created")
 
