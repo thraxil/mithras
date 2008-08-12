@@ -4,6 +4,7 @@ from models import *
 import django
 from django.core.mail import mail_managers
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from datetime import datetime
 from mithras.settings import MEDIA_ROOT
 import os
@@ -19,14 +20,18 @@ def uniquify(lst):
 
 
 def index(request):
-    return render_to_response("index.html",dict(posts=newest_posts()))
+    paginator = Paginator(newest_posts(), 10)
+    p = paginator.page(request.GET.get('page','1'))
+    return render_to_response("index.html",dict(posts=p.object_list,paginator=p))
 
 def users(request):
     return render_to_response("users.html",dict(users=Users.objects.all()))
 
 def user_index(request,username):
     user = get_object_or_404(Users,username=username)
-    return render_to_response("user_index.html",dict(user=user,posts=user.newest_posts()))
+    paginator = Paginator(user.newest_posts(),10)
+    p = paginator.page(request.GET.get('page','1'))
+    return render_to_response("user_index.html",dict(user=user,posts=p.object_list,paginator=p))
 
 def user_type_index(request,username,type):
     user = get_object_or_404(Users,username=username)

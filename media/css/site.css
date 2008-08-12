@@ -151,3 +151,5 @@ border-bottom: #eee solid 1px;
 .tag-3 { font-size: 1.1em;line-height: 1.5em;}
 .tag-4 { font-size: 1.3em;line-height: 1.5em;}
 .tag-5 { font-size: 1.5em;line-height: 1.5em;}
+
+#pagination { border-top: #000 solid 1px;}

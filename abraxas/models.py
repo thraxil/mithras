@@ -22,7 +22,7 @@ class Users(models.Model):
         return "/users/%s/" % self.username
 
     def newest_posts(self):
-        return Node.objects.filter(type="post",user=self).order_by("-created")[:5]        
+        return Node.objects.filter(type="post",user=self).order_by("-created")
 
 class Tag(models.Model):
     name = models.CharField(max_length=256)
@@ -266,7 +266,7 @@ class Comment(models.Model):
         return self.author_url.startswith("http://")
 
 def newest_posts():
-    return Node.objects.filter(type="post").order_by("-created")[:5]
+    return Node.objects.filter(type="post").order_by("-created")
 
 
 

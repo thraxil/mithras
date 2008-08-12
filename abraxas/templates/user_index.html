@@ -44,5 +44,16 @@ TAGS: {% for tag in post.get_tags %}
 
 </div>
 {% endfor %}
+{% if paginator.has_other_pages %}
+<div id="pagination">
+{% if paginator.has_next %}
+<a href="?page={{paginator.next_page_number}}">older posts</a>
+{% endif %}
+
+{% if paginator.has_previous %}
+<a href="?page={{paginator.previous_page_number}}">newer posts</a>
+{% endif %}
+</div>
+{% endif %}
 
 {% endblock %}
