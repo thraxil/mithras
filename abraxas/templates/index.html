@@ -25,6 +25,11 @@
 {% else %}
 {{ post.p.body|markdown }}
 {% endif %}
+{% if post.has_tags %}<div class="tags">
+TAGS: {% for tag in post.get_tags %}
+<a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
+{% endfor %}
+</div>{% endif %}
 </div>
 {% endfor %}
 {% endblock %}
