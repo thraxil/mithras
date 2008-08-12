@@ -3,6 +3,8 @@
 {% load thumbnail %}
 
 {% block title %}{{ user.fullname }}{% endblock %}
+{% block feeds %}<link href="/users/{{user.username|urlencode}}/feed/" type="application/atom+xml" rel="alternate" title="Atom feed for {{user.fullname}}" />{% endblock %}
+
 {% block breadcrumbs %}
 <a href="/">//thraxil.org</a>/<a href="/users/">users</a>/{{ user.username }}/
 {% endblock %}

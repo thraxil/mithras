@@ -262,7 +262,6 @@ class Comment(models.Model):
         if self.author_url == "http://": return False
         return self.author_url.startswith("http://")
 
-
 def newest_posts():
     return Node.objects.filter(type="post").order_by("-created")[:5]
 
