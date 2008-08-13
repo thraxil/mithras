@@ -13,7 +13,7 @@ class MainFeed(Feed):
     subtitle = "thraxil"
 
     def items(self):
-        return newest_posts()
+        return newest_posts()[:10]
 
 class UserFeed(Feed):
     feed_type = Atom1Feed
@@ -35,7 +35,7 @@ class UserFeed(Feed):
         return "Feed for %s" % obj.fullname
 
     def items(self, obj):
-        return obj.newest_posts()
+        return obj.newest_posts()[:10]
 
 def dispatch_user_feed(request,username):
     try:
