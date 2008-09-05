@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load markup %}
+{% load filterlib %}
 {% load thumbnail %}
 
 {% block title %}{{ user.fullname }}{% endblock %}
@@ -35,7 +36,7 @@ archives |
 <p class="byline">{{ post.created|date:"D d M Y" }}
 | comments: {{ post.num_comments}}
 </p>
-{% if post.p.textile %}{{ post.p.body|textile }}{% else %}{{ post.p.body|markdown }}{% endif %}
+{% if post.p.textile %}{{ post.p.body|textile }}{% else %}{{ post.p.body|cmarkdown:"codehilite"|safe }}{% endif %}
 {% if post.has_tags %}<div class="tags">
 TAGS: {% for tag in post.get_tags %}
 <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>

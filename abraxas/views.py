@@ -24,6 +24,33 @@ def index(request):
     p = paginator.page(request.GET.get('page','1'))
     return render_to_response("index.html",dict(posts=p.object_list,paginator=p))
 
+@login_required
+def add_post(request):
+    if request.method == "POST":
+        title = request.POST.get("title","no title")
+        body = request.POST.get("body","")
+        tags = request.POST.get("tags","")
+        user = get_object_or_404(Users,username=request.user.username)
+        if request.POST.get("node_id","") == "":
+            node = Node.objects.create(title=title,slug=make_slug(title),
+                                       type="post",comments_allowed=True,
+                                       user=user,status="Draft")
+        else:
+            node = get_object_or_404(Node,id=request.POST["node_id"])
+
+        if request.POST.get("preview","") == "Preview":
+            return render_to_response("add_post.html",dict(preview=True,node_id=node.id,title=title,body=body,tags=tags))
+        else:
+            node.set_tags(tags)
+            node.title = title
+            node.slug = make_slug(title)
+            post = Post.objects.create(node=node,body=body,version=node.post_count() + 1,user=user,
+                                       format="markdown")
+            node.status = "Publish"
+            node.save()
+            return HttpResponseRedirect(node.get_absolute_url())
+    return render_to_response("add_post.html",dict(preview=False,node_id=""))
+
 def users(request):
     return render_to_response("users.html",dict(users=Users.objects.all()))
 
@@ -35,25 +62,25 @@ def user_index(request,username):
 
 def user_type_index(request,username,type):
     user = get_object_or_404(Users,username=username)
-    nodes = Node.objects.filter(user=user,type=type)
+    nodes = Node.objects.filter(user=user,type=type,status="Publish")
     years = uniquify([n.created.year for n in nodes])
     return render_to_response("user_type_index.html",dict(user=user,type=type,years=years))
 
 def user_type_year_index(request,username,type,year):
     user = get_object_or_404(Users,username=username)
-    nodes = Node.objects.filter(user=user,type=type,created__startswith="%04d" % int(year))
+    nodes = Node.objects.filter(user=user,type=type,status="Publish",created__startswith="%04d" % int(year))
     months = uniquify([n.created.month for n in nodes])
     return render_to_response("user_type_year_index.html",dict(user=user,type=type,year=year,months=months))
 
 def user_type_month_index(request,username,type,year,month):
     user = get_object_or_404(Users,username=username)
-    nodes = Node.objects.filter(user=user,type=type,created__startswith="%04d-%02d" % (int(year),int(month)))
+    nodes = Node.objects.filter(user=user,type=type,status="Publish",created__startswith="%04d-%02d" % (int(year),int(month)))
     days = uniquify([n.created.day for n in nodes])
     return render_to_response("user_type_month_index.html",dict(user=user,type=type,year=year,month=month,days=days))
 
 def user_type_day_index(request,username,type,year,month,day):
     user = get_object_or_404(Users,username=username)
-    nodes = Node.objects.filter(user=user,type=type,created__startswith="%04d-%02d-%02d" % (int(year),int(month),int(day)))
+    nodes = Node.objects.filter(user=user,type=type,status="Publish",created__startswith="%04d-%02d-%02d" % (int(year),int(month),int(day)))
     return render_to_response("user_type_day_index.html",dict(user=user,type=type,year=year,month=month,day=day,nodes=nodes))
 
 def get_node_or_404(**kwargs):
@@ -67,14 +94,14 @@ def get_node_or_404(**kwargs):
 
 def node(request,username,type,year,month,day,slug):
     user = get_object_or_404(Users,username=username)
-    node = get_node_or_404(user=user,type=type,
+    node = get_node_or_404(user=user,type=type,status="Publish",
                            created__startswith="%04d-%02d-%02d" % (int(year),int(month),int(day)),
                            slug=slug)
     return render_to_response("node.html",dict(node=node))
 
 def comment(request,username,type,year,month,day,slug,cyear,cmonth,cday,chour,cminute,csecond):
     user = get_object_or_404(Users,username=username)
-    node = get_node_or_404(user=user,type=type,
+    node = get_node_or_404(user=user,type=type,status="Publish",
                            created__startswith="%04d-%02d-%02d" % (int(year),int(month),int(day)),
                            slug=slug)
     comment = get_object_or_404(Comment,node=node,
@@ -91,7 +118,7 @@ def add_comment(request,username,type,year,month,day,slug):
         return HttpResponse("go away")
     
     user = get_object_or_404(Users,username=username)
-    node = get_node_or_404(user=user,type=type,
+    node = get_node_or_404(user=user,type=type,status="Publish",
                            created__startswith="%04d-%02d-%02d" % (int(year),int(month),int(day)),
                            slug=slug)
     if not node.comments_allowed:

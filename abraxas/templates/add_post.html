@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load filterlib %}
+{% load thumbnail %}
+{% load markup %}
+{% block title %}add a new post{% endblock %}
+{% block bodyclass %}addpost{% endblock %}
+{% block breadcrumbs %}
+
+<a href="/">//thraxil.org</a>/
+{% endblock %}
+
+{% block nav %}{% endblock %}
+
+{% block content %}
+
+<form action="." method="post">
+{% if node_id %}<input type="hidden" name="node_id" value="{{node_id}}" />{% endif %}
+<table>
+<tr>
+  <th>title</th>
+  <td><input type="text" name="title" value="{{title}}"/></td>
+</tr>
+<tr>
+  <td colspan="2"><textarea name="body" rows="30" cols="80">{{body}}</textarea></td>
+</tr>
+<tr>
+  <th>tags</th>
+  <td><input type="text" name="tags" value="{{tags}}"/></td>
+</tr>
+</table>
+<input type="submit" name="preview" value="Preview" /> <input type="submit" value="Publish" />
+</form>
+
+{% if preview %}
+<h2>PREVIEW:</h2>
+
+{{ body|cmarkdown:"codehilite"|safe }}
+
+
+{% endif %}
+
+{% endblock %}

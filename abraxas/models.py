@@ -22,7 +22,7 @@ class Users(models.Model):
         return "/users/%s/" % self.username
 
     def newest_posts(self):
-        return Node.objects.filter(type="post",user=self).order_by("-created")
+        return Node.objects.filter(type="post",status="Publish",user=self).order_by("-created")
 
 class Tag(models.Model):
     name = models.CharField(max_length=256)
@@ -126,6 +126,17 @@ class Node(models.Model):
             self.tags.add(t)
         clear_unused_tags()
         return
+
+    def add_tag(self,tagstring):
+        tag = get_or_create_tag(tagstring)
+        if tag not in self.get_tags():
+            self.tags.add(tag)
+            self.save()
+
+    def post_count(self):
+        return Post.objects.filter(node=self).all().count()
+
+
 
 
 def scaled_tags():
@@ -266,7 +277,7 @@ class Comment(models.Model):
         return self.author_url.startswith("http://")
 
 def newest_posts():
-    return Node.objects.filter(type="post").order_by("-created")
+    return Node.objects.filter(type="post",status="Publish").order_by("-created")
 
 
 

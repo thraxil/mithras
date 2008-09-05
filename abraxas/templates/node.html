@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% load markup %}
+{% load filterlib %}
 {% load thumbnail %}
-
+{% load markup %}
 {% block title %}{{ node.title }}{% endblock %}
 {% block js %}<script type="text/javascript" src="/site_media/js/comments.js"></script>{% endblock %}
 
@@ -22,28 +22,20 @@
 {% if node.p.textile %}
 {{ node.p.body|textile }}
 {% else %}
-{{ node.p.body|markdown }}
+{{ node.p.body|cmarkdown:"codehilite"|safe }}
 {% endif %}
 {% endif %}
 
 {% if node.is_bookmark %}
 <p>Link: <a href="{{ node.b.url }}">{{ node.b.url}}</a></p>
 
-{% if node.b.textile %}
-{{ node.b.description|textile }}
-{% else %}
 {{ node.b.description|markdown }}
-{% endif %}
 {% endif %}
 
 {% if node.is_image %}
 <p><img src="{{ node.i.scaled_image_url }}"/></p>
 
-{% if node.i.textile %}
-{{ node.i.description|textile }}
-{% else %}
 {{ node.i.description|markdown }}
-{% endif %}
 {% endif %}
 
 {% if node.has_tags %}
@@ -61,7 +53,7 @@ TAGS: {% for tag in node.get_tags %}
 
 <div class="comment">
 <p class="byline"> {% if comment.has_author_url %}<a href="{{comment.author_url}}">{% endif %}{{ comment.author_name }}{% if comment.has_author_url %}</a>{% endif %} - <a href="{{ comment.get_absolute_url}}">{{ comment.created|date:"D d M Y H:i:s" }}</a></p>
-{{ comment.body|textile }}
+{{ comment.body|markdown }}
 
 
 {% if comment.has_replies %}
