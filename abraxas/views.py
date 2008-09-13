@@ -24,6 +24,21 @@ def index(request):
     p = paginator.page(request.GET.get('page','1'))
     return render_to_response("index.html",dict(posts=p.object_list,paginator=p))
 
+def search(request):
+    q = request.GET.get("q","")
+    nodes = []
+    if q != "":
+        title_matches = list(Node.objects.filter(title__icontains=q))[:50]
+        post_matches = [p.node for p in Post.objects.filter(body__icontains=q)][:50]
+        bookmark_matches = [p.node for p in Bookmark.objects.filter(description__icontains=q)][:50]
+        image_matches = [p.node for p in Image.objects.filter(description__icontains=q)][:50]
+        nodes = uniquify(title_matches + post_matches + bookmark_matches + image_matches)
+        nodes.sort(key=lambda x: x.created)
+        nodes.reverse()
+    return render_to_response("search_results.html",dict(q=q,nodes=nodes))
+
+
+
 @login_required
 def add_post(request):
     if request.method == "POST":

@@ -223,3 +223,9 @@ th { vertical-align: top; }
 .vg { color: #bb60d5 } /* Name.Variable.Global */
 .vi { color: #bb60d5 } /* Name.Variable.Instance */
 .il { color: #40a070 } /* Literal.Number.Integer.Long */
+
+
+#bcinnner { float: left; margin: 0px;}
+#search { float: right; margin: 0px; }
+#search form { margin: 0px; }
+#search input { font-size: .8em; margin: 0px; border: #000 solid 1px;}

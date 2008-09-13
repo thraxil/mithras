@@ -14,7 +14,12 @@
 <body class="{% block bodyclass %}{% endblock %}">
 
 <div id="wrapper">
-<div id="breadcrumbs">{% block breadcrumbs %}{% endblock %}</div>
+<div id="breadcrumbs"><div id="bcinner">{% block breadcrumbs %}{% endblock %}</div>
+<div id="search"><form action="/search/"
+		       method="get"><input type="text" name="q"
+		       /><input type="submit" value="search" /></form>
+</div>
+</div>
 <h1 id="masthead"><span>thraxil.org: {% block masthead %}{% endblock %}</span></h1>
 <div id="nav">{% block nav %}{% endblock %}</div>
 

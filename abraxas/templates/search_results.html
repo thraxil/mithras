@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load markup %}
+{% load thumbnail %}
+{% load filterlib %}
+
+{% block breadcrumbs %}
+<a href="/">//thraxil.org</a>/
+{% endblock %}
+
+{% block nav %}
+{% endblock %}
+
+{% block content %}
+
+<p>search results for "{{ q }}"</p>
+
+{% for node in nodes %}
+<h2><a href="{{node.get_absolute_url}}">{{ node.title }}</a>
+{% ifequal node.type "bookmark" %} [bookmark]{% endifequal %}
+{% ifequal node.type "image" %} [image]{% endifequal %}
+</h2>
+
+<p class="byline">by <a href="{{node.user.get_absolute_url}}">{{ node.user.fullname }}</a>
+{{ node.created|date:"D d M Y" }} 
+| comments: {{ node.num_comments}}
+</p>
+
+{% endfor %}
+{% endblock %}
