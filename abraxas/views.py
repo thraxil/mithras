@@ -37,7 +37,27 @@ def search(request):
         nodes.reverse()
     return render_to_response("search_results.html",dict(q=q,nodes=nodes))
 
+@login_required
+def browse_posts(request):
+    paginator = Paginator(newest_posts(), 100)
+    p = paginator.page(request.GET.get('page','1'))
+    return render_to_response("browse.html",dict(posts=p.object_list,paginator=p))
 
+@login_required
+def edit_post(request,node_id):
+    node = get_object_or_404(Node,id=node_id)
+    if request.method == "POST":
+        title = request.POST.get("title",node.title)
+        body = request.POST.get("body","")
+        tags = request.POST.get("tags","")
+        user = get_object_or_404(Users,username=request.user.username)
+        post = Post.objects.create(node=node,body=body,version=node.post_count() + 1, user=user,
+                                   format="markdown")
+        node.set_tags(tags)
+        node.title = title
+        node.status = "Publish"
+        node.save()
+    return render_to_response("edit_post.html",dict(node=node))
 
 @login_required
 def add_post(request):

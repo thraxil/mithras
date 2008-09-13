@@ -136,6 +136,10 @@ class Node(models.Model):
     def post_count(self):
         return Post.objects.filter(node=self).all().count()
 
+    def touch(self):
+        pass
+
+
 
 
 

@@ -154,7 +154,7 @@ border-bottom: #eee solid 1px;
 
 #pagination { border-top: #000 solid 1px;}
 
-th { vertical-align: top; }
+th { vertical-align: top; text-align: left;}
 .addpost table {width: 100%;}
 .addpost input[type=text] {width: 100%; border: #000 solid 1px;}
 .addpost textarea {width: 100%; border: #000 solid 1px;}
@@ -229,3 +229,5 @@ th { vertical-align: top; }
 #search { float: right; margin: 0px; }
 #search form { margin: 0px; }
 #search input { font-size: .8em; margin: 0px; border: #000 solid 1px;}
+
+tr.even th, tr.even td {background-color: #e5f3e5; }

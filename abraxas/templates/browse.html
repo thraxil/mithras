@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load markup %}
+{% load thumbnail %}
+{% load filterlib %}
+
+{% block breadcrumbs %}
+<a href="/">//thraxil.org</a>/
+{% endblock %}
+
+{% block nav %}
+{% endblock %}
+
+{% block content %}
+<table>
+{% for post in posts %}
+<tr class="{% cycle "odd" "even"  %}">
+<th><a href="/edit_post/{{post.id }}/">{{ post.title }}</a></th>
+<td><a href="{{post.user.get_absolute_url}}">{{ post.user.fullname }}</a></td>
+<td>{{ post.created|date:"D d M Y" }} </td>
+</tr>
+{% endfor %}
+</table>
+
+{% if paginator.has_other_pages %}
+<div id="pagination">
+{% if paginator.has_next %}
+<a href="?page={{paginator.next_page_number}}">older posts</a>
+{% endif %}
+
+{% if paginator.has_previous %}
+<a href="?page={{paginator.previous_page_number}}">newer posts</a>
+{% endif %}
+</div>
+{% endif %}
+{% endblock %}

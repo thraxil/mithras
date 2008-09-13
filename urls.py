@@ -10,6 +10,8 @@ feeds = dict(main=MainFeed)
 urlpatterns = patterns('',
                        (r'^$','abraxas.views.index'),
                        (r'^add_post/$','abraxas.views.add_post'),
+                       (r'^browse_posts/$','abraxas.views.browse_posts'),
+                       (r'^edit_post/(?P<node_id>\d+)/$','abraxas.views.edit_post'),
                        (r'^search/$','abraxas.views.search'),
                        (r'^users/$','abraxas.views.users'),
                        (r'^users/(?P<username>.*)/feed/$','abraxas.feeds.dispatch_user_feed'),
