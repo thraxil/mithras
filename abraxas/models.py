@@ -252,6 +252,20 @@ class Comment(models.Model):
     def __str__(self):
         return "Re: %s: by %s at %s" % (self.node.title,self.author_name,str(self.created))
 
+    def remove(self):
+        return '<input type="button" value="Delete" onclick="location.href=\'%s/delete/\'" />' % (self.pk)
+    remove.short_description = ''
+    remove.allow_tags = True
+
+
+    def preview(self):
+        return self.body[:30]
+
+    def approved(self):
+        return self.status == 'approved'
+    approved.boolean = True
+
+
     def timestampdir(self):
         return "%04d-%02d-%02d-%02d-%02d-%02d/" % (self.created.year,self.created.month,self.created.day,
                                                    self.created.hour,self.created.minute,self.created.second)

@@ -19,7 +19,9 @@ admin.site.register(Image,ImageAdmin)
 class BookmarkAdmin(admin.ModelAdmin): pass
 admin.site.register(Bookmark,BookmarkAdmin)
 
-class CommentAdmin(admin.ModelAdmin): pass
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('__str__','approved','author_name','preview','remove')
+    list_filter = ('status',)
 admin.site.register(Comment,CommentAdmin)
 
 class MetaFieldAdmin(admin.ModelAdmin): pass
