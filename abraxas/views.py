@@ -44,6 +44,20 @@ def browse_posts(request):
     return render_to_response("browse.html",dict(posts=p.object_list,paginator=p))
 
 @login_required
+def pending_comments(request):
+    paginator = Paginator(all_pending_comments(),100)
+    p = paginator.page(request.GET.get('page','1'))
+    return render_to_response("pending.html",dict(comments=p.object_list,paginator=p))
+
+@login_required
+def delete_pending_comments(request):
+    if request.method == "POST":
+        for comment in all_pending_comments():
+            comment.delete()
+    return HttpResponseRedirect("/pending_comments/")
+
+
+@login_required
 def edit_post(request,node_id):
     node = get_object_or_404(Node,id=node_id)
     if request.method == "POST":

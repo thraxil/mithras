@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load markup %}
+{% load thumbnail %}
+{% load filterlib %}
+
+{% block breadcrumbs %}
+<a href="/">//thraxil.org</a>/
+{% endblock %}
+
+{% block nav %}
+{% endblock %}
+
+{% block content %}
+<form action="delete/" method="post">
+<input type="submit" value="delete all pending comments" />
+</form>
+
+<table>
+{% for comment in comments %}
+<tr class="{% cycle "odd" "even"  %}">
+<th><a href="/admin/abraxas/comment/{{ comment.id }}/">{{ comment }}</a></th>
+<td>{{ comment.preview }}</td>
+</tr>
+{% endfor %}
+</table>
+
+{% if paginator.has_other_pages %}
+<div id="pagination">
+{% if paginator.has_next %}
+<a href="?page={{paginator.next_page_number}}">older posts</a>
+{% endif %}
+
+{% if paginator.has_previous %}
+<a href="?page={{paginator.previous_page_number}}">newer posts</a>
+{% endif %}
+</div>
+{% endif %}
+{% endblock %}

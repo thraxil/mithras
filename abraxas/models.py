@@ -297,6 +297,8 @@ class Comment(models.Model):
 def newest_posts():
     return Node.objects.filter(type="post",status="Publish").order_by("-created")
 
+def all_pending_comments():
+    return Comment.objects.filter(status="pending").order_by("-created")
 
 
 
