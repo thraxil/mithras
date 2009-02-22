@@ -44,7 +44,7 @@ def make_slug(title="no title"):
     return slug
 
 def get_or_create_tag(name):
-    r = Tag.objects.filter(name__iexact=name)
+    r = Tag.objects.filter(slug__iexact=make_slug(name))
     if r.count() > 0:
         return r[0]
     else:
