@@ -4,7 +4,7 @@ from models import *
 import django
 from django.core.mail import mail_managers
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, PageNotAnInteger
 from datetime import datetime
 from mithras.settings import MEDIA_ROOT
 import os
@@ -21,7 +21,10 @@ def uniquify(lst):
 
 def index(request):
     paginator = Paginator(newest_posts(), 10)
-    p = paginator.page(request.GET.get('page','1'))
+    try:
+        p = paginator.page(request.GET.get('page','1'))
+    except PageNotAnInteger:
+        p = paginator.page('1')
     return render_to_response("index.html",dict(posts=p.object_list,paginator=p))
 
 def search(request):
@@ -40,13 +43,20 @@ def search(request):
 @login_required
 def browse_posts(request):
     paginator = Paginator(newest_posts(), 100)
-    p = paginator.page(request.GET.get('page','1'))
+    try:
+        p = paginator.page(request.GET.get('page','1'))
+    except PageNotAnInteger:
+        p = paginator.page('1')
     return render_to_response("browse.html",dict(posts=p.object_list,paginator=p))
 
 @login_required
 def pending_comments(request):
     paginator = Paginator(all_pending_comments(),100)
-    p = paginator.page(request.GET.get('page','1'))
+    try:
+        p = paginator.page(request.GET.get('page','1'))
+    except PageNotAnInteger:
+        p = paginator.page('1')
+
     return render_to_response("pending.html",dict(comments=p.object_list,paginator=p))
 
 @login_required
@@ -106,7 +116,10 @@ def users(request):
 def user_index(request,username):
     user = get_object_or_404(Users,username=username)
     paginator = Paginator(user.newest_posts(),10)
-    p = paginator.page(request.GET.get('page','1'))
+    try:
+        p = paginator.page(request.GET.get('page','1'))
+    except PageNotAnInteger:
+        p = paginator.page('1')
     return render_to_response("user_index.html",dict(user=user,posts=p.object_list,paginator=p))
 
 def user_type_index(request,username,type):
