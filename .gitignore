@@ -1,3 +1,4 @@
 *.pyc
 ve
 local_settings.py
+distribute*.tar.gz
