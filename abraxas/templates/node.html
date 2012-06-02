@@ -53,7 +53,7 @@ TAGS: {% for tag in node.get_tags %}
 
 <div class="comment">
 <p class="byline"> {% if comment.has_author_url %}<a href="{{comment.author_url}}">{% endif %}{{ comment.author_name }}{% if comment.has_author_url %}</a>{% endif %} - <a href="{{ comment.get_absolute_url}}">{{ comment.created|date:"D d M Y H:i:s" }}</a></p>
-{{ comment.body|textile }}
+{{ comment.body|markdown }}
 
 
 {% if comment.has_replies %}
@@ -72,7 +72,7 @@ TAGS: {% for tag in node.get_tags %}
 
 <textarea name="content" id="comment-textarea"></textarea><br />
 <p style="font-size: .8em;">formatting is
-  with <a href="http://hobix.com/textile/">Textile</a> syntax. Comments are not displayed until they are approved by a
+  with Markdown syntax. Comments are not displayed until they are approved by a
   moderator. Moderators will not approve unless the comment
   contributes value to the discussion.</p>
 <table>
