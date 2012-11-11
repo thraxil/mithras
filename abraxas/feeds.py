@@ -43,7 +43,7 @@ class UserFeed(Feed):
 def dispatch_user_feed(request, username):
     try:
         feedgen = UserFeed('main', request).get_feed(username)
-    except feeds.FeedDoesNotExist:
+    except FeedDoesNotExist:
         raise Http404("No such user")
     response = HttpResponse(mimetype=feedgen.mime_type)
     feedgen.write(response, 'utf-8')
