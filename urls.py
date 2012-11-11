@@ -40,7 +40,7 @@ urlpatterns = patterns('',
                        (r'^fields/(?P<name>[^/]+)/$','abraxas.views.field'),
                        (r'^fields/(?P<name>[^/]+)/(?P<value>.+)/$','abraxas.views.field_value'),                       
                        (r'^feeds/(?P<url>.*)/$','django.contrib.syndication.views.feed',{'feed_dict' : feeds}),
-                       (r'^admin/(.*)', admin.site.root),
+                       (r'^admin/(.*)', include(admin.site.urls)),
                        (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '/home/anders/code/python/mithras/media/'}),
                         
 )
