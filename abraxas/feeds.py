@@ -23,7 +23,7 @@ class UserFeed(Feed):
     def get_object(self, request, username):
         if len(username) == 0:
             raise FeedDoesNotExist
-        u = User.objects.filter(username=username)
+        u = Users.objects.filter(username=username)
         if u.count() == 0:
             raise FeedDoesNotExist
         return u[0]
