@@ -1,9 +1,10 @@
-from mithras.abraxas.models import Users, newest_posts, get_object_or_404
+from mithras.abraxas.models import Users, newest_posts
 from django.contrib.syndication.feeds import Feed
 from django.utils.feedgenerator import Atom1Feed
 from django.contrib.syndication.feeds import FeedDoesNotExist
 from django.contrib.syndication import feeds
 from django.http import HttpResponse, Http404
+from django.shortcuts import get_object_or_404
 
 
 class MainFeed(Feed):
