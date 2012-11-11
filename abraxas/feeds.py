@@ -1,10 +1,10 @@
-from mithras.abraxas.models import *
+from mithras.abraxas.models import Users, newest_posts, get_object_or_404
 from django.contrib.syndication.feeds import Feed
 from django.utils.feedgenerator import Atom1Feed
 from django.contrib.syndication.feeds import FeedDoesNotExist
-from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.syndication import feeds
 from django.http import HttpResponse, Http404
+
 
 class MainFeed(Feed):
     feed_type = Atom1Feed
@@ -15,18 +15,20 @@ class MainFeed(Feed):
     def items(self):
         return newest_posts()[:10]
 
+
 class UserFeed(Feed):
     feed_type = Atom1Feed
     subtitle = "thraxil"
-    def get_object(self,bits):
+
+    def get_object(self, bits):
         if len(bits) != 1:
             raise FeedDoesNotExist
-        return get_object_or_404(Users,username=bits[0])
+        return get_object_or_404(Users, username=bits[0])
 
-    def title(self,obj):
+    def title(self, obj):
         return "thraxil.org: %s" % obj.fullname
 
-    def link(self,obj):
+    def link(self, obj):
         if not obj:
             raise FeedDoesNotExist
         return "/users/%s/feeds/" % obj.username
@@ -37,15 +39,12 @@ class UserFeed(Feed):
     def items(self, obj):
         return obj.newest_posts()[:10]
 
-def dispatch_user_feed(request,username):
+
+def dispatch_user_feed(request, username):
     try:
-        feedgen = UserFeed('main',request).get_feed(username)
+        feedgen = UserFeed('main', request).get_feed(username)
     except feeds.FeedDoesNotExist:
-        raise Http404, "No such user"
+        raise Http404("No such user")
     response = HttpResponse(mimetype=feedgen.mime_type)
-    feedgen.write(response,'utf-8')
+    feedgen.write(response, 'utf-8')
     return response
-
-
-        
-    
