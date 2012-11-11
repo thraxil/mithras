@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from mithras.abraxas.feeds import MainFeed,dispatch_user_feed
+from mithras.abraxas.feeds import MainFeed, UserFeed
 
 from django.contrib import admin
 
@@ -16,7 +16,7 @@ urlpatterns = patterns('',
                        (r'^edit_post/(?P<node_id>\d+)/$','abraxas.views.edit_post'),
                        (r'^search/$','abraxas.views.search'),
                        (r'^users/$','abraxas.views.users'),
-                       (r'^users/(?P<username>.*)/feed/$','abraxas.feeds.dispatch_user_feed'),
+                       (r'^users/(?P<username>.*)/feed/$',UserFeed()),
                        (r'^users/(?P<username>\w+)/$','abraxas.views.user_index'),
                        (r'^users/(?P<username>\w+)/(?P<type>\w+)s/$','abraxas.views.user_type_index'),
                        (r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/$','abraxas.views.user_type_year_index'),

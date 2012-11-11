@@ -20,10 +20,13 @@ class UserFeed(Feed):
     feed_type = Atom1Feed
     subtitle = "thraxil"
 
-    def get_object(self, bits):
-        if len(bits) != 1:
+    def get_object(self, request, username):
+        if len(username) == 0:
             raise FeedDoesNotExist
-        return get_object_or_404(Users, username=bits[0])
+        u = User.objects.filter(username=username)
+        if u.count() == 0:
+            raise FeedDoesNotExist
+        return u[0]
 
     def title(self, obj):
         return "thraxil.org: %s" % obj.fullname
@@ -39,12 +42,3 @@ class UserFeed(Feed):
     def items(self, obj):
         return obj.newest_posts()[:10]
 
-
-def dispatch_user_feed(request, username):
-    try:
-        feedgen = UserFeed('main', request).get_feed(username)
-    except FeedDoesNotExist:
-        raise Http404("No such user")
-    response = HttpResponse(mimetype=feedgen.mime_type)
-    feedgen.write(response, 'utf-8')
-    return response
