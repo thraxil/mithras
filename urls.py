@@ -40,7 +40,10 @@ urlpatterns = patterns('',
                        (r'^fields/(?P<name>[^/]+)/$','abraxas.views.field'),
                        (r'^fields/(?P<name>[^/]+)/(?P<value>.+)/$','abraxas.views.field_value'),                       
                        (r'^feeds/(?P<url>.*)/$', MainFeed()),
-                       (r'^admin/(.*)', include(admin.site.urls)),
+                       url(r'^logout/$',
+                           view='django.contrib.auth.logout',
+                           name='logout'),
+                       (r'^admin/', include(admin.site.urls)),
                        (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '/home/anders/code/python/mithras/media/'}),
                         
 )
