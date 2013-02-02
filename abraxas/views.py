@@ -98,6 +98,11 @@ def edit_post(request, node_id):
 
 
 @login_required
+def manage(request):
+    return render_to_response("manage.html", dict())
+
+
+@login_required
 def add_post(request):
     if request.method == "POST":
         title = request.POST.get("title", "no title")

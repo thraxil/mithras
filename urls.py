@@ -9,6 +9,7 @@ feeds = dict(main=MainFeed)
 
 urlpatterns = patterns('',
                        (r'^$','abraxas.views.index'),
+                       (r'^manage/$', 'abraxas.views.manage'),
                        (r'^add_post/$','abraxas.views.add_post'),
                        (r'^browse_posts/$','abraxas.views.browse_posts'),
                        (r'^pending_comments/$','abraxas.views.pending_comments'),
@@ -43,6 +44,9 @@ urlpatterns = patterns('',
                        url(r'^logout/$',
                            view='django.contrib.auth.logout',
                            name='logout'),
+                       (r'^login/$', 
+                        'django.contrib.auth.views.login',
+                        {'template_name': 'login.html'}),
                        (r'^admin/', include(admin.site.urls)),
                        (r'^site_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '/home/anders/code/python/mithras/media/'}),
                         
