@@ -1,4 +1,5 @@
 # Django settings for mithras project.
+import sys
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -19,6 +20,23 @@ DATABASES = {
         'PASSWORD': '',
         }
 }
+
+if 'test' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': ':memory:',
+            'HOST': '',
+            'PORT': '',
+            'USER': '',
+            'PASSWORD': '', }}
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=mithras',
+]
 
 LOGIN_URL = "/login/"
 
@@ -80,9 +98,6 @@ ROOT_URLCONF = 'mithras.urls'
 
 TEMPLATE_DIRS = (
     "/home/anders/code/python/mithras/abraxas/templates"
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
 )
 
 INSTALLED_APPS = (
@@ -94,9 +109,12 @@ INSTALLED_APPS = (
     'abraxas',
     'django.contrib.markup',
     'sorl.thumbnail',
-    
+    'south',
+    'django_nose',
 )
 
 EMAIL_SUBJECT_PREFIX = '[thraxil] '
 EMAIL_HOST = 'localhost'
 SERVER_EMAIL = 'moderation@thraxil.org'
+
+SOUTH_TESTS_MIGRATE = False
