@@ -2,8 +2,6 @@ from mithras.abraxas.models import Users, newest_posts
 from django.contrib.syndication.views import Feed
 from django.utils.feedgenerator import Atom1Feed
 from django.contrib.syndication.views import FeedDoesNotExist
-from django.http import HttpResponse, Http404
-from django.shortcuts import get_object_or_404
 
 
 class MainFeed(Feed):
@@ -41,4 +39,3 @@ class UserFeed(Feed):
 
     def items(self, obj):
         return obj.newest_posts()[:10]
-

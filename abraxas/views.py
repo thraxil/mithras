@@ -37,10 +37,10 @@ def search(request):
                         in Post.objects.filter(body__icontains=q)][:50]
         bookmark_matches = [p.node for p
                             in Bookmark.objects.filter(
-                description__icontains=q)][:50]
+                            description__icontains=q)][:50]
         image_matches = [p.node for p
                          in Image.objects.filter(
-                description__icontains=q)][:50]
+                         description__icontains=q)][:50]
         nodes = uniquify(title_matches + post_matches
                          + bookmark_matches + image_matches)
         nodes.sort(key=lambda x: x.created)
@@ -225,7 +225,7 @@ def comment(request, username, type, year, month, day, slug, cyear,
         created__startswith="%04d-%02d-%02d %02d:%02d:%02d" % (
             int(cyear), int(cmonth), int(cday),
             int(chour), int(cminute), int(csecond)),
-        )
+    )
     return render_to_response("comment.html", dict(node=node, comment=comment))
 
 
@@ -249,7 +249,7 @@ def add_comment(request, username, type, year, month, day, slug):
         if not url.startswith("http://"):
             url = "http://" + url
     if (request.POST.get('name', '') == ""
-        or request.POST.get('email', '') == ""):
+            or request.POST.get('email', '') == ""):
         return HttpResponse("name and email are required fields")
 
     if request.POST.get('content', '') == "":
@@ -328,7 +328,8 @@ def field(request, name):
 
 
 def field_value(request, name, value):
-    nodes = [f.node for f in MetaField.objects.filter(
+    nodes = [
+        f.node for f in MetaField.objects.filter(
             field_name__iexact=name,
             field_value__iexact=value)]
     return render_to_response("field_value.html",
