@@ -231,3 +231,5 @@ th { vertical-align: top; text-align: left;}
 #search input { font-size: .8em; margin: 0px; border: #000 solid 1px;}
 
 tr.even th, tr.even td {background-color: #e5f3e5; }
+
+#name-decoy { display: none; }

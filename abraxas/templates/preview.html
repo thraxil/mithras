@@ -17,13 +17,17 @@
       method="post" onsubmit="return commentSubmit()">
 <input type="hidden" name="original_referer" value="{{ original_referer }}" />
 <input type="hidden" name="reply_to" value="{{ reply_to }}" />
+<input type="text" name="name" value=""
+			 placeholder="if you can see this, leave it blank"
+			 id="name-decoy"
+/>
 <textarea name="content" id="comment-textarea">{{content}}</textarea><br />
 <p style="font-size: .8em;">formatting is
   with Markdown syntax. Comments are not displayed until they are approved by a
   moderator. Moderators will not approve unless the comment
   contributes value to the discussion.</p>
 <table>
-<tr><th>name</th><td><input type="text" name="name" value="{{name}}"
+<tr><th>name</th><td><input type="text" name="horse" value="{{name}}"
 			    id="comment-name"/></td><td>required</td></tr>
 <tr><th>email</th><td><input type="text" name="email" value="{{email}}"
 			     id="comment-email"/></td><td>required</td></tr>

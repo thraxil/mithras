@@ -232,10 +232,23 @@ def comment(request, username, type, year, month, day, slug, cyear,
 def add_comment(request, username, type, year, month, day, slug):
     # some spammers submit reply_to with non-integers for some reason
     # so if we see that we can reject it immediately
+    referer = request.META.get('HTTP_REFERER', "/")
     try:
         int(request.POST.get('reply_to', '0'))
     except ValueError:
-        return HttpResponse("go away")
+        # let them think they succeeded
+        return HttpResponse(
+            "your comment has been submitted and is pending moderator "
+            "approval. <a href='%s'>return</a>" % referer)
+
+    # "name" is a honeypot field. spammers fill it out
+    # but browsers don't display it. if it has a value,
+    # we know it wasn't a real person
+    if request.POST.get('name', '') != "":
+        # again, let them think they got through
+        return HttpResponse(
+            "your comment has been submitted and is pending moderator "
+            "approval. <a href='%s'>return</a>" % referer)
     user = get_object_or_404(Users, username=username)
     node = get_node_or_404(
         user=user, type=type, status="Publish",
@@ -248,7 +261,9 @@ def add_comment(request, username, type, year, month, day, slug):
     if not url == "":
         if not url.startswith("http://"):
             url = "http://" + url
-    if (request.POST.get('name', '') == ""
+    # "horse" is the random replacement name for what
+    # would otherwise be "name"
+    if (request.POST.get('horse', '') == ""
             or request.POST.get('email', '') == ""):
         return HttpResponse("name and email are required fields")
 
