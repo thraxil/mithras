@@ -1,6 +1,5 @@
 import os, sys
 
-site.addsitedir('/var/www/thraxil/mithras/ve/lib/python2.7/site-packages')
 sys.path.append('/var/www/thraxil/')
 sys.path.append('/var/www/thraxil/mithras/')
 
