@@ -118,3 +118,6 @@ EMAIL_HOST = 'localhost'
 SERVER_EMAIL = 'moderation@thraxil.org'
 
 SOUTH_TESTS_MIGRATE = False
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+SESSION_COOKIE_HTTPONLY = True
