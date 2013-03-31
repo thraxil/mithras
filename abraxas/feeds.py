@@ -10,6 +10,8 @@ class MainFeed(Feed):
     link = "/"
     subtitle = "thraxil"
 
+    description_template = "feeds/main_description.html"
+
     def items(self):
         return newest_posts()[:10]
 
