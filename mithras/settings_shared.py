@@ -97,7 +97,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'mithras.urls'
 
 TEMPLATE_DIRS = (
-    "/home/anders/code/python/mithras/abraxas/templates"
+    "/home/anders/code/python/mithras/mithras/abraxas/templates"
 )
 
 INSTALLED_APPS = (
@@ -106,7 +106,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
-    'abraxas',
+    'mithras.abraxas',
     'django.contrib.markup',
     'sorl.thumbnail',
     'south',
