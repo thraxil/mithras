@@ -2,14 +2,28 @@ from django.conf.urls.defaults import patterns, include, url
 from mithras.abraxas.feeds import MainFeed, UserFeed
 
 from django.contrib import admin
+from django.contrib.sitemaps import GenericSitemap
 
 admin.autodiscover()
+
+from mithras.abraxas.models import Node
+
+node_info_dict = {
+    'queryset': Node.objects.all(),
+    'date_field': 'modified',
+}
+sitemaps = {
+    'nodes': GenericSitemap(node_info_dict, priority=0.6),
+}
 
 feeds = dict(main=MainFeed)
 
 urlpatterns = patterns(
     '',
     (r'^$', 'mithras.abraxas.views.index'),
+    (r'^sitemap\.xml$',
+     'django.contrib.sitemaps.views.sitemap',
+     {'sitemaps': sitemaps}),
     (r'^manage/$', 'mithras.abraxas.views.manage'),
     (r'^add_post/$', 'mithras.abraxas.views.add_post'),
     (r'^browse_posts/$', 'mithras.abraxas.views.browse_posts'),

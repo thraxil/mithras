@@ -111,6 +111,7 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'south',
     'django_nose',
+    'django.contrib.sitemaps',
 )
 
 EMAIL_SUBJECT_PREFIX = '[thraxil] '
