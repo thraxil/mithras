@@ -112,6 +112,7 @@ INSTALLED_APPS = (
     'south',
     'django_nose',
     'django.contrib.sitemaps',
+    'django_statsd',
 )
 
 EMAIL_SUBJECT_PREFIX = '[thraxil] '
@@ -122,3 +123,9 @@ SOUTH_TESTS_MIGRATE = False
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 SESSION_COOKIE_HTTPONLY = True
+
+STATSD_CLIENT = 'statsd.client'
+STATSD_PREFIX = 'mithras'
+STATSD_HOST = '127.0.0.1'
+STATSD_PORT = 8125
+STATSD_PATCHES = ['django_statsd.patches.db', ]
