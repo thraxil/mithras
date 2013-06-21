@@ -115,6 +115,7 @@ INSTALLED_APPS = (
     'django_nose',
     'django.contrib.sitemaps',
     'django_statsd',
+    'gunicorn',
 )
 
 EMAIL_SUBJECT_PREFIX = '[thraxil] '
