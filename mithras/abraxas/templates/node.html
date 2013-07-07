@@ -10,7 +10,12 @@
 <a href="/">//thraxil.org</a>/<a href="/users/">users</a>/<a href="{{ node.user.get_absolute_url }}">{{ node.user.username }}</a>/<a href="{{ node.user.get_absolute_url }}{{node.type}}s/">{{ node.type }}s</a>/<a href="{{ node.user.get_absolute_url }}{{node.type}}s/{{node.created.year}}/">{{ node.created.year }}</a>/<a href="{{node.user.get_absolute_url}}{{node.type}}s/{{node.created.year}}/{{node.created.month}}/">{{ node.created.month}}</a>/<a href="{{node.user.get_absolute_url}}{{node.type}}s/{{node.created.year}}/{{node.created.month}}/{{node.created.day}}/">{{ node.created.day }}</a>/{{node.slug}}/
 {% endblock %}
 
-{% block nav %}history{% endblock %}
+{% block nav %}
+{% if not request.user.is_anonymous %}
+<a href="/edit_post/{{node.id}}/">edit</a>|
+{% endif %}
+history
+{% endblock %}
 
 {% block content %}
 
