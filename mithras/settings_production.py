@@ -2,7 +2,8 @@
 from settings_shared import *
 
 TEMPLATE_DIRS = (
-    "/var/www/thraxil/mithras/mithras/abraxas/templates"
+    "/var/www/thraxil/mithras/mithras/abraxas/templates",
+    "/var/www/thraxil/mithras/ve/django/contrib/sitemaps/templates"
 )
 
 DEBUG = False
