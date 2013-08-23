@@ -10,5 +10,5 @@ before_install:
 install:
   - ./bootstrap.py
 script:
-  - ./ve/bin/flake8 abraxas
+  - ./ve/bin/flake8 mithras
   - ./manage.py test
