@@ -132,3 +132,9 @@ STATSD_PREFIX = 'mithras'
 STATSD_HOST = '127.0.0.1'
 STATSD_PORT = 8125
 STATSD_PATCHES = ['django_statsd.patches.db', ]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+}
+
