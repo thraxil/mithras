@@ -233,3 +233,8 @@ th { vertical-align: top; text-align: left;}
 tr.even th, tr.even td {background-color: #e5f3e5; }
 
 #name-decoy { display: none; }
+
+blockquote {
+		margin-left: 2em;
+		background-color: #eee;
+}
