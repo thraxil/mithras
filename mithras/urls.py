@@ -1,5 +1,6 @@
 from django.conf.urls.defaults import patterns, include, url
 from mithras.abraxas.feeds import MainFeed, UserFeed
+import mithras.abraxas.views as views
 
 from django.contrib import admin
 from django.contrib.sitemaps import GenericSitemap
@@ -20,19 +21,18 @@ feeds = dict(main=MainFeed)
 
 urlpatterns = patterns(
     '',
-    (r'^$', 'mithras.abraxas.views.index'),
+    (r'^$', views.IndexView.as_view()),
     (r'^sitemap\.xml$',
      'django.contrib.sitemaps.views.sitemap',
      {'sitemaps': sitemaps}),
-    (r'^manage/$', 'mithras.abraxas.views.manage'),
-    (r'^add_post/$', 'mithras.abraxas.views.add_post'),
-    (r'^browse_posts/$', 'mithras.abraxas.views.browse_posts'),
-    (r'^pending_comments/$', 'mithras.abraxas.views.pending_comments'),
-    (r'^pending_comments/delete/$',
-     'mithras.abraxas.views.delete_pending_comments'),
-    (r'^edit_post/(?P<node_id>\d+)/$', 'mithras.abraxas.views.edit_post'),
+    (r'^manage/$', views.ManageView.as_view()),
+    (r'^add_post/$', views.AddPostView.as_view()),
+    (r'^browse_posts/$', views.BrowsePostsView.as_view()),
+    (r'^pending_comments/$', views.PendingCommentsView.as_view()),
+    (r'^pending_comments/delete/$', views.DeletePendingCommentsView.as_view()),
+    (r'^edit_post/(?P<node_id>\d+)/$', views.EditPostView.as_view()),
     (r'^search/$', 'mithras.abraxas.views.search'),
-    (r'^users/$', 'mithras.abraxas.views.users'),
+    (r'^users/$', views.UsersView.as_view()),
     (r'^users/(?P<username>.*)/feed/$', UserFeed()),
     (r'^users/(?P<username>\w+)/$', 'mithras.abraxas.views.user_index'),
     (r'^users/(?P<username>\w+)/(?P<type>\w+)s/$',
@@ -46,7 +46,7 @@ urlpatterns = patterns(
      'mithras.abraxas.views.user_type_day_index'),
     ((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
       r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/$'),
-     'mithras.abraxas.views.node'),
+     views.NodeView.as_view()),
     ((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
       r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/add_comment/$'),
      'mithras.abraxas.views.add_comment'),
@@ -67,7 +67,7 @@ urlpatterns = patterns(
     # user feeds/index.rss
     # user feeds/atom.xml
     (r'^tags/$', 'mithras.abraxas.views.tags'),
-    (r'^tags/(?P<tag>[^/]+)/$', 'mithras.abraxas.views.tag'),
+    (r'^tags/(?P<tag>[^/]+)/$', views.TagView.as_view()),
     (r'^fields/$', 'mithras.abraxas.views.fields'),
     (r'^fields/(?P<name>[^/]+)/$', 'mithras.abraxas.views.field'),
     (r'^fields/(?P<name>[^/]+)/(?P<value>.+)/$',

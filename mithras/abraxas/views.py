@@ -4,6 +4,11 @@ import django
 from django.core.mail import mail_managers
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger
+from django.utils.decorators import method_decorator
+from django.views.generic.base import View
+from django.views.generic.base import TemplateView
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from models import Node, Post, Bookmark, Image, Users, Comment, MetaField, Tag
 from models import newest_posts, all_pending_comments, make_slug, scaled_tags
 
@@ -18,14 +23,22 @@ def uniquify(lst):
     return o
 
 
-def index(request):
-    paginator = Paginator(newest_posts(), 10)
-    try:
-        p = paginator.page(request.GET.get('page', '1'))
-    except PageNotAnInteger:
-        p = paginator.page('1')
-    return render(request, "index.html",
-                  dict(posts=p.object_list, paginator=p))
+class LoggedInMixin(object):
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(LoggedInMixin, self).dispatch(*args, **kwargs)
+
+
+class IndexView(TemplateView):
+    template_name = "index.html"
+
+    def get_context_data(self):
+        paginator = Paginator(newest_posts(), 10)
+        try:
+            p = paginator.page(self.request.GET.get('page', '1'))
+        except PageNotAnInteger:
+            p = paginator.page('1')
+        return dict(posts=p.object_list, paginator=p)
 
 
 def search(request):
@@ -48,41 +61,43 @@ def search(request):
     return render(request, "search_results.html", dict(q=q, nodes=nodes))
 
 
-@login_required
-def browse_posts(request):
-    paginator = Paginator(newest_posts(), 100)
-    try:
-        p = paginator.page(request.GET.get('page', '1'))
-    except PageNotAnInteger:
-        p = paginator.page('1')
-    return render(request, "browse.html",
-                  dict(posts=p.object_list, paginator=p))
+class BrowsePostsView(LoggedInMixin, TemplateView):
+    template_name = "browse.html"
+
+    def get_context_data(self):
+        paginator = Paginator(newest_posts(), 100)
+        try:
+            p = paginator.page(self.request.GET.get('page', '1'))
+        except PageNotAnInteger:
+            p = paginator.page('1')
+        return dict(posts=p.object_list, paginator=p)
 
 
-@login_required
-def pending_comments(request):
-    paginator = Paginator(all_pending_comments(), 100)
-    try:
-        p = paginator.page(request.GET.get('page', '1'))
-    except PageNotAnInteger:
-        p = paginator.page('1')
+class PendingCommentsView(LoggedInMixin, TemplateView):
+    template_name = "pending.html"
 
-    return render(request, "pending.html",
-                  dict(comments=p.object_list, paginator=p))
+    def get_context_data(self):
+        paginator = Paginator(all_pending_comments(), 100)
+        try:
+            p = paginator.page(self.request.GET.get('page', '1'))
+        except PageNotAnInteger:
+            p = paginator.page('1')
+
+        return dict(comments=p.object_list, paginator=p)
 
 
-@login_required
-def delete_pending_comments(request):
-    if request.method == "POST":
+class DeletePendingCommentsView(LoggedInMixin, View):
+    def post(self, request):
         for comment in all_pending_comments():
             comment.delete()
-    return HttpResponseRedirect("/pending_comments/")
+        return HttpResponseRedirect("/pending_comments/")
 
 
-@login_required
-def edit_post(request, node_id):
-    node = get_object_or_404(Node, id=node_id)
-    if request.method == "POST":
+class EditPostView(LoggedInMixin, View):
+    template_name = "edit_post.html"
+
+    def post(self, request, node_id):
+        node = get_object_or_404(Node, id=node_id)
         title = request.POST.get("title", node.title)
         body = request.POST.get("body", "")
         tags = request.POST.get("tags", "")
@@ -94,17 +109,21 @@ def edit_post(request, node_id):
         node.title = title
         node.status = "Publish"
         node.save()
-    return render(request, "edit_post.html", dict(node=node))
+        return HttpResponseRedirect("/edit_post/%d/" % node.id)
+
+    def get(self, request, node_id):
+        node = get_object_or_404(Node, id=node_id)
+        return render(request, self.template_name, dict(node=node))
 
 
-@login_required
-def manage(request):
-    return render(request, "manage.html", dict())
+class ManageView(LoggedInMixin, TemplateView):
+    template_name = "manage.html"
 
 
-@login_required
-def add_post(request):
-    if request.method == "POST":
+class AddPostView(LoggedInMixin, View):
+    template_name = "add_post.html"
+
+    def post(self, request):
         title = request.POST.get("title", "no title")
         body = request.POST.get("body", "")
         tags = request.POST.get("tags", "")
@@ -117,7 +136,7 @@ def add_post(request):
             node = get_object_or_404(Node, id=request.POST["node_id"])
 
         if request.POST.get("preview", "") == "Preview":
-            return render(request, "add_post.html",
+            return render(request, self.template_name,
                           dict(preview=True, node_id=node.id,
                                title=title, body=body, tags=tags))
         else:
@@ -130,11 +149,16 @@ def add_post(request):
             node.status = "Publish"
             node.save()
             return HttpResponseRedirect(node.get_absolute_url())
-    return render(request, "add_post.html", dict(preview=False, node_id=""))
+
+    def get(self, request):
+        return render(request, self.template_name,
+                      dict(preview=False, node_id=""))
 
 
-def users(request):
-    return render(request, "users.html", dict(users=Users.objects.all()))
+class UsersView(ListView):
+    model = Users
+    template_name = "users.html"
+    context_object_name = "users"
 
 
 def user_index(request, username):
@@ -202,14 +226,17 @@ def get_node_or_404(**kwargs):
         return r[0]
 
 
-def node(request, username, type, year, month, day, slug):
-    user = get_object_or_404(Users, username=username)
-    node = get_node_or_404(
-        user=user, type=type, status="Publish",
-        created__startswith="%04d-%02d-%02d" % (int(year),
-                                                int(month), int(day)),
-        slug=slug)
-    return render(request, "node.html", dict(node=node))
+class NodeView(TemplateView):
+    template_name = "node.html"
+
+    def get_context_data(self, username, type, year, month, day, slug):
+        user = get_object_or_404(Users, username=username)
+        node = get_node_or_404(
+            user=user, type=type, status="Publish",
+            created__startswith="%04d-%02d-%02d" % (int(year),
+                                                    int(month), int(day)),
+            slug=slug)
+        return dict(node=node)
 
 
 def comment(request, username, type, year, month, day, slug, cyear,
@@ -356,6 +383,7 @@ def tags(request):
     return render(request, "tags.html", dict(tags=tags))
 
 
-def tag(request, tag):
-    t = get_object_or_404(Tag, slug=tag)
-    return render(request, "tag.html", dict(tag=t))
+class TagView(DetailView):
+    model = Tag
+    template_name = "tag.html"
+    context_object_name = "tag"
