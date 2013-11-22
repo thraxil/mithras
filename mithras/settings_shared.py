@@ -1,5 +1,6 @@
 # Django settings for mithras project.
 import sys
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -70,6 +71,12 @@ MEDIA_URL = ''
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
 STATIC_URL = '/media/'
+STATIC_ROOT = os.path.join(os.path.dirname(__file__), "../media")
+STATICFILES_DIRS = ()
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '@0zqwb3^sy2a7mo)en36plqr9hx)hh60&tqkzo+p*vwn06r6vn'
@@ -84,6 +91,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.debug',
     'django.core.context_processors.request',
+    'django.core.context_processors.static',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -108,6 +116,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
     'mithras.abraxas',
     'django.contrib.markup',
     'sorl.thumbnail',

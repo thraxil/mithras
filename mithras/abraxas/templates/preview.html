@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load markup %}
-{% block js %}<script type="text/javascript" src="/site_media/js/comments.js"></script>{% endblock %}
+{% block js %}<script type="text/javascript" src="{{STATIC_URL}}js/comments.js"></script>{% endblock %}
 {% block content %}
 {% if node.comments_allowed %}
 

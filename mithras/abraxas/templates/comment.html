@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load markup %}
 {% load thumbnail %}
-{% block js %}<script type="text/javascript" src="/site_media/js/comments.js"></script>{% endblock %}
+{% block js %}<script type="text/javascript" src="{{STATIC_URL}}js/comments.js"></script>{% endblock %}
 {% block breadcrumbs %}
 
 <a href="/">//thraxil.org</a>/<a href="/users/">users</a>/<a href="{{ node.user.get_absolute_url }}">{{ node.user.username }}</a>/<a href="{{ node.user.get_absolute_url }}{{node.type}}s/">{{ node.type }}s</a>/<a href="{{ node.user.get_absolute_url }}{{node.type}}s/{{node.created.year}}/">{{ node.created.year }}</a>/<a href="{{node.user.get_absolute_url}}{{node.type}}s/{{node.created.year}}/{{node.created.month}}/">{{ node.created.month}}</a>/<a href="{{node.user.get_absolute_url}}{{node.type}}s/{{node.created.year}}/{{node.created.month}}/{{node.created.day}}/">{{ node.created.day }}</a>/<a href="{{node.get_absolute_url}}">{{node.slug}}</a>/comments/{{comment.created}}/

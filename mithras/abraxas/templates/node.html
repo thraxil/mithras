@@ -3,7 +3,7 @@
 {% load thumbnail %}
 {% load markup %}
 {% block title %}{{ node.title }}{% endblock %}
-{% block js %}<script type="text/javascript" src="/site_media/js/comments.js"></script>{% endblock %}
+{% block js %}<script type="text/javascript" src="{{STATIC_URL}}js/comments.js"></script>{% endblock %}
 
 {% block breadcrumbs %}
 

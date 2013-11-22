@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
+from django.shortcuts import render
 import django
 from django.core.mail import mail_managers
 from django.contrib.auth.decorators import login_required
@@ -24,8 +25,8 @@ def index(request):
         p = paginator.page(request.GET.get('page', '1'))
     except PageNotAnInteger:
         p = paginator.page('1')
-    return render_to_response("index.html",
-                              dict(posts=p.object_list, paginator=p))
+    return render(request, "index.html",
+                  dict(posts=p.object_list, paginator=p))
 
 
 def search(request):

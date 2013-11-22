@@ -80,7 +80,4 @@ urlpatterns = patterns(
      'django.contrib.auth.views.login',
      {'template_name': 'login.html'}),
     (r'^admin/', include(admin.site.urls)),
-    (r'^site_media/(?P<path>.*)$',
-     'django.views.static.serve',
-     {'document_root': '/home/anders/code/python/mithras/media/'}),
 )
