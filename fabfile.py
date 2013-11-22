@@ -18,5 +18,6 @@ def deploy():
         run("./manage.py migrate")
         run("./manage.py collectstatic --noinput")
         for n in nginx_hosts:
-            run("rsync -avp --delete media/ %s:/var/www/thraxil/mithras/media/")
+            run(("rsync -avp --delete media/ "
+                 "%s:/var/www/thraxil/mithras/media/") % n)
     restart_gunicorn()
