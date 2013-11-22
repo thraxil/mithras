@@ -1,6 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render_to_response
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 import django
 from django.core.mail import mail_managers
 from django.contrib.auth.decorators import login_required
@@ -46,7 +45,7 @@ def search(request):
                          + bookmark_matches + image_matches)
         nodes.sort(key=lambda x: x.created)
         nodes.reverse()
-    return render_to_response("search_results.html", dict(q=q, nodes=nodes))
+    return render(request, "search_results.html", dict(q=q, nodes=nodes))
 
 
 @login_required
@@ -56,8 +55,8 @@ def browse_posts(request):
         p = paginator.page(request.GET.get('page', '1'))
     except PageNotAnInteger:
         p = paginator.page('1')
-    return render_to_response("browse.html",
-                              dict(posts=p.object_list, paginator=p))
+    return render(request, "browse.html",
+                  dict(posts=p.object_list, paginator=p))
 
 
 @login_required
@@ -68,8 +67,8 @@ def pending_comments(request):
     except PageNotAnInteger:
         p = paginator.page('1')
 
-    return render_to_response("pending.html",
-                              dict(comments=p.object_list, paginator=p))
+    return render(request, "pending.html",
+                  dict(comments=p.object_list, paginator=p))
 
 
 @login_required
@@ -95,12 +94,12 @@ def edit_post(request, node_id):
         node.title = title
         node.status = "Publish"
         node.save()
-    return render_to_response("edit_post.html", dict(node=node))
+    return render(request, "edit_post.html", dict(node=node))
 
 
 @login_required
 def manage(request):
-    return render_to_response("manage.html", dict())
+    return render(request, "manage.html", dict())
 
 
 @login_required
@@ -118,9 +117,9 @@ def add_post(request):
             node = get_object_or_404(Node, id=request.POST["node_id"])
 
         if request.POST.get("preview", "") == "Preview":
-            return render_to_response("add_post.html",
-                                      dict(preview=True, node_id=node.id,
-                                           title=title, body=body, tags=tags))
+            return render(request, "add_post.html",
+                          dict(preview=True, node_id=node.id,
+                               title=title, body=body, tags=tags))
         else:
             node.set_tags(tags)
             node.title = title
@@ -131,11 +130,11 @@ def add_post(request):
             node.status = "Publish"
             node.save()
             return HttpResponseRedirect(node.get_absolute_url())
-    return render_to_response("add_post.html", dict(preview=False, node_id=""))
+    return render(request, "add_post.html", dict(preview=False, node_id=""))
 
 
 def users(request):
-    return render_to_response("users.html", dict(users=Users.objects.all()))
+    return render(request, "users.html", dict(users=Users.objects.all()))
 
 
 def user_index(request, username):
@@ -145,17 +144,17 @@ def user_index(request, username):
         p = paginator.page(request.GET.get('page', '1'))
     except PageNotAnInteger:
         p = paginator.page('1')
-    return render_to_response("user_index.html",
-                              dict(user=user, posts=p.object_list,
-                                   paginator=p))
+    return render(request, "user_index.html",
+                  dict(user=user, posts=p.object_list,
+                       paginator=p))
 
 
 def user_type_index(request, username, type):
     user = get_object_or_404(Users, username=username)
     nodes = Node.objects.filter(user=user, type=type, status="Publish")
     years = uniquify([n.created.year for n in nodes])
-    return render_to_response("user_type_index.html",
-                              dict(user=user, type=type, years=years))
+    return render(request, "user_type_index.html",
+                  dict(user=user, type=type, years=years))
 
 
 def user_type_year_index(request, username, type, year):
@@ -164,9 +163,9 @@ def user_type_year_index(request, username, type, year):
         user=user, type=type, status="Publish",
         created__startswith="%04d" % int(year))
     months = uniquify([n.created.month for n in nodes])
-    return render_to_response("user_type_year_index.html",
-                              dict(user=user, type=type,
-                                   year=year, months=months))
+    return render(request, "user_type_year_index.html",
+                  dict(user=user, type=type,
+                       year=year, months=months))
 
 
 def user_type_month_index(request, username, type, year, month):
@@ -175,9 +174,9 @@ def user_type_month_index(request, username, type, year, month):
         user=user, type=type, status="Publish",
         created__startswith="%04d-%02d" % (int(year), int(month)))
     days = uniquify([n.created.day for n in nodes])
-    return render_to_response("user_type_month_index.html",
-                              dict(user=user, type=type, year=year,
-                                   month=month, days=days))
+    return render(request, "user_type_month_index.html",
+                  dict(user=user, type=type, year=year,
+                       month=month, days=days))
 
 
 def user_type_day_index(request, username, type, year, month, day):
@@ -186,10 +185,10 @@ def user_type_day_index(request, username, type, year, month, day):
         user=user, type=type, status="Publish",
         created__startswith="%04d-%02d-%02d" % (int(year),
                                                 int(month), int(day)))
-    return render_to_response("user_type_day_index.html",
-                              dict(user=user, type=type,
-                                   year=year, month=month,
-                                   day=day, nodes=nodes))
+    return render(request, "user_type_day_index.html",
+                  dict(user=user, type=type,
+                       year=year, month=month,
+                       day=day, nodes=nodes))
 
 
 def get_node_or_404(**kwargs):
@@ -210,7 +209,7 @@ def node(request, username, type, year, month, day, slug):
         created__startswith="%04d-%02d-%02d" % (int(year),
                                                 int(month), int(day)),
         slug=slug)
-    return render_to_response("node.html", dict(node=node))
+    return render(request, "node.html", dict(node=node))
 
 
 def comment(request, username, type, year, month, day, slug, cyear,
@@ -227,7 +226,7 @@ def comment(request, username, type, year, month, day, slug, cyear,
             int(cyear), int(cmonth), int(cday),
             int(chour), int(cminute), int(csecond)),
     )
-    return render_to_response("comment.html", dict(node=node, comment=comment))
+    return render(request, "comment.html", dict(node=node, comment=comment))
 
 
 def add_comment(request, username, type, year, month, day, slug):
@@ -274,8 +273,8 @@ def add_comment(request, username, type, year, month, day, slug):
     referer = request.META.get('HTTP_REFERER', node.get_absolute_url())
     if request.POST.get('submit', '') != "submit comment":
         referer = request.POST.get('original_referer', referer)
-        return render_to_response(
-            "preview.html",
+        return render(
+            request, "preview.html",
             dict(node=node, name=request.POST['name'],
                  url=url,
                  original_referer=referer,
@@ -328,7 +327,7 @@ def fields(request):
         if f.field_name not in seen:
             ufields.append(f)
             seen[f.field_name] = 1
-    return render_to_response("fields.html", dict(fields=ufields))
+    return render(request, "fields.html", dict(fields=ufields))
 
 
 def field(request, name):
@@ -340,7 +339,7 @@ def field(request, name):
             ufields.append(f)
             seen[f.field_value] = 1
 
-    return render_to_response("field.html", dict(fields=ufields, name=name))
+    return render(request, "field.html", dict(fields=ufields, name=name))
 
 
 def field_value(request, name, value):
@@ -348,15 +347,15 @@ def field_value(request, name, value):
         f.node for f in MetaField.objects.filter(
             field_name__iexact=name,
             field_value__iexact=value)]
-    return render_to_response("field_value.html",
-                              dict(nodes=nodes, name=name, value=value))
+    return render(request, "field_value.html",
+                  dict(nodes=nodes, name=name, value=value))
 
 
 def tags(request):
     tags = scaled_tags()
-    return render_to_response("tags.html", dict(tags=tags))
+    return render(request, "tags.html", dict(tags=tags))
 
 
 def tag(request, tag):
     t = get_object_or_404(Tag, slug=tag)
-    return render_to_response("tag.html", dict(tag=t))
+    return render(request, "tag.html", dict(tag=t))
