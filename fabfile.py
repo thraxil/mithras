@@ -16,7 +16,7 @@ def deploy():
         run("git pull origin master")
         run("./bootstrap.py")
         run("./manage.py migrate")
-        run("./manage.py collectstatic --noinput")
+        run("./manage.py collectstatic --noinput --settings=mithras.settings_production")
         for n in nginx_hosts:
             run(("rsync -avp --delete media/ "
                  "%s:/var/www/thraxil/mithras/media/") % n)

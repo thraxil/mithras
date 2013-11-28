@@ -71,8 +71,10 @@ MEDIA_URL = ''
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
 STATIC_URL = '/media/'
-STATIC_ROOT = os.path.join(os.path.dirname(__file__), "../media")
-STATICFILES_DIRS = ()
+STATIC_ROOT = ""
+STATICFILES_DIRS = (
+    os.path.join(os.path.dirname(__file__), "../media")
+)
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
