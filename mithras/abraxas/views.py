@@ -281,7 +281,7 @@ class CommentView(TemplateView):
         return dict(node=node, comment=comment)
 
 
-def add_comment(request, username, type, year, month, day, slug):
+def block_non_integer_and_honeypot(request):
     # some spammers submit reply_to with non-integers for some reason
     # so if we see that we can reject it immediately
     referer = request.META.get('HTTP_REFERER', "/")
@@ -292,7 +292,6 @@ def add_comment(request, username, type, year, month, day, slug):
         return HttpResponse(
             "your comment has been submitted and is pending moderator "
             "approval. <a href='%s'>return</a>" % referer)
-
     # "name" is a honeypot field. spammers fill it out
     # but browsers don't display it. if it has a value,
     # we know it wasn't a real person
@@ -301,18 +300,28 @@ def add_comment(request, username, type, year, month, day, slug):
         return HttpResponse(
             "your comment has been submitted and is pending moderator "
             "approval. <a href='%s'>return</a>" % referer)
-    user = get_object_or_404(Users, username=username)
-    node = get_node_or_404(
-        user=user, type=type, status="Publish",
-        created__startswith="%04d-%02d-%02d" % (
-            int(year), int(month), int(day)),
-        slug=slug)
-    if not node.comments_allowed:
-        return HttpResponse("sorry, no comments allowed on this one")
-    url = request.POST.get("url", "")
+    return None
+
+
+def clean_url(url):
     if not url == "":
         if not url.startswith("http://"):
             url = "http://" + url
+    return url
+
+
+def check_referer_for_spammer(request, referer):
+    # if referer doesn't end in "add_comment/",
+    # we know they didn't preview and are thus spam
+    if not referer.endswith("add_comment/"):
+        return HttpResponse("go away, spammer")
+    referer = request.POST.get('original_referer', '')
+    if referer == '':
+        return HttpResponse("go away, spammer")
+    return None
+
+
+def handle_empty_required_fields(request):
     # "horse" is the random replacement name for what
     # would otherwise be "name"
     if (request.POST.get('horse', '') == ""
@@ -321,6 +330,25 @@ def add_comment(request, username, type, year, month, day, slug):
 
     if request.POST.get('content', '') == "":
         return HttpResponse("no content in your comment")
+    return None
+
+
+def add_comment(request, username, type, year, month, day, slug):
+    r = block_non_integer_and_honeypot(request)
+    if r is not None:
+        return r
+    user = get_object_or_404(Users, username=username)
+    node = get_node_or_404(
+        user=user, type=type, status="Publish",
+        created__startswith="%04d-%02d-%02d" % (
+            int(year), int(month), int(day)),
+        slug=slug)
+    if not node.comments_allowed:
+        return HttpResponse("sorry, no comments allowed on this one")
+    url = clean_url(request.POST.get("url", ""))
+    r = handle_empty_required_fields(request)
+    if r is not None:
+        return r
 
     referer = request.META.get('HTTP_REFERER', node.get_absolute_url())
     if request.POST.get('submit', '') != "submit comment":
@@ -334,13 +362,9 @@ def add_comment(request, username, type, year, month, day, slug):
                  content=request.POST['content'],
                  reply_to=int(request.POST.get('reply_to', '0'))))
 
-    # if referer doesn't end in "add_comment/",
-    # we know they didn't preview and are thus spam
-    if not referer.endswith("add_comment/"):
-        return HttpResponse("go away, spammer")
-    referer = request.POST.get('original_referer', '')
-    if referer == '':
-        return HttpResponse("go away, spammer")
+    r = check_referer_for_spammer(request, referer)
+    if r is not None:
+        return r
 
     c = Comment(author_name=request.POST['name'],
                 author_url=url,
@@ -354,7 +378,16 @@ def add_comment(request, username, type, year, month, day, slug):
     c.save()
     if c.status == "pending":
         subject = "new comment on %s" % node.title
-        message = """comment from: %s
+        message = comment_email_body(c)
+        mail_managers(subject, message, fail_silently=False)
+        return HttpResponse(
+            "your comment has been submitted and is pending moderator "
+            "approval. <a href='%s'>return</a>" % referer)
+    return HttpResponseRedirect(referer)
+
+
+def comment_email_body(c):
+    return """comment from: %s
 
 ------
 %s
@@ -363,12 +396,6 @@ def add_comment(request, username, type, year, month, day, slug):
 to approve or delete, go here:
 http://thraxil.org/admin/abraxas/comment/%d/
             """ % (c.author_name, c.body, c.id)
-        mail_managers(subject, message, fail_silently=False)
-        return HttpResponse(
-            "your comment has been submitted and is pending moderator "
-            "approval. <a href='%s'>return</a>" % referer)
-    else:
-        return HttpResponseRedirect(referer)
 
 
 def fields(request):
