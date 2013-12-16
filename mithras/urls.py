@@ -36,14 +36,14 @@ urlpatterns = patterns(
     (r'^users/(?P<username>.*)/feed/$', UserFeed()),
     (r'^users/(?P<username>\w+)/$', views.UserIndexView.as_view()),
     (r'^users/(?P<username>\w+)/(?P<type>\w+)s/$',
-     'mithras.abraxas.views.user_type_index'),
+     views.UserTypeIndexView.as_view()),
     (r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/$',
-     'mithras.abraxas.views.user_type_year_index'),
+     views.UserTypeYearIndexView.as_view()),
     (r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/(?P<month>\d+)/$',
-     'mithras.abraxas.views.user_type_month_index'),
+     views.UserTypeMonthIndexView.as_view()),
     ((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
       r'(?P<month>\d+)/(?P<day>\d+)/$'),
-     'mithras.abraxas.views.user_type_day_index'),
+     views.UserTypeDayIndexView.as_view()),
     ((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
       r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/$'),
      views.NodeView.as_view()),
@@ -58,7 +58,7 @@ urlpatterns = patterns(
       r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/comments/',
       r'(?P<cyear>\d+)-(?P<cmonth>\d+)-(?P<cday>\d+)-(?P<chour>\d+)'
       r'-(?P<cminute>\d+)-(?P<csecond>\d+)/$'),
-     'mithras.abraxas.views.comment'),
+     views.CommentView.as_view()),
     # user type year month day slug version
     # user tags
     # user tag
@@ -66,7 +66,7 @@ urlpatterns = patterns(
     # user field value
     # user feeds/index.rss
     # user feeds/atom.xml
-    (r'^tags/$', 'mithras.abraxas.views.tags'),
+    (r'^tags/$', views.TagsView.as_view()),
     (r'^tags/(?P<tag>[^/]+)/$', views.TagView.as_view()),
     (r'^fields/$', 'mithras.abraxas.views.fields'),
     (r'^fields/(?P<name>[^/]+)/$', 'mithras.abraxas.views.field'),

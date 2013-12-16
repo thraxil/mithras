@@ -175,46 +175,66 @@ class UserIndexView(TemplateView):
         return dict(user=user, posts=p.object_list, paginator=p)
 
 
-def user_type_index(request, username, type):
-    user = get_object_or_404(Users, username=username)
-    nodes = Node.objects.filter(user=user, type=type, status="Publish")
-    years = uniquify([n.created.year for n in nodes])
-    return render(request, "user_type_index.html",
-                  dict(user=user, type=type, years=years))
+class UserTypeIndexView(TemplateView):
+    template_name = "user_type_index.html"
+
+    def get_context_data(self, **kwargs):
+        username = kwargs['username']
+        t = kwargs['type']
+        user = get_object_or_404(Users, username=username)
+        nodes = Node.objects.filter(user=user, type=t, status="Publish")
+        years = uniquify([n.created.year for n in nodes])
+        return dict(user=user, type=t, years=years)
 
 
-def user_type_year_index(request, username, type, year):
-    user = get_object_or_404(Users, username=username)
-    nodes = Node.objects.filter(
-        user=user, type=type, status="Publish",
-        created__startswith="%04d" % int(year))
-    months = uniquify([n.created.month for n in nodes])
-    return render(request, "user_type_year_index.html",
-                  dict(user=user, type=type,
-                       year=year, months=months))
+class UserTypeYearIndexView(TemplateView):
+    template_name = "user_type_year_index.html"
+
+    def get_context_data(self, **kwargs):
+        username = kwargs['username']
+        t = kwargs['type']
+        year = kwargs['year']
+        user = get_object_or_404(Users, username=username)
+        nodes = Node.objects.filter(
+            user=user, type=t, status="Publish",
+            created__startswith="%04d" % int(year))
+        months = uniquify([n.created.month for n in nodes])
+        return dict(user=user, type=t, year=year, months=months)
 
 
-def user_type_month_index(request, username, type, year, month):
-    user = get_object_or_404(Users, username=username)
-    nodes = Node.objects.filter(
-        user=user, type=type, status="Publish",
-        created__startswith="%04d-%02d" % (int(year), int(month)))
-    days = uniquify([n.created.day for n in nodes])
-    return render(request, "user_type_month_index.html",
-                  dict(user=user, type=type, year=year,
-                       month=month, days=days))
+class UserTypeMonthIndexView(TemplateView):
+    template_name = "user_type_month_index.html"
+
+    def get_context_data(self, **kwargs):
+        username = kwargs['username']
+        t = kwargs['type']
+        year = kwargs['year']
+        month = kwargs['month']
+        user = get_object_or_404(Users, username=username)
+        nodes = Node.objects.filter(
+            user=user, type=t, status="Publish",
+            created__startswith="%04d-%02d" % (int(year), int(month)))
+        days = uniquify([n.created.day for n in nodes])
+        return dict(user=user, type=t, year=year,
+                    month=month, days=days)
 
 
-def user_type_day_index(request, username, type, year, month, day):
-    user = get_object_or_404(Users, username=username)
-    nodes = Node.objects.filter(
-        user=user, type=type, status="Publish",
-        created__startswith="%04d-%02d-%02d" % (int(year),
-                                                int(month), int(day)))
-    return render(request, "user_type_day_index.html",
-                  dict(user=user, type=type,
-                       year=year, month=month,
-                       day=day, nodes=nodes))
+class UserTypeDayIndexView(TemplateView):
+    template_name = "user_type_day_index.html"
+
+    def get_context_data(self, **kwargs):
+        username = kwargs['username']
+        t = kwargs['type']
+        year = kwargs['year']
+        month = kwargs['month']
+        day = kwargs['day']
+        user = get_object_or_404(Users, username=username)
+        nodes = Node.objects.filter(
+            user=user, type=t, status="Publish",
+            created__startswith="%04d-%02d-%02d" % (
+                int(year), int(month), int(day)))
+        return dict(user=user, type=t, year=year, month=month,
+                    day=day, nodes=nodes)
 
 
 def get_node_or_404(**kwargs):
@@ -241,21 +261,24 @@ class NodeView(TemplateView):
         return dict(node=node)
 
 
-def comment(request, username, type, year, month, day, slug, cyear,
-            cmonth, cday, chour, cminute, csecond):
-    user = get_object_or_404(Users, username=username)
-    node = get_node_or_404(
-        user=user, type=type, status="Publish",
-        created__startswith="%04d-%02d-%02d" % (
-            int(year), int(month), int(day)),
-        slug=slug)
-    comment = get_object_or_404(
-        Comment, node=node,
-        created__startswith="%04d-%02d-%02d %02d:%02d:%02d" % (
-            int(cyear), int(cmonth), int(cday),
-            int(chour), int(cminute), int(csecond)),
-    )
-    return render(request, "comment.html", dict(node=node, comment=comment))
+class CommentView(TemplateView):
+    template_name = "comment.html"
+
+    def get_context_data(self, username, type, year, month, day, slug, cyear,
+                         cmonth, cday, chour, cminute, csecond):
+        user = get_object_or_404(Users, username=username)
+        node = get_node_or_404(
+            user=user, type=type, status="Publish",
+            created__startswith="%04d-%02d-%02d" % (
+                int(year), int(month), int(day)),
+            slug=slug)
+        comment = get_object_or_404(
+            Comment, node=node,
+            created__startswith="%04d-%02d-%02d %02d:%02d:%02d" % (
+                int(cyear), int(cmonth), int(cday),
+                int(chour), int(cminute), int(csecond)),
+        )
+        return dict(node=node, comment=comment)
 
 
 def add_comment(request, username, type, year, month, day, slug):
@@ -380,9 +403,12 @@ def field_value(request, name, value):
                   dict(nodes=nodes, name=name, value=value))
 
 
-def tags(request):
-    tags = scaled_tags()
-    return render(request, "tags.html", dict(tags=tags))
+class TagsView(TemplateView):
+    template_name = "tags.html"
+
+    def get_context_data(self):
+        tags = scaled_tags()
+        return dict(tags=tags)
 
 
 class TagView(DetailView):
