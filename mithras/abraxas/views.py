@@ -161,16 +161,18 @@ class UsersView(ListView):
     context_object_name = "users"
 
 
-def user_index(request, username):
-    user = get_object_or_404(Users, username=username)
-    paginator = Paginator(user.newest_posts(), 10)
-    try:
-        p = paginator.page(request.GET.get('page', '1'))
-    except PageNotAnInteger:
-        p = paginator.page('1')
-    return render(request, "user_index.html",
-                  dict(user=user, posts=p.object_list,
-                       paginator=p))
+class UserIndexView(TemplateView):
+    template_name = "user_index.html"
+
+    def get_context_data(self, **kwargs):
+        username = kwargs['username']
+        user = get_object_or_404(Users, username=username)
+        paginator = Paginator(user.newest_posts(), 10)
+        try:
+            p = paginator.page(self.request.GET.get('page', '1'))
+        except PageNotAnInteger:
+            p = paginator.page('1')
+        return dict(user=user, posts=p.object_list, paginator=p)
 
 
 def user_type_index(request, username, type):

@@ -34,7 +34,7 @@ urlpatterns = patterns(
     (r'^search/$', 'mithras.abraxas.views.search'),
     (r'^users/$', views.UsersView.as_view()),
     (r'^users/(?P<username>.*)/feed/$', UserFeed()),
-    (r'^users/(?P<username>\w+)/$', 'mithras.abraxas.views.user_index'),
+    (r'^users/(?P<username>\w+)/$', views.UserIndexView.as_view()),
     (r'^users/(?P<username>\w+)/(?P<type>\w+)s/$',
      'mithras.abraxas.views.user_type_index'),
     (r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/$',
