@@ -371,10 +371,8 @@ def add_comment(request, username, type, year, month, day, slug):
                 author_email=request.POST['email'],
                 body=request.POST['content'],
                 node=node,
+                status=determine_comment_status(request),
                 reply_to=int(request.POST.get('reply_to', '0')))
-
-    if not request.user.is_anonymous():
-        c.status = "approved"
     c.save()
     if c.status == "pending":
         subject = "new comment on %s" % node.title
@@ -384,6 +382,12 @@ def add_comment(request, username, type, year, month, day, slug):
             "your comment has been submitted and is pending moderator "
             "approval. <a href='%s'>return</a>" % referer)
     return HttpResponseRedirect(referer)
+
+
+def determine_comment_status(request):
+    if not request.user.is_anonymous():
+        return "approved"
+    return "pending"
 
 
 def comment_email_body(c):
