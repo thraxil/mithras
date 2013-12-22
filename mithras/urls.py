@@ -52,7 +52,7 @@ urlpatterns = patterns(
      'mithras.abraxas.views.add_comment'),
     ((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
       r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/comments/$'),
-     'mithras.abraxas.views.node'),
+     views.NodeView.as_view()),
     # user type year month day slug comments atom
     ((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
       r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/comments/',
