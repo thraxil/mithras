@@ -112,7 +112,7 @@ TEMPLATE_DIRS = (
     "/home/anders/code/python/mithras/mithras/abraxas/templates"
 )
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -128,7 +128,7 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'django_statsd',
     'gunicorn',
-)
+]
 
 EMAIL_SUBJECT_PREFIX = '[thraxil] '
 EMAIL_HOST = 'localhost'
