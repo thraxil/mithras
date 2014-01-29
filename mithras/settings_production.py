@@ -19,6 +19,11 @@ ALLOWED_HOSTS = ['localhost', 'thraxil.org']
 STATIC_ROOT = os.path.join(os.path.dirname(__file__), "../media")
 STATICFILES_DIRS = ()
 
+if 'migrate' not in sys.argv:
+    INSTALLED_APPS = INSTALLED_APPS + [
+        'raven.contrib.django.raven_compat',
+    ]
+
 # local_settings.py can be used to override environment-specific settings
 # like database and email that differ between development and production.
 try:
