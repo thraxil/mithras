@@ -67,7 +67,7 @@ urlpatterns = patterns(
     # user feeds/index.rss
     # user feeds/atom.xml
     (r'^tags/$', views.TagsView.as_view()),
-    (r'^tags/(?P<tag>[^/]+)/$', views.TagView.as_view()),
+    (r'^tags/(?P<slug>[^/]+)/$', views.TagView.as_view()),
     (r'^fields/$', 'mithras.abraxas.views.fields'),
     (r'^fields/(?P<name>[^/]+)/$', 'mithras.abraxas.views.field'),
     (r'^fields/(?P<name>[^/]+)/(?P<value>.+)/$',
