@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls import patterns, include, url
 from mithras.abraxas.feeds import MainFeed, UserFeed
 import mithras.abraxas.views as views
 

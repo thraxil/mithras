@@ -121,12 +121,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mithras.abraxas',
-    'django.contrib.markup',
     'sorl.thumbnail',
     'south',
     'django_nose',
     'django.contrib.sitemaps',
     'django_statsd',
+    'django_markwhat',
     'gunicorn',
 ]
 
@@ -143,7 +143,6 @@ STATSD_CLIENT = 'statsd.client'
 STATSD_PREFIX = 'mithras'
 STATSD_HOST = '127.0.0.1'
 STATSD_PORT = 8125
-STATSD_PATCHES = ['django_statsd.patches.db', ]
 
 LOGGING = {
     'version': 1,
