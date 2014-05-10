@@ -48,14 +48,14 @@ rebase:
 collectstatic: ./ve/bin/python validate
 	$(MANAGE) collectstatic --noinput --settings=$(APP).settings_production
 
-deploy: ./ve/bin/python validate jenkins
+deploy: ./ve/bin/python validate test
 	./ve/bin/fab deploy
 
 # run this one the very first time you check
 # this out on a new machine to set up dev
 # database, etc. You probably *DON'T* want
 # to run it after that, though.
-install: ./ve/bin/python validate jenkins
+install: ./ve/bin/python validate test
 	createdb $(APP)
 	$(MANAGE) syncdb --noinput
 	make migrate
