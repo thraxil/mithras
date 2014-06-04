@@ -123,17 +123,20 @@ class ManageView(LoggedInMixin, TemplateView):
 class AddPostView(LoggedInMixin, View):
     template_name = "add_post.html"
 
+    def get_node(self, request, title, user):
+        if request.POST.get("node_id", "") == "":
+            return Node.objects.create(title=title, slug=make_slug(title),
+                                       type="post", comments_allowed=True,
+                                       user=user, status="Draft")
+        else:
+            return get_object_or_404(Node, id=request.POST["node_id"])
+
     def post(self, request):
         title = request.POST.get("title", "no title")
         body = request.POST.get("body", "")
         tags = request.POST.get("tags", "")
         user = get_object_or_404(Users, username=request.user.username)
-        if request.POST.get("node_id", "") == "":
-            node = Node.objects.create(title=title, slug=make_slug(title),
-                                       type="post", comments_allowed=True,
-                                       user=user, status="Draft")
-        else:
-            node = get_object_or_404(Node, id=request.POST["node_id"])
+        node = self.get_node(request, title, user)
 
         if request.POST.get("preview", "") == "Preview":
             return render(request, self.template_name,
@@ -315,6 +318,10 @@ def check_referer_for_spammer(request, referer):
     # we know they didn't preview and are thus spam
     if not referer.endswith("add_comment/"):
         return HttpResponse("go away, spammer")
+    return check_referer_for_spammer_good_path(request, referer)
+
+
+def check_referer_for_spammer_good_path(request, referer):
     referer = request.POST.get('original_referer', '')
     if referer == '':
         return HttpResponse("go away, spammer")
@@ -327,7 +334,10 @@ def handle_empty_required_fields(request):
     if (request.POST.get('horse', '') == ""
             or request.POST.get('email', '') == ""):
         return HttpResponse("name and email are required fields")
+    return handle_empty_required_fields_has_name_email(request)
 
+
+def handle_empty_required_fields_has_name_email(request):
     if request.POST.get('content', '') == "":
         return HttpResponse("no content in your comment")
     return None
@@ -353,19 +363,26 @@ def add_comment_comments_allowed(request, node, user):
     return add_comment_has_required_fields(request, node, user, url)
 
 
+def preview_comment(request, referer, node, url):
+    referer = request.POST.get('original_referer', referer)
+    return render(
+        request, "preview.html",
+        dict(node=node, name=request.POST['name'],
+             url=url,
+             original_referer=referer,
+             email=request.POST['email'],
+             content=request.POST['content'],
+             reply_to=int(request.POST.get('reply_to', '0'))))
+
+
 def add_comment_has_required_fields(request, node, user, url):
     referer = request.META.get('HTTP_REFERER', node.get_absolute_url())
     if request.POST.get('submit', '') != "submit comment":
-        referer = request.POST.get('original_referer', referer)
-        return render(
-            request, "preview.html",
-            dict(node=node, name=request.POST['name'],
-                 url=url,
-                 original_referer=referer,
-                 email=request.POST['email'],
-                 content=request.POST['content'],
-                 reply_to=int(request.POST.get('reply_to', '0'))))
+        return preview_comment(request, referer, node, url)
+    return add_comment_not_preview(request, referer, node, url)
 
+
+def add_comment_not_preview(request, referer, node, url):
     r = check_referer_for_spammer(request, referer)
     if r is not None:
         return r
@@ -437,11 +454,15 @@ def field(request, name):
     seen = dict()
     ufields = []
     for f in all_fields:
-        if f.field_value not in seen:
-            ufields.append(f)
-            seen[f.field_value] = 1
-
+        seen, ufields = handle_field(f, seen, ufields)
     return render(request, "field.html", dict(fields=ufields, name=name))
+
+
+def handle_field(f, seen, ufields):
+    if f.field_value not in seen:
+        ufields.append(f)
+        seen[f.field_value] = 1
+    return seen, ufields
 
 
 def field_value(request, name, value):

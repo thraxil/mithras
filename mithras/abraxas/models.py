@@ -39,6 +39,10 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
+    def clear_if_empty(self):
+        if self.node_set.all().count() == 0:
+            self.delete()
+
 
 def make_slug(title="no title"):
     title = title.strip()
@@ -66,8 +70,7 @@ def tag_cloud():
 
 def clear_unused_tags():
     for t in Tag.objects.all():
-        if t.node_set.all().count() == 0:
-            t.delete()
+        t.clear_if_empty()
 
 
 class Node(models.Model):
@@ -133,11 +136,7 @@ class Node(models.Model):
     def set_tags(self, tags_string):
         self.tags.clear()
         for tag in tags_string.split(", "):
-            tag = tag.lower().strip()
-            if not tag:
-                continue
-            t = get_or_create_tag(tag)
-            self.tags.add(t)
+            self.add_tag_from_string(tag)
         clear_unused_tags()
         return
 
@@ -147,6 +146,13 @@ class Node(models.Model):
             self.tags.add(tag)
             self.save()
 
+    def add_tag_from_string(self, tag):
+        tag = tag.lower().strip()
+        if not tag:
+            return
+        t = get_or_create_tag(tag)
+        self.tags.add(t)
+
     def post_count(self):
         return Post.objects.filter(node=self).all().count()
 
@@ -155,12 +161,9 @@ class Node(models.Model):
 
 
 def class_from_weight(w, thresholds):
-    i = 0
-    for t in thresholds:
-        i += 1
-        if w <= t:
-            return i
-    return i
+    matches = [p[0] for p in enumerate(thresholds)
+               if p[1] <= w]
+    return matches[-1] + 1
 
 
 def ex_weights(l):
@@ -322,9 +325,7 @@ class Comment(models.Model):
 
     def has_author_url(self):
         # people put stupid shit into the url field
-        if self.author_url == "":
-            return False
-        if self.author_url == "http://":
+        if self.author_url == "" or self.author_url == "http://":
             return False
         return self.author_url.startswith("http://")
 
