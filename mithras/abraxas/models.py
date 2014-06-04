@@ -163,11 +163,12 @@ def class_from_weight(w, thresholds):
     return i
 
 
+def ex_weights(l):
+    return [int(w) for (t, w) in l]
+
+
 def scaled_tags():
     levels = 5
-
-    def ex_weights(l):
-        return [int(w) for (t, w) in l]
 
     tags = [(t, t.node_set.all().count())
             for t in Tag.objects.all().order_by("name")]
