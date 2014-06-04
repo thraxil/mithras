@@ -333,10 +333,7 @@ def handle_empty_required_fields(request):
     return None
 
 
-def add_comment(request, username, type, year, month, day, slug):
-    r = block_non_integer_and_honeypot(request)
-    if r is not None:
-        return r
+def add_comment_not_honeypot(request, username, type, year, month, day, slug):
     user = get_object_or_404(Users, username=username)
     node = get_node_or_404(
         user=user, type=type, status="Publish",
@@ -345,6 +342,10 @@ def add_comment(request, username, type, year, month, day, slug):
         slug=slug)
     if not node.comments_allowed:
         return HttpResponse("sorry, no comments allowed on this one")
+    return add_comment_comments_allowed(request, node, user)
+
+
+def add_comment_comments_allowed(request, node, user):
     url = clean_url(request.POST.get("url", ""))
     r = handle_empty_required_fields(request)
     if r is not None:
@@ -365,7 +366,10 @@ def add_comment(request, username, type, year, month, day, slug):
     r = check_referer_for_spammer(request, referer)
     if r is not None:
         return r
+    return add_comment_for_real(request, url, node, referer)
 
+
+def add_comment_for_real(request, url, node, referer):
     c = Comment(author_name=request.POST['name'],
                 author_url=url,
                 author_email=request.POST['email'],
@@ -374,6 +378,10 @@ def add_comment(request, username, type, year, month, day, slug):
                 status=determine_comment_status(request),
                 reply_to=int(request.POST.get('reply_to', '0')))
     c.save()
+    return add_comment_final_response(c, node, referer)
+
+
+def add_comment_final_response(c, node, referer):
     if c.status == "pending":
         subject = "new comment on %s" % node.title
         message = comment_email_body(c)
@@ -382,6 +390,14 @@ def add_comment(request, username, type, year, month, day, slug):
             "your comment has been submitted and is pending moderator "
             "approval. <a href='%s'>return</a>" % referer)
     return HttpResponseRedirect(referer)
+
+
+def add_comment(request, username, type, year, month, day, slug):
+    r = block_non_integer_and_honeypot(request)
+    if r is not None:
+        return r
+    return add_comment_not_honeypot(request, username, type,
+                                    year, month, day, slug)
 
 
 def determine_comment_status(request):
