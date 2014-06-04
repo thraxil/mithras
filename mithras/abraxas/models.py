@@ -154,6 +154,15 @@ class Node(models.Model):
         pass
 
 
+def class_from_weight(w, thresholds):
+    i = 0
+    for t in thresholds:
+        i += 1
+        if w <= t:
+            return i
+    return i
+
+
 def scaled_tags():
     levels = 5
 
@@ -168,14 +177,6 @@ def scaled_tags():
     thresholds = [math.pow(max_weight - min_weight + 1,
                            float(i) / float(levels))
                   for i in range(0, levels)]
-
-    def class_from_weight(w, thresholds):
-        i = 0
-        for t in thresholds:
-            i += 1
-            if w <= t:
-                return i
-        return i
 
     for (t, w) in tags:
         c = class_from_weight(w, thresholds)
