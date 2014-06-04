@@ -350,7 +350,10 @@ def add_comment_comments_allowed(request, node, user):
     r = handle_empty_required_fields(request)
     if r is not None:
         return r
+    return add_comment_has_required_fields(request, node, user, url)
 
+
+def add_comment_has_required_fields(request, node, user, url):
     referer = request.META.get('HTTP_REFERER', node.get_absolute_url())
     if request.POST.get('submit', '') != "submit comment":
         referer = request.POST.get('original_referer', referer)
