@@ -9,7 +9,7 @@ test: ./ve/bin/python
 	./bootstrap.py
 
 flake8: ./ve/bin/python
-	$(FLAKE8) $(APP) --max-complexity=10
+	$(FLAKE8) $(APP) --max-complexity=8
 
 runserver: ./ve/bin/python validate
 	$(MANAGE) runserver
