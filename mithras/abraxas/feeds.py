@@ -20,10 +20,13 @@ class UserFeed(Feed):
     feed_type = Atom1Feed
     subtitle = "thraxil"
 
-    def get_object(self, request, username):
+    def get_user_obj(self, username):
         if len(username) == 0:
             raise FeedDoesNotExist
-        u = Users.objects.filter(username=username)
+        return Users.objects.filter(username=username)
+
+    def get_object(self, request, username):
+        u = self.get_user_obj(username)
         if u.count() == 0:
             raise FeedDoesNotExist
         return u[0]

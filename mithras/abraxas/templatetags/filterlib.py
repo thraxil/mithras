@@ -1,6 +1,6 @@
 from django import template
 from django.template.defaultfilters import stringfilter
-from django.conf import settings
+import markdown
 
 register = template.Library()
 
@@ -25,21 +25,10 @@ def cmarkdown(value, arg=''):
     This code is taken from
     http://www.freewisdom.org/projects/python-markdown/Django
     """
-    try:
-        import markdown
-    except ImportError:
-        if settings.DEBUG:
-            raise (template.TemplateSyntaxError,
-                   "Error in {% markdown %} filter: "
-                   + "The markdown library isn't installed.")
-        else:
-            from django.utils.html import escape, linebreaks
-            return linebreaks(escape(value))
+    extensions = arg.split(",")
+    if len(extensions) > 0 and extensions[0] == "safe":
+        extensions = extensions[1:]
+        safe_mode = True
     else:
-        extensions = arg.split(",")
-        if len(extensions) > 0 and extensions[0] == "safe":
-            extensions = extensions[1:]
-            safe_mode = True
-        else:
-            safe_mode = False
-        return markdown.markdown(value, extensions, safe_mode=safe_mode)
+        safe_mode = False
+    return markdown.markdown(value, extensions, safe_mode=safe_mode)

@@ -14,13 +14,7 @@ from models import newest_posts, all_pending_comments, make_slug, scaled_tags
 
 
 def uniquify(lst):
-    s = dict()
-    o = []
-    for i in lst:
-        if i not in s:
-            o.append(i)
-            s[i] = 1
-    return o
+    return list(set(lst))
 
 
 class LoggedInMixin(object):
@@ -307,9 +301,14 @@ def block_non_integer_and_honeypot(request):
 
 
 def clean_url(url):
-    if not url == "":
-        if not url.startswith("http://"):
-            url = "http://" + url
+    if url == "":
+        return ""
+    return clean_url_not_empty(url)
+
+
+def clean_url_not_empty(url):
+    if not url.startswith("http://"):
+        url = "http://" + url
     return url
 
 
@@ -438,14 +437,19 @@ http://thraxil.org/admin/abraxas/comment/%d/
             """ % (c.author_name, c.body, c.id)
 
 
+def ufield(f, ufields, seen):
+    if f.field_name not in seen:
+        ufields.append(f)
+        seen[f.field_name] = 1
+    return ufields, seen
+
+
 def fields(request):
     all_fields = MetaField.objects.all()
     seen = dict()
     ufields = []
     for f in all_fields:
-        if f.field_name not in seen:
-            ufields.append(f)
-            seen[f.field_name] = 1
+        ufields, seen = ufield(f, ufields, seen)
     return render(request, "fields.html", dict(fields=ufields))
 
 
