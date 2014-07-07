@@ -10,6 +10,7 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
+ALLOWED_HOSTS = ['localhost', 'thraxil.org']
 
 DATABASES = {
     'default': {
@@ -147,4 +148,8 @@ STATSD_PORT = 8125
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
+    'django.security.DisallowedHost': {
+        'handlers': ['null'],
+        'propagate': False,
+    },
 }
