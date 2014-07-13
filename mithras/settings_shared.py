@@ -5,9 +5,7 @@ import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-ADMINS = (
-    ('Anders Pearson', 'anders@columbia.edu'),
-)
+ADMINS = ()
 
 MANAGERS = ADMINS
 ALLOWED_HOSTS = ['localhost', 'thraxil.org']
