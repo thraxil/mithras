@@ -6,7 +6,7 @@ TEMPLATE_DIRS = (
     "/var/www/thraxil/mithras/ve/django/contrib/sitemaps/templates"
 )
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 LOGGING = {
