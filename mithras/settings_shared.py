@@ -108,7 +108,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'mithras.urls'
 
 TEMPLATE_DIRS = (
-    "/home/anders/code/python/mithras/mithras/abraxas/templates"
+    "/home/anders/code/python/mithras/mithras/abraxas/templates",
 )
 
 INSTALLED_APPS = [
@@ -121,7 +121,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mithras.abraxas',
     'sorl.thumbnail',
-    'south',
     'django_nose',
     'django.contrib.sitemaps',
     'django_statsd',
@@ -132,8 +131,6 @@ INSTALLED_APPS = [
 EMAIL_SUBJECT_PREFIX = '[thraxil] '
 EMAIL_HOST = 'localhost'
 SERVER_EMAIL = 'moderation@thraxil.org'
-
-SOUTH_TESTS_MIGRATE = False
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 SESSION_COOKIE_HTTPONLY = True

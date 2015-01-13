@@ -76,7 +76,7 @@ def clear_unused_tags():
 class Node(models.Model):
     slug = models.CharField(max_length=256)
     status = models.CharField(max_length=7)
-    comments_allowed = models.BooleanField()
+    comments_allowed = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=256)
     modified = models.DateTimeField(auto_now=True)
