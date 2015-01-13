@@ -12,7 +12,7 @@ flake8==1.7.0
 statsd==2.0.3
 gunicorn==0.17.4
 sorl==3.1
-South==0.8.4
+South==1.0
 django-nose==1.2
 django-statsd-mozilla==0.3.11
 pycrypto==2.6
