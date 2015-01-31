@@ -5,7 +5,7 @@ env.user = 'anders'
 nginx_hosts = ['lolrus.thraxil.org']
 
 def restart_gunicorn():
-    sudo("restart mithras")
+    sudo("restart mithras", shell=False)
 
 def prepare_deploy():
     local("./manage.py test")
