@@ -111,7 +111,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'mithras.urls'
 
 TEMPLATE_DIRS = (
-    "/home/anders/code/python/mithras/mithras/abraxas/templates",
+    os.path.join(os.path.dirname(__file__), "templates"),
 )
 
 INSTALLED_APPS = [

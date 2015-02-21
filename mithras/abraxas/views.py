@@ -24,7 +24,7 @@ class LoggedInMixin(object):
 
 
 class IndexView(TemplateView):
-    template_name = "index.html"
+    template_name = "abraxas/index.html"
 
     def get_context_data(self):
         paginator = Paginator(newest_posts(), 10)
@@ -56,7 +56,7 @@ def search(request):
 
 
 class BrowsePostsView(LoggedInMixin, TemplateView):
-    template_name = "browse.html"
+    template_name = "abraxas/browse.html"
 
     def get_context_data(self):
         paginator = Paginator(newest_posts(), 100)
@@ -68,7 +68,7 @@ class BrowsePostsView(LoggedInMixin, TemplateView):
 
 
 class PendingCommentsView(LoggedInMixin, TemplateView):
-    template_name = "pending.html"
+    template_name = "abraxas/pending.html"
 
     def get_context_data(self):
         paginator = Paginator(all_pending_comments(), 100)
@@ -88,7 +88,7 @@ class DeletePendingCommentsView(LoggedInMixin, View):
 
 
 class EditPostView(LoggedInMixin, View):
-    template_name = "edit_post.html"
+    template_name = "abraxas/edit_post.html"
 
     def post(self, request, node_id):
         node = get_object_or_404(Node, id=node_id)
@@ -111,11 +111,11 @@ class EditPostView(LoggedInMixin, View):
 
 
 class ManageView(LoggedInMixin, TemplateView):
-    template_name = "manage.html"
+    template_name = "abraxas/manage.html"
 
 
 class AddPostView(LoggedInMixin, View):
-    template_name = "add_post.html"
+    template_name = "abraxas/add_post.html"
 
     def get_node(self, request, title, user):
         if request.POST.get("node_id", "") == "":
@@ -154,12 +154,12 @@ class AddPostView(LoggedInMixin, View):
 
 class UsersView(ListView):
     model = Users
-    template_name = "users.html"
+    template_name = "abraxas/users.html"
     context_object_name = "users"
 
 
 class UserIndexView(TemplateView):
-    template_name = "user_index.html"
+    template_name = "abraxas/user_index.html"
 
     def get_context_data(self, **kwargs):
         username = kwargs['username']
@@ -173,7 +173,7 @@ class UserIndexView(TemplateView):
 
 
 class UserTypeIndexView(TemplateView):
-    template_name = "user_type_index.html"
+    template_name = "abraxas/user_type_index.html"
 
     def get_context_data(self, **kwargs):
         username = kwargs['username']
@@ -185,7 +185,7 @@ class UserTypeIndexView(TemplateView):
 
 
 class UserTypeYearIndexView(TemplateView):
-    template_name = "user_type_year_index.html"
+    template_name = "abraxas/user_type_year_index.html"
 
     def get_context_data(self, **kwargs):
         username = kwargs['username']
@@ -200,7 +200,7 @@ class UserTypeYearIndexView(TemplateView):
 
 
 class UserTypeMonthIndexView(TemplateView):
-    template_name = "user_type_month_index.html"
+    template_name = "abraxas/user_type_month_index.html"
 
     def get_context_data(self, **kwargs):
         username = kwargs['username']
@@ -217,7 +217,7 @@ class UserTypeMonthIndexView(TemplateView):
 
 
 class UserTypeDayIndexView(TemplateView):
-    template_name = "user_type_day_index.html"
+    template_name = "abraxas/user_type_day_index.html"
 
     def get_context_data(self, **kwargs):
         username = kwargs['username']
@@ -246,7 +246,7 @@ def get_node_or_404(**kwargs):
 
 
 class NodeView(TemplateView):
-    template_name = "node.html"
+    template_name = "abraxas/node.html"
 
     def get_context_data(self, username, type, year, month, day, slug):
         user = get_object_or_404(Users, username=username)
@@ -259,7 +259,7 @@ class NodeView(TemplateView):
 
 
 class CommentView(TemplateView):
-    template_name = "comment.html"
+    template_name = "abraxas/comment.html"
 
     def get_context_data(self, username, type, year, month, day, slug, cyear,
                          cmonth, cday, chour, cminute, csecond):
@@ -479,7 +479,7 @@ def field_value(request, name, value):
 
 
 class TagsView(TemplateView):
-    template_name = "tags.html"
+    template_name = "abraxas/tags.html"
 
     def get_context_data(self):
         tags = scaled_tags()
@@ -488,5 +488,5 @@ class TagsView(TemplateView):
 
 class TagView(DetailView):
     model = Tag
-    template_name = "tag.html"
+    template_name = "abraxas/tag.html"
     context_object_name = "tag"
