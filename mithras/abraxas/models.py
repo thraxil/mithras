@@ -134,7 +134,27 @@ class Node(models.Model):
         return ", ".join([t.name.lower() for t in self.tags.all()])
 
     def set_tags(self, tags_string):
-        self.tags.clear()
+        NodeTagger(self).set_tags()
+
+    def add_tag(self, tagstring):
+        NodeTagger(self).add_tag(tagstring)
+
+    def add_tag_from_string(self, tag):
+        NodeTagger(self).add_tag_from_string(tag)
+
+    def post_count(self):
+        return Post.objects.filter(node=self).all().count()
+
+    def touch(self):
+        pass
+
+
+class NodeTagger(object):
+    def __init__(self, node):
+        self.node = node
+
+    def set_tags(self, tags_string):
+        self.node.tags.clear()
         for tag in tags_string.split(", "):
             self.add_tag_from_string(tag)
         clear_unused_tags()
@@ -142,22 +162,16 @@ class Node(models.Model):
 
     def add_tag(self, tagstring):
         tag = get_or_create_tag(tagstring)
-        if tag not in self.get_tags():
-            self.tags.add(tag)
-            self.save()
+        if tag not in self.node.get_tags():
+            self.node.tags.add(tag)
+            self.node.save()
 
     def add_tag_from_string(self, tag):
         tag = tag.lower().strip()
         if not tag:
             return
         t = get_or_create_tag(tag)
-        self.tags.add(t)
-
-    def post_count(self):
-        return Post.objects.filter(node=self).all().count()
-
-    def touch(self):
-        pass
+        self.node.tags.add(t)
 
 
 def class_from_weight(w, thresholds):
