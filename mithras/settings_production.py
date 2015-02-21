@@ -19,6 +19,7 @@ ALLOWED_HOSTS = ['localhost', 'thraxil.org']
 STATIC_ROOT = os.path.join(os.path.dirname(__file__), "../media")
 STATICFILES_DIRS = ()
 COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = True
 
 if 'migrate' not in sys.argv:
     INSTALLED_APPS = INSTALLED_APPS + [
