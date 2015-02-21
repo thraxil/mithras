@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load markup %}
 {% load filterlib %}
-{% load thumbnail %}
 
 {% block title %}{{ user.fullname }}{% endblock %}
 {% block feeds %}<link href="/users/{{user.username|urlencode}}/feed/" type="application/atom+xml" rel="alternate" title="Atom feed for {{user.fullname}}" />{% endblock %}

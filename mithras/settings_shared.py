@@ -120,7 +120,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mithras.abraxas',
-    'sorl.thumbnail',
     'django_nose',
     'django.contrib.sitemaps',
     'django_statsd',
