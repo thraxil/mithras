@@ -59,26 +59,28 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = '/var/www/thraxil/uploads/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_URL = '/uploads/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
 STATIC_URL = '/media/'
-STATIC_ROOT = "media/"
-STATICFILES_DIRS = (
-    os.path.join(os.path.dirname(__file__), "../media"),
-)
+STATIC_ROOT = "/tmp/mithras/static"
+STATICFILES_DIRS = ("media/", )
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder',
 )
+
+COMPRESS_URL = "/media/"
+COMPRESS_ROOT = "media/"
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '@0zqwb3^sy2a7mo)en36plqr9hx)hh60&tqkzo+p*vwn06r6vn'
@@ -127,6 +129,7 @@ INSTALLED_APPS = [
     'django_markwhat',
     'gunicorn',
     'compressor',
+    'storages',
 ]
 
 EMAIL_SUBJECT_PREFIX = '[thraxil] '
