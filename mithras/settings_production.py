@@ -3,7 +3,7 @@ from settings_shared import *
 import os
 
 TEMPLATE_DIRS = (
-    os.path.join(os.path.dirname(__file__), "abraxas/templates"),
+    os.path.join(os.path.dirname(__file__), "templates"),
 )
 
 DEBUG = False
