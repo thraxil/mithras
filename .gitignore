@@ -4,3 +4,4 @@ local_settings.py
 distribute*.tar.gz
 .coverage
 pip-log.txt
+CACHE

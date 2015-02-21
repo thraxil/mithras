@@ -1,9 +1,13 @@
+{% load compress %}
 <html>
 <head><title>thraxil.org: {% block title %}{% endblock %}</title>
 
+{% compress css %}
 <link rel="stylesheet" href="{{STATIC_URL}}css/site.css" />
+{% endcompress %}
 
 {% block css %}{% endblock %}
+
 
 <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 {% block js %}{% endblock %}
