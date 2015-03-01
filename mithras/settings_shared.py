@@ -82,6 +82,12 @@ STATICFILES_FINDERS = (
 COMPRESS_URL = "/media/"
 COMPRESS_ROOT = "media/"
 
+COMPRESS_CSS_FILTERS = [
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.CSSMinFilter',
+]
+
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '@0zqwb3^sy2a7mo)en36plqr9hx)hh60&tqkzo+p*vwn06r6vn'
 
