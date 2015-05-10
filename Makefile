@@ -26,12 +26,6 @@ shell: ./ve/bin/python
 build:
 	docker build -t thraxil/mithras .
 
-deploy: flake8 test build
-	docker push thraxil/mithras
-	ssh arctic.thraxil.org docker pull thraxil/mithras
-	ssh arctic.thraxil.org sudo /sbin/restart mithras
-	ssh cobra.thraxil.org docker pull thraxil/mithras
-
 clean:
 	rm -rf ve
 	rm -rf media/CACHE
