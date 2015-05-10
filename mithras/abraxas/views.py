@@ -42,12 +42,14 @@ def search(request):
         title_matches = list(Node.objects.filter(title__icontains=q))[:50]
         post_matches = [p.node for p
                         in Post.objects.filter(body__icontains=q)][:50]
-        bookmark_matches = [p.node for p
-                            in Bookmark.objects.filter(
-                            description__icontains=q)][:50]
-        image_matches = [p.node for p
-                         in Image.objects.filter(
-                         description__icontains=q)][:50]
+        bookmark_matches = [
+            p.node for p
+            in Bookmark.objects.filter(
+                description__icontains=q)][:50]
+        image_matches = [
+            p.node for p
+            in Image.objects.filter(
+                description__icontains=q)][:50]
         nodes = uniquify(title_matches + post_matches
                          + bookmark_matches + image_matches)
         nodes.sort(key=lambda x: x.created)
