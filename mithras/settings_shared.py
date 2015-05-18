@@ -31,12 +31,7 @@ if 'test' in sys.argv:
             'USER': '',
             'PASSWORD': '', }}
 
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-
-NOSE_ARGS = [
-    '--with-coverage',
-    '--cover-package=mithras',
-]
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 LOGIN_URL = "/login/"
 
@@ -129,7 +124,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mithras.abraxas',
-    'django_nose',
     'django.contrib.sitemaps',
     'django_statsd',
     'django_markwhat',
