@@ -332,7 +332,7 @@ class Comment(models.Model):
     def replies_html(self):
         chunks = []
         for reply in self.replies():
-            template = get_template("replies.html")
+            template = get_template("abraxas/replies.html")
             c = Context(dict(comment=reply))
             chunks.append(template.render(c))
         return "".join(chunks)
