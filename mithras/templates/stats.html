@@ -14,7 +14,7 @@
 <h2>Traffic</h2>
 <img width="900" height="200" src="http://graphite.thraxil.org/render/?width=900&height=200&_salt=1337976132.743&target=summarize(movingAverage(stats.counters.nginx.mithras.status.200.count,'10mins'),'15mins')&graphOnly=false&hideGrid=true&hideLegend=true">
 <h2>Response Times (max/mean/min)</h2>
-<img width="900" height="200" src="http://graphite.thraxil.org/render/?width=900&height=200&_salt=1337976726.925&target=keepLastValue(stats.timers.nginx.mithras.request_time.mean)&target=keepLastValue(stats.timers.nginx.mithras.request_time.upper_90)&hideGrid=true&hideLegend=true&from=-24hours"/>
+<img width="900" height="200" src="http://graphite.thraxil.org/render/?width=900&height=200&_salt=1337976726.925&target=keepLastValue(movingAverage(stats.timers.nginx.mithras.request_time.mean,'15mins'))&target=keepLastValue(movingAverage(stats.timers.nginx.mithras.request_time.upper_90,'15mins'))&hideGrid=true&hideLegend=true&from=-24hours"/>
 <h2>Errors</h2>
 <img width="900" height="200" src="http://graphite.thraxil.org/render/?width=900&height=200&_salt=1337976132.743&target=summarize(stats.counters.nginx.mithras.status.404.count,'15mins')&target=summarize(sumSeries(stats.counters.nginx.mithras.status.5*.count),'15mins')&graphOnly=false&hideGrid=true">
 
