@@ -54,7 +54,7 @@ def search(request):
                          + bookmark_matches + image_matches)
         nodes.sort(key=lambda x: x.created)
         nodes.reverse()
-    return render(request, "search_results.html", dict(q=q, nodes=nodes))
+    return render(request, "abraxas/search_results.html", dict(q=q, nodes=nodes))
 
 
 class BrowsePostsView(LoggedInMixin, TemplateView):
@@ -452,7 +452,7 @@ def fields(request):
     ufields = []
     for f in all_fields:
         ufields, seen = ufield(f, ufields, seen)
-    return render(request, "fields.html", dict(fields=ufields))
+    return render(request, "abraxas/fields.html", dict(fields=ufields))
 
 
 def field(request, name):
@@ -461,7 +461,7 @@ def field(request, name):
     ufields = []
     for f in all_fields:
         seen, ufields = handle_field(f, seen, ufields)
-    return render(request, "field.html", dict(fields=ufields, name=name))
+    return render(request, "abraxas/field.html", dict(fields=ufields, name=name))
 
 
 def handle_field(f, seen, ufields):
@@ -476,7 +476,7 @@ def field_value(request, name, value):
         f.node for f in MetaField.objects.filter(
             field_name__iexact=name,
             field_value__iexact=value)]
-    return render(request, "field_value.html",
+    return render(request, "abraxas/field_value.html",
                   dict(nodes=nodes, name=name, value=value))
 
 
