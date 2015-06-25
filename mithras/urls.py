@@ -7,9 +7,9 @@ import mithras.abraxas.views as views
 from django.contrib import admin
 from django.contrib.sitemaps import GenericSitemap
 
-admin.autodiscover()
-
 from mithras.abraxas.models import Node
+
+admin.autodiscover()
 
 node_info_dict = {
     'queryset': Node.objects.all(),

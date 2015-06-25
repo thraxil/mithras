@@ -50,11 +50,12 @@ def search(request):
             p.node for p
             in Image.objects.filter(
                 description__icontains=q)][:50]
-        nodes = uniquify(title_matches + post_matches
-                         + bookmark_matches + image_matches)
+        nodes = uniquify(title_matches + post_matches + bookmark_matches +
+                         image_matches)
         nodes.sort(key=lambda x: x.created)
         nodes.reverse()
-    return render(request, "abraxas/search_results.html", dict(q=q, nodes=nodes))
+    return render(request, "abraxas/search_results.html",
+                  dict(q=q, nodes=nodes))
 
 
 class BrowsePostsView(LoggedInMixin, TemplateView):
@@ -332,8 +333,8 @@ def check_referer_for_spammer_good_path(request, referer):
 def handle_empty_required_fields(request):
     # "horse" is the random replacement name for what
     # would otherwise be "name"
-    if (request.POST.get('horse', '') == ""
-            or request.POST.get('email', '') == ""):
+    if (request.POST.get('horse', '') == "" or
+            request.POST.get('email', '') == ""):
         return HttpResponse("name and email are required fields")
     return handle_empty_required_fields_has_name_email(request)
 
@@ -461,7 +462,8 @@ def field(request, name):
     ufields = []
     for f in all_fields:
         seen, ufields = handle_field(f, seen, ufields)
-    return render(request, "abraxas/field.html", dict(fields=ufields, name=name))
+    return render(request, "abraxas/field.html",
+                  dict(fields=ufields, name=name))
 
 
 def handle_field(f, seen, ufields):
