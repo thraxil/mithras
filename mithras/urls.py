@@ -80,7 +80,7 @@ urlpatterns = patterns(
         name='logout'),
     (r'^login/$',
      'django.contrib.auth.views.login',
-     {'template_name': 'login.html'}),
+     {'template_name': 'admin/login.html'}),
     (r'^admin/', include(admin.site.urls)),
     (r'^stats/$', TemplateView.as_view(template_name="stats.html")),
 )
