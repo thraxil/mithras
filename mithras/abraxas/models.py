@@ -134,7 +134,7 @@ class Node(models.Model):
         return ", ".join([t.name.lower() for t in self.tags.all()])
 
     def set_tags(self, tags_string):
-        NodeTagger(self).set_tags()
+        NodeTagger(self).set_tags(tags_string)
 
     def add_tag(self, tagstring):
         NodeTagger(self).add_tag(tagstring)
