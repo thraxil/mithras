@@ -13,7 +13,7 @@ six==1.9.0
 boto==2.38.0
 python-dateutil==2.4.2
 textile==2.2.2
-raven==5.1.1
+raven==5.5.0
 django-markwhat==1.4
 django-appconf==1.0.1
 django-compressor==1.5
