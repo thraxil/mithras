@@ -137,6 +137,7 @@ INSTALLED_APPS = [
     'gunicorn',
     'compressor',
     'storages',
+    'smoketest',
 ]
 
 EMAIL_SUBJECT_PREFIX = '[thraxil] '

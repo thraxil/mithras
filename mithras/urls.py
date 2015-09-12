@@ -27,6 +27,7 @@ urlpatterns = patterns(
     (r'^sitemap\.xml$',
      'django.contrib.sitemaps.views.sitemap',
      {'sitemaps': sitemaps}),
+    (r'smoketest/', include('smoketest.urls')),
     (r'^manage/$', views.ManageView.as_view()),
     (r'^add_post/$', views.AddPostView.as_view()),
     (r'^browse_posts/$', views.BrowsePostsView.as_view()),
