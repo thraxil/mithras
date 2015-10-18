@@ -1,3 +1,10 @@
+h1#masthead{
+        height:129px;
+        background-color:#cccccc;
+        margin:0px;
+        padding:0px;
+}
+
 /* pygments styles */
 .hll { background-color: #ffffcc }
  { background: #f0f0f0; }
