@@ -7,3 +7,4 @@ pip-log.txt
 CACHE
 wheelhouse
 node_modules
+media/dist
