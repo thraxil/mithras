@@ -1,9 +1,132 @@
+
+#wrapper {
+   width: 900px;
+   margin: 0 auto;
+}
+
 h1#masthead{
-        height:129px;
-        background-color:#cccccc;
-        margin:0px;
-        padding:0px;
-        background: url(/media/images/thraxil-banner.jpg);
+    height:129px;
+    background-color:#cccccc;
+    margin:0px;
+    padding:0px;
+}
+
+h1#masthead span {
+    position: relative;
+    left: -3000px;
+}
+
+#footer{
+   height:50px;
+   background-color:#cccccc;
+   margin:0px;
+   font-size: .8em; 
+   padding-top: 10px;
+}
+
+#main {
+		width: 670px;
+		display: block;
+}
+
+.clear {
+		clear: both;
+		background: none;
+}
+
+.invisible {
+		display: none;
+}
+
+#comments {
+		width: 48%; float: left; padding: 5px;
+}
+#comment-form {
+		width: 48%; float: right; padding: 5px;
+}
+#comment-form textarea {
+		width: 100%; height: 150px;
+}
+
+.comment {
+		padding-top: 20px; border-bottom: #000 solid 1px; padding-bottom: 2px;
+}
+
+.comment .comment {
+		border-left: #eee solid 2px; 
+		padding-left: 20px;
+}
+
+.comment-byline { background-color: #eee; width: 100%;}
+
+.post {margin-bottom: 3em;}
+
+.byline {font-style: italic; color: #666;}
+
+#breadcrumbs {
+		font-size: 1em; background-color: #000; color: #fff; font-family: "Courier New", Courier, monospace;
+}
+#breadcrumbs a {
+		color: #fff; text-decoration: none; font-weight: bold;
+}
+
+#nav {
+		background-color: #fff;
+		border-bottom: #ccc solid 1px;
+		text-align: right;
+}
+
+#bio {
+		background-color: #f5f5f5;
+		margin: 3em;
+		padding: 1em;
+		border: #ccc solid 1px;
+}
+
+#bio h2 {
+		margin-top: 0px;
+		margin-bottom: 1em;
+		border-bottom: #000 solid 1px;
+}
+
+div.tags {
+		border-top: #eee solid 1px;
+		border-bottom: #eee solid 1px;
+}
+
+.tag-1 { font-size: 1em; line-height: 1.5em;}
+.tag-2 { font-size: 1em;line-height: 1.5em;}
+.tag-3 { font-size: 1.1em;line-height: 1.5em;}
+.tag-4 { font-size: 1.3em;line-height: 1.5em;}
+.tag-5 { font-size: 1.5em;line-height: 1.5em;}
+
+#pagination { border-top: #000 solid 1px;}
+
+th { vertical-align: top; text-align: left;}
+.addpost table {width: 100%;}
+.addpost input[type=text] {width: 100%; border: #000 solid 1px;}
+.addpost textarea {width: 100%; border: #000 solid 1px;}
+
+#bcinnner { float: left; margin: 0px;}
+#search { float: right; margin: 0px; }
+#search form { margin: 0px; }
+#search input { font-size: 1em; margin: 0px; border: #000 solid 1px;}
+
+tr.even th, tr.even td {background-color: #e5f3e5; }
+
+#name-decoy { display: none; }
+
+blockquote {
+		margin-left: 2em;
+		background-color: #eee;
+}
+
+h1#masthead{
+    height:129px;
+    background-color:#cccccc;
+    margin:0px;
+    padding:0px;
+    background: url(/media/images/thraxil-banner.jpg);
 }
 
 /* pygments styles */

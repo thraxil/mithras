@@ -4,6 +4,7 @@ JSHINT=$(NODE_MODULES)/jshint/bin/jshint
 JSCS=$(NODE_MODULES)/jscs/bin/jscs
 WEBPACK=$(NODE_MODULES)/.bin/webpack
 WEBPACK_CONFIG=webpack.config.js
+WP_SENTINAL=media/dist/sentinal
 
 jshint: $(JS_SENTINAL)
 	$(JSHINT) $(JS_FILES)
@@ -16,8 +17,8 @@ $(JS_SENTINAL): package.json
 	npm install
 	touch $(JS_SENTINAL)
 
-media/dist/comments.js: $(JS_SENTINAL) $(JS_FILES) webpack.*.config.js bootstrap.config.*
+$(WP_SENTINAL): $(JS_SENTINAL) $(JS_FILES) webpack.*.config.js bootstrap.config.* media/css/site.css
 	$(WEBPACK) --config $(WEBPACK_CONFIG)
+	touch $@
 
-webpack:
-	make media/dist/comments.js
+webpack: $(WP_SENTINAL)
