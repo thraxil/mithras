@@ -5,3 +5,6 @@ distribute*.tar.gz
 .coverage
 pip-log.txt
 CACHE
+wheelhouse
+node_modules
+media/dist
