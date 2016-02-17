@@ -26,11 +26,13 @@
                 {% else %}
                     {{ p.body|cmarkdown:"codehilite"|safe }}
                 {% endif %}
-                {% if post.has_tags %}<div class="tags">
-                    TAGS: {% for tag in post.get_tags %}
+                {% with tags=post.get_tags %}
+                {% if tags %}<div class="tags">
+                    TAGS: {% for tag in tags %}
                     <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
                     {% endfor %}
                 </div>{% endif %}
+                {% endwith %}
             </div>
         {% endwith %}
 {% endfor %}
