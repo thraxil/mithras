@@ -91,13 +91,13 @@ class Node(models.Model):
         return self.title
 
     def p(self):
-        return Post.objects.filter(node=self).order_by("-version")[0]
+        return Post.objects.filter(node=self).order_by("-version").first()
 
     def b(self):
-        return Bookmark.objects.filter(node=self).order_by("-version")[0]
+        return Bookmark.objects.filter(node=self).order_by("-version").first()
 
     def i(self):
-        return Image.objects.filter(node=self).order_by("-version")[0]
+        return Image.objects.filter(node=self).order_by("-version").first()
 
     def get_absolute_url(self):
         return "/users/%s/%ss/%04d/%02d/%02d/%s/" % (
