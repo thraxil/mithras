@@ -17,6 +17,24 @@ class BasicTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(p.node.title in response.content)
 
+    def test_user_index(self):
+        p = PostFactory()
+        response = self.c.get("/users/" + p.node.user.username + "/")
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(p.node.title in response.content)
+
+    def test_nonempty_feed(self):
+        p = PostFactory()
+        response = self.c.get("/feeds/main/")
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(p.node.title in response.content)
+
+    def test_user_feed(self):
+        p = PostFactory()
+        response = self.c.get("/users/" + p.node.user.username + "/feed/")
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(p.node.title in response.content)
+
     def test_smoketest(self):
         response = self.c.get("/smoketest/")
         self.assertEqual(response.status_code, 200)
