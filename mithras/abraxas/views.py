@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 import django
+from django.core.cache import cache
 from django.core.mail import mail_managers
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger
@@ -106,6 +107,7 @@ class EditPostView(LoggedInMixin, View):
         node.title = title
         node.status = "Publish"
         node.save()
+        cache.clear()
         return HttpResponseRedirect("/edit_post/%d/" % node.id)
 
     def get(self, request, node_id):
@@ -148,6 +150,7 @@ class AddPostView(LoggedInMixin, View):
                                 format="markdown")
             node.status = "Publish"
             node.save()
+            cache.clear()
             return HttpResponseRedirect(node.get_absolute_url())
 
     def get(self, request):
@@ -400,6 +403,7 @@ def add_comment_for_real(request, url, node, referer):
                 status=determine_comment_status(request),
                 reply_to=int(request.POST.get('reply_to', '0')))
     c.save()
+    cache.clear()
     return add_comment_final_response(c, node, referer)
 
 

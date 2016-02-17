@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load cache %}
 {% load markup %}
 {% load filterlib %}
 
@@ -14,6 +15,7 @@
 
 {% block content %}
     {% for post in posts %}
+        {% cache 300 post post.id %}
         {% with p=post.p %}
             <div class="post">
                 <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
@@ -35,6 +37,7 @@
                 {% endwith %}
             </div>
         {% endwith %}
+        {% endcache %}
 {% endfor %}
 
 {% if paginator.has_other_pages %}
