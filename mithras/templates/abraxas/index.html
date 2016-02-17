@@ -13,24 +13,26 @@
 {% endblock %}
 
 {% block content %}
-{% for post in posts %}
-<div class="post">
-<h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
-<p class="byline">by <a href="{{post.user.get_absolute_url}}">{{ post.user.fullname }}</a>
-{{ post.created|date:"D d M Y" }} 
-| comments: {{ post.num_comments}}
-</p>
-{% if post.p.textile %}
-{{ post.p.body|textile }}
-{% else %}
-{{ post.p.body|cmarkdown:"codehilite"|safe }}
-{% endif %}
-{% if post.has_tags %}<div class="tags">
-TAGS: {% for tag in post.get_tags %}
-<a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
-{% endfor %}
-</div>{% endif %}
-</div>
+    {% for post in posts %}
+        {% with p=post.p %}
+            <div class="post">
+                <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+                <p class="byline">by <a href="{{post.user.get_absolute_url}}">{{ post.user.fullname }}</a>
+                    {{ post.created|date:"D d M Y" }} 
+                    | comments: {{ post.num_comments}}
+                </p>
+                {% if p.textile %}
+                    {{ p.body|textile }}
+                {% else %}
+                    {{ p.body|cmarkdown:"codehilite"|safe }}
+                {% endif %}
+                {% if post.has_tags %}<div class="tags">
+                    TAGS: {% for tag in post.get_tags %}
+                    <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
+                    {% endfor %}
+                </div>{% endif %}
+            </div>
+        {% endwith %}
 {% endfor %}
 
 {% if paginator.has_other_pages %}
