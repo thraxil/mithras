@@ -371,7 +371,7 @@ def add_comment_comments_allowed(request, node, user):
 def preview_comment(request, referer, node, url):
     referer = request.POST.get('original_referer', referer)
     return render(
-        request, "preview.html",
+        request, "abraxas/preview.html",
         dict(node=node, name=request.POST['name'],
              url=url,
              original_referer=referer,
