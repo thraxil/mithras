@@ -12,6 +12,8 @@
 
 {% block content %}
 
+    <a href="{% url 'delete-node' node.id %}">Delete</a>
+    
 <form action="." method="post">
 <table>
 <tr>

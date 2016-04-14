@@ -31,6 +31,8 @@ urlpatterns = patterns(
     (r'^manage/$', views.ManageView.as_view()),
     (r'^add_post/$', views.AddPostView.as_view()),
     (r'^browse_posts/$', views.BrowsePostsView.as_view()),
+    url(r'^node/(?P<pk>\d+)/delete/$', views.DeleteNodeView.as_view(),
+        name='delete-node'),
     (r'^pending_comments/$', views.PendingCommentsView.as_view()),
     (r'^pending_comments/delete/$', views.DeletePendingCommentsView.as_view()),
     (r'^edit_post/(?P<node_id>\d+)/$', views.EditPostView.as_view()),
