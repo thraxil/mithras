@@ -4,7 +4,7 @@ import django
 from django.core.cache import cache
 from django.core.mail import mail_managers
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator, PageNotAnInteger
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils.decorators import method_decorator
 from django.views.generic.base import View
 from django.views.generic.base import TemplateView
@@ -32,6 +32,8 @@ class IndexView(TemplateView):
         try:
             p = paginator.page(self.request.GET.get('page', '1'))
         except PageNotAnInteger:
+            p = paginator.page('1')
+        except EmptyPage:
             p = paginator.page('1')
         return dict(posts=p.object_list, paginator=p)
 
