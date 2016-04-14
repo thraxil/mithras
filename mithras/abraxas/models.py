@@ -177,7 +177,9 @@ class NodeTagger(object):
 def class_from_weight(w, thresholds):
     matches = [p[0] for p in enumerate(thresholds)
                if p[1] <= w]
-    return matches[-1] + 1
+    if len(matches) > 0:
+        return matches[-1] + 1
+    return 1
 
 
 def ex_weights(l):
