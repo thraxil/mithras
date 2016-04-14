@@ -188,7 +188,8 @@ def scaled_tags():
     levels = 5
 
     tags = [(t, t.node_set.all().count())
-            for t in Tag.objects.all().order_by("name")]
+            for t in Tag.objects.all().order_by("name")
+            if t.node_set.all().count() > 0]
     max_weight = max(ex_weights(tags))
     min_weight = min(ex_weights(tags))
 
