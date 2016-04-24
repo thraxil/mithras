@@ -1,5 +1,7 @@
 import factory
-from mithras.abraxas.models import Users, Node, Post
+from mithras.abraxas.models import (
+    Users, Node, Post, Tag
+)
 
 
 class UsersFactory(factory.DjangoModelFactory):
@@ -34,3 +36,11 @@ class PostFactory(factory.DjangoModelFactory):
     version = 1
     user = factory.SubFactory(UsersFactory)
     format = 'markdown'
+
+
+class TagFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = Tag
+
+    name = 'example'
+    slug = 'example'
