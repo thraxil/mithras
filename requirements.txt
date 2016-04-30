@@ -10,7 +10,7 @@ statsd==3.2.1
 gunicorn==19.4.5
 django-statsd-mozilla==0.3.16
 six==1.10.0
-boto==2.39.0
+boto==2.40.0
 python-dateutil==2.5.3
 textile==2.2.2
 sqlparse==0.1.19
@@ -27,7 +27,7 @@ django-smoketest==1.0.0
 django-debug-toolbar==1.4
 django-waffle==0.11
 django-jenkins==0.18.1
-django-extensions==1.6.1
+django-extensions==1.6.3
 opbeat==3.3
 
 thraxilsettings==0.6.2
