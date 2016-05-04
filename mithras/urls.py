@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
-
+from expvar.views import ExpVarView
 from mithras.abraxas.feeds import MainFeed, UserFeed
 import mithras.abraxas.views as views
 
@@ -85,5 +85,6 @@ urlpatterns = patterns(
      'django.contrib.auth.views.login',
      {'template_name': 'admin/login.html'}),
     (r'^admin/', include(admin.site.urls)),
+    url('^debug/vars$', ExpVarView.as_view(), name='expvar'),
     (r'^stats/$', TemplateView.as_view(template_name="stats.html")),
 )

@@ -34,6 +34,7 @@ TEMPLATES = [
 INSTALLED_APPS += [  # noqa
     'mithras.abraxas',
     'django.contrib.sitemaps',
+    'expvar',
 ]
 
 SERVER_EMAIL = 'moderation@thraxil.org'
