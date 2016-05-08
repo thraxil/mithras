@@ -35,6 +35,8 @@ INSTALLED_APPS += [  # noqa
     'mithras.abraxas',
     'django.contrib.sitemaps',
     'expvar',
+    'expvarcmdline',
+    'expvarpsutil',
 ]
 
 SERVER_EMAIL = 'moderation@thraxil.org'
