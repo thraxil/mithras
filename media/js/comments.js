@@ -30,12 +30,12 @@ function commentSubmit() {
         setCookie('name', name, now, '/', '', '');
         setCookie('email', email, now, '/', '', '');
         setCookie('url', url, now, '/', '', '');
-        setCookie('remember','remember',now,'/','','');
+        setCookie('remember', 'remember', now, '/', '', '');
     } else {
-        deleteCookie('name','/','');
-        deleteCookie('email','/','');
-        deleteCookie('url','/','');
-        setCookie('remember','forget',now,'/','','');
+        deleteCookie('name', '/', '');
+        deleteCookie('email', '/', '');
+        deleteCookie('url', '/', '');
+        setCookie('remember', 'forget', now, '/', '', '');
     }
 
     return true;
