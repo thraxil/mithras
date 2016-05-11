@@ -12,7 +12,7 @@ django-statsd-mozilla==0.3.16
 six==1.10.0
 boto==2.40.0
 python-dateutil==2.5.3
-textile==2.3.0
+textile==2.3.1
 sqlparse==0.1.19
 ipaddress==1.0.16
 fake-factory==0.5.7
