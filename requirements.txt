@@ -2,7 +2,7 @@ Django==1.9.6
 Markdown==2.6.6
 psycopg2==2.6.1
 coverage==4.0.3
-pyflakes==1.2.2
+pyflakes==1.2.3
 pep8==1.7.0
 mccabe==0.4.0
 flake8==2.5.4
