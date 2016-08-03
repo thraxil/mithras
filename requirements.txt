@@ -15,7 +15,7 @@ python-dateutil==2.5.3
 textile==2.3.3
 sqlparse==0.2.0
 ipaddress==1.0.16
-fake-factory==0.5.9
+fake-factory==0.5.10
 factory_boy==2.7.0
 psutil==4.3.0
 
