@@ -5,6 +5,9 @@ coverage==4.2
 pyflakes==1.2.3
 pep8==1.7.0
 mccabe==0.5.0
+enum34==1.1.6
+configparser==3.5.0
+pycodestyle==2.0
 flake8==3.0.3
 statsd==3.2.1
 gunicorn==19.6.0
