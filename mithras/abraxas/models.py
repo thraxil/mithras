@@ -74,14 +74,14 @@ def clear_unused_tags():
 
 
 class Node(models.Model):
-    slug = models.CharField(max_length=256)
-    status = models.CharField(max_length=7)
+    slug = models.CharField(max_length=256, db_index=True)
+    status = models.CharField(max_length=7, db_index=True)
     comments_allowed = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=256)
     modified = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(Users)
-    type = models.CharField(max_length=8)
+    type = models.CharField(max_length=8, db_index=True)
     tags = models.ManyToManyField(Tag, blank=True)
 
     class Meta:
