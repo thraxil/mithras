@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.views.generic import TemplateView
 from expvar.views import ExpVarView
 from mithras.abraxas.feeds import MainFeed, UserFeed
@@ -21,49 +21,50 @@ sitemaps = {
 
 feeds = dict(main=MainFeed)
 
-urlpatterns = patterns(
-    '',
-    (r'^$', views.IndexView.as_view()),
-    (r'^sitemap\.xml$',
-     'django.contrib.sitemaps.views.sitemap',
-     {'sitemaps': sitemaps}),
-    (r'smoketest/', include('smoketest.urls')),
-    (r'^manage/$', views.ManageView.as_view()),
-    (r'^add_post/$', views.AddPostView.as_view()),
-    (r'^browse_posts/$', views.BrowsePostsView.as_view()),
+urlpatterns = [
+    url(r'^$', views.IndexView.as_view()),
+    url(r'^sitemap\.xml$',
+        'django.contrib.sitemaps.views.sitemap',
+        {'sitemaps': sitemaps}),
+    url(r'smoketest/', include('smoketest.urls')),
+    url(r'^manage/$', views.ManageView.as_view()),
+    url(r'^add_post/$', views.AddPostView.as_view()),
+    url(r'^browse_posts/$', views.BrowsePostsView.as_view()),
     url(r'^node/(?P<pk>\d+)/delete/$', views.DeleteNodeView.as_view(),
         name='delete-node'),
-    (r'^pending_comments/$', views.PendingCommentsView.as_view()),
-    (r'^pending_comments/delete/$', views.DeletePendingCommentsView.as_view()),
-    (r'^edit_post/(?P<node_id>\d+)/$', views.EditPostView.as_view()),
-    (r'^search/$', 'mithras.abraxas.views.search'),
-    (r'^users/$', views.UsersView.as_view()),
-    (r'^users/(?P<username>.*)/feed/$', UserFeed()),
-    (r'^users/(?P<username>\w+)/$', views.UserIndexView.as_view()),
-    (r'^users/(?P<username>\w+)/(?P<type>\w+)s/$',
-     views.UserTypeIndexView.as_view()),
-    (r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/$',
-     views.UserTypeYearIndexView.as_view()),
-    (r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/(?P<month>\d+)/$',
-     views.UserTypeMonthIndexView.as_view()),
-    ((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
-      r'(?P<month>\d+)/(?P<day>\d+)/$'),
-     views.UserTypeDayIndexView.as_view()),
-    ((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
-      r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/$'),
-     views.NodeView.as_view()),
-    ((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
-      r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/add_comment/$'),
-     'mithras.abraxas.views.add_comment'),
-    ((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
-      r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/comments/$'),
-     views.NodeView.as_view()),
+    url(r'^pending_comments/$', views.PendingCommentsView.as_view()),
+    url(r'^pending_comments/delete/$',
+        views.DeletePendingCommentsView.as_view()),
+    url(r'^edit_post/(?P<node_id>\d+)/$', views.EditPostView.as_view()),
+    url(r'^search/$', 'mithras.abraxas.views.search'),
+    url(r'^users/$', views.UsersView.as_view()),
+    url(r'^users/(?P<username>.*)/feed/$', UserFeed()),
+    url(r'^users/(?P<username>\w+)/$', views.UserIndexView.as_view()),
+    url(r'^users/(?P<username>\w+)/(?P<type>\w+)s/$',
+        views.UserTypeIndexView.as_view()),
+    url(r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/$',
+        views.UserTypeYearIndexView.as_view()),
+    url((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
+         '(?P<month>\d+)/$'),
+        views.UserTypeMonthIndexView.as_view()),
+    url((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
+         r'(?P<month>\d+)/(?P<day>\d+)/$'),
+        views.UserTypeDayIndexView.as_view()),
+    url((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
+         r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/$'),
+        views.NodeView.as_view()),
+    url((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
+         r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/add_comment/$'),
+        'mithras.abraxas.views.add_comment'),
+    url((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
+         r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/comments/$'),
+        views.NodeView.as_view()),
     # user type year month day slug comments atom
-    ((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
-      r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/comments/',
-      r'(?P<cyear>\d+)-(?P<cmonth>\d+)-(?P<cday>\d+)-(?P<chour>\d+)'
-      r'-(?P<cminute>\d+)-(?P<csecond>\d+)/$'),
-     views.CommentView.as_view()),
+    url((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
+         r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/comments/',
+         r'(?P<cyear>\d+)-(?P<cmonth>\d+)-(?P<cday>\d+)-(?P<chour>\d+)'
+         r'-(?P<cminute>\d+)-(?P<csecond>\d+)/$'),
+        views.CommentView.as_view()),
     # user type year month day slug version
     # user tags
     # user tag
@@ -71,20 +72,20 @@ urlpatterns = patterns(
     # user field value
     # user feeds/index.rss
     # user feeds/atom.xml
-    (r'^tags/$', views.TagsView.as_view()),
-    (r'^tags/(?P<slug>[^/]+)/$', views.TagView.as_view()),
-    (r'^fields/$', 'mithras.abraxas.views.fields'),
-    (r'^fields/(?P<name>[^/]+)/$', 'mithras.abraxas.views.field'),
-    (r'^fields/(?P<name>[^/]+)/(?P<value>.+)/$',
-     'mithras.abraxas.views.field_value'),
-    (r'^feeds/(?P<url>.*)/$', MainFeed()),
+    url(r'^tags/$', views.TagsView.as_view()),
+    url(r'^tags/(?P<slug>[^/]+)/$', views.TagView.as_view()),
+    url(r'^fields/$', 'mithras.abraxas.views.fields'),
+    url(r'^fields/(?P<name>[^/]+)/$', 'mithras.abraxas.views.field'),
+    url(r'^fields/(?P<name>[^/]+)/(?P<value>.+)/$',
+        'mithras.abraxas.views.field_value'),
+    url(r'^feeds/(?P<url>.*)/$', MainFeed()),
     url(r'^logout/$',
         view='django.contrib.auth.logout',
         name='logout'),
-    (r'^login/$',
-     'django.contrib.auth.views.login',
-     {'template_name': 'admin/login.html'}),
-    (r'^admin/', include(admin.site.urls)),
+    url(r'^login/$',
+        'django.contrib.auth.views.login',
+        {'template_name': 'admin/login.html'}),
+    url(r'^admin/', include(admin.site.urls)),
     url('^debug/vars$', ExpVarView.as_view(), name='expvar'),
-    (r'^stats/$', TemplateView.as_view(template_name="stats.html")),
-)
+    url(r'^stats/$', TemplateView.as_view(template_name="stats.html")),
+]
