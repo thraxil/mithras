@@ -1,12 +1,13 @@
+import django.contrib.auth.views
+import django.contrib.sitemaps.views
+import mithras.abraxas.views as views
+
 from django.conf.urls import include, url
 from django.views.generic import TemplateView
 from expvar.views import ExpVarView
 from mithras.abraxas.feeds import MainFeed, UserFeed
-import mithras.abraxas.views as views
-
 from django.contrib import admin
 from django.contrib.sitemaps import GenericSitemap
-
 from mithras.abraxas.models import Node
 
 admin.autodiscover()
@@ -24,7 +25,7 @@ feeds = dict(main=MainFeed)
 urlpatterns = [
     url(r'^$', views.IndexView.as_view()),
     url(r'^sitemap\.xml$',
-        'django.contrib.sitemaps.views.sitemap',
+        django.contrib.sitemaps.views.sitemap,
         {'sitemaps': sitemaps}),
     url(r'smoketest/', include('smoketest.urls')),
     url(r'^manage/$', views.ManageView.as_view()),
@@ -36,7 +37,7 @@ urlpatterns = [
     url(r'^pending_comments/delete/$',
         views.DeletePendingCommentsView.as_view()),
     url(r'^edit_post/(?P<node_id>\d+)/$', views.EditPostView.as_view()),
-    url(r'^search/$', 'mithras.abraxas.views.search'),
+    url(r'^search/$', views.search),
     url(r'^users/$', views.UsersView.as_view()),
     url(r'^users/(?P<username>.*)/feed/$', UserFeed()),
     url(r'^users/(?P<username>\w+)/$', views.UserIndexView.as_view()),
@@ -55,7 +56,7 @@ urlpatterns = [
         views.NodeView.as_view()),
     url((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
          r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/add_comment/$'),
-        'mithras.abraxas.views.add_comment'),
+        views.add_comment),
     url((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
          r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/comments/$'),
         views.NodeView.as_view()),
@@ -74,16 +75,15 @@ urlpatterns = [
     # user feeds/atom.xml
     url(r'^tags/$', views.TagsView.as_view()),
     url(r'^tags/(?P<slug>[^/]+)/$', views.TagView.as_view()),
-    url(r'^fields/$', 'mithras.abraxas.views.fields'),
-    url(r'^fields/(?P<name>[^/]+)/$', 'mithras.abraxas.views.field'),
-    url(r'^fields/(?P<name>[^/]+)/(?P<value>.+)/$',
-        'mithras.abraxas.views.field_value'),
+    url(r'^fields/$', views.fields),
+    url(r'^fields/(?P<name>[^/]+)/$', views.field),
+    url(r'^fields/(?P<name>[^/]+)/(?P<value>.+)/$', views.field_value),
     url(r'^feeds/(?P<url>.*)/$', MainFeed()),
     url(r'^logout/$',
-        view='django.contrib.auth.logout',
+        view=django.contrib.auth.logout,
         name='logout'),
     url(r'^login/$',
-        'django.contrib.auth.views.login',
+        django.contrib.auth.views.login,
         {'template_name': 'admin/login.html'}),
     url(r'^admin/', include(admin.site.urls)),
     url('^debug/vars$', ExpVarView.as_view(), name='expvar'),
