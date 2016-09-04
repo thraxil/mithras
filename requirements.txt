@@ -20,7 +20,7 @@ sqlparse==0.2.1
 ipaddress==1.0.16
 fake-factory==0.6.0
 factory_boy==2.7.0
-psutil==4.3.0
+psutil==4.3.1
 
 django-markwhat==1.5
 django-appconf==1.0.2
