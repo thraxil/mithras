@@ -37,6 +37,6 @@ django-extensions==1.7.4
 django-expvar==0.2.1
 django-expvar-cmdline==0.1.0
 django-expvar-psutil==0.1.0
-opbeat==3.4.0
+opbeat==3.5.0
 
 thraxilsettings==0.6.2
