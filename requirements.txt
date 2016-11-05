@@ -1,4 +1,4 @@
-Django==1.10
+Django==1.10.3
 Markdown==2.6.7
 psycopg2==2.6.2
 coverage==4.2
@@ -7,7 +7,7 @@ pep8==1.7.0
 mccabe==0.5.2
 enum34==1.1.6
 configparser==3.5.0
-pycodestyle==2.0
+pycodestyle==2.1.0
 flake8==3.0.4
 statsd==3.2.1
 gunicorn==19.6.0
@@ -37,6 +37,6 @@ django-extensions==1.7.4
 django-expvar==0.2.1
 django-expvar-cmdline==0.1.0
 django-expvar-psutil==0.1.0
-opbeat==3.5.0
+opbeat==3.5.1
 
 thraxilsettings==0.6.2
