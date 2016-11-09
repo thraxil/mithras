@@ -16,7 +16,7 @@ six==1.10.0
 boto==2.43.0
 python-dateutil==2.6.0
 
-textile==2.3.5
+textile==2.3.6
 sqlparse==0.2.2
 
 ipaddress==1.0.17
