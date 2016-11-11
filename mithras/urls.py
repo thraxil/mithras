@@ -23,10 +23,11 @@ sitemaps = {
 feeds = dict(main=MainFeed)
 
 urlpatterns = [
-    url(r'^$', views.IndexView.as_view()),
+    url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^sitemap\.xml$',
         django.contrib.sitemaps.views.sitemap,
-        {'sitemaps': sitemaps}),
+        {'sitemaps': sitemaps},
+        name='sitemap'),
     url(r'smoketest/', include('smoketest.urls')),
     url(r'^manage/$', views.ManageView.as_view()),
     url(r'^add_post/$', views.AddPostView.as_view()),
@@ -39,8 +40,9 @@ urlpatterns = [
     url(r'^edit_post/(?P<node_id>\d+)/$', views.EditPostView.as_view()),
     url(r'^search/$', views.search),
     url(r'^users/$', views.UsersView.as_view()),
-    url(r'^users/(?P<username>.*)/feed/$', UserFeed()),
-    url(r'^users/(?P<username>\w+)/$', views.UserIndexView.as_view()),
+    url(r'^users/(?P<username>.*)/feed/$', UserFeed(), name="user-feed"),
+    url(r'^users/(?P<username>\w+)/$', views.UserIndexView.as_view(),
+        name="user-index"),
     url(r'^users/(?P<username>\w+)/(?P<type>\w+)s/$',
         views.UserTypeIndexView.as_view()),
     url(r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/$',
@@ -56,7 +58,8 @@ urlpatterns = [
         views.NodeView.as_view()),
     url((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
          r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/add_comment/$'),
-        views.add_comment),
+        views.add_comment,
+        name="add-comment"),
     url((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
          r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/comments/$'),
         views.NodeView.as_view()),

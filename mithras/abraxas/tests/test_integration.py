@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.client import Client
 from .factories import PostFactory
@@ -8,18 +9,19 @@ class BasicTest(TestCase):
         self.c = Client()
 
     def test_empty_root(self):
-        response = self.c.get("/")
+        response = self.c.get(reverse("index"))
         self.assertEqual(response.status_code, 200)
 
     def test_nonempty_root(self):
         p = PostFactory()
-        response = self.c.get("/")
+        response = self.c.get(reverse("index"))
         self.assertEqual(response.status_code, 200)
         self.assertTrue(p.node.title in response.content)
 
     def test_user_index(self):
         p = PostFactory()
-        response = self.c.get("/users/" + p.node.user.username + "/")
+        response = self.c.get(
+            reverse("user-index", args=[p.node.user.username]))
         self.assertEqual(response.status_code, 200)
         self.assertTrue(p.node.title in response.content)
 
@@ -31,12 +33,21 @@ class BasicTest(TestCase):
 
     def test_user_feed(self):
         p = PostFactory()
-        response = self.c.get("/users/" + p.node.user.username + "/feed/")
+        response = self.c.get(
+            reverse("user-feed", args=[p.node.user.username]))
         self.assertEqual(response.status_code, 200)
         self.assertTrue(p.node.title in response.content)
 
     def test_smoketest(self):
         response = self.c.get("/smoketest/")
+        self.assertEqual(response.status_code, 200)
+
+    def test_expvar(self):
+        response = self.c.get(reverse('expvar'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_sitemap(self):
+        response = self.c.get(reverse('sitemap'))
         self.assertEqual(response.status_code, 200)
 
 
