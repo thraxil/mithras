@@ -39,4 +39,8 @@ INSTALLED_APPS += [  # noqa
     'expvarpsutil',
 ]
 
+MIDDLEWARE_CLASSES += [ # noqa
+    'django.contrib.messages.middleware.MessageMiddleware',
+]
+
 SERVER_EMAIL = 'moderation@thraxil.org'
