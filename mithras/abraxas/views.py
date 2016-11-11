@@ -108,13 +108,7 @@ class EditPostView(LoggedInMixin, View):
         body = request.POST.get("body", "")
         tags = request.POST.get("tags", "")
         user = get_object_or_404(Users, username=request.user.username)
-        Post.objects.create(node=node, body=body,
-                            version=node.post_count() + 1, user=user,
-                            format="markdown")
-        node.set_tags(tags)
-        node.title = title
-        node.status = "Publish"
-        node.save()
+        node.update_post(title, body, user, tags)
         cache.clear()
         return HttpResponseRedirect("/edit_post/%d/" % node.id)
 

@@ -148,6 +148,15 @@ class Node(models.Model):
     def touch(self):
         pass
 
+    def update_post(self, title, body, user, tags):
+        Post.objects.create(node=self, body=body,
+                            version=self.post_count() + 1, user=user,
+                            format="markdown")
+        self.set_tags(tags)
+        self.title = title
+        self.status = "Publish"
+        self.save()
+
 
 class NodeTagger(object):
     def __init__(self, node):

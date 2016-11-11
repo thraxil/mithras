@@ -17,6 +17,13 @@ class PostTest(TestCase):
         p = PostFactory()
         self.assertEqual(str(p), p.node.title)
 
+    def test_update_post(self):
+        p = PostFactory()
+        p.node.update_post("new title", "new body", p.user, "tags")
+        np = p.node.p()
+        self.assertEqual(p.node.title, "new title")
+        self.assertEqual(np.body, "new body")
+
 
 class ClassFromWeightTest(TestCase):
     def test_zero(self):
