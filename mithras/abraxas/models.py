@@ -295,9 +295,9 @@ class Comment(models.Model):
     node = models.ForeignKey(Node)
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
-    author_email = models.CharField(max_length=256)
-    author_name = models.CharField(max_length=256)
-    author_url = models.CharField(max_length=256)
+    author_email = models.CharField(max_length=256, blank=True)
+    author_name = models.CharField(max_length=256, blank=True)
+    author_url = models.CharField(max_length=256, blank=True)
     reply_to = models.IntegerField()
     status = models.CharField(max_length=30, default="pending",
                               choices=(('pending', 'Pending Moderation'),
