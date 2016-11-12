@@ -277,6 +277,7 @@ class Image(models.Model):
     modified = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(Users)
     format = models.CharField(max_length=256)
+    rhash = models.CharField(max_length=256, default="")
 
     class Meta:
         db_table = u'image'
