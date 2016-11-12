@@ -290,10 +290,16 @@ class Image(models.Model):
         return self.format == "textile"
 
     def scaled_image_url(self):
-        sid = "%05d" % self.node.id
-        p = "/".join(list(sid))
-        return "http://static.thraxil.org/pomelo_images/scaled/%s/%d.%s" % (
-            p, self.node.id, self.ext)
+        if self.rhash != "":
+            return ("https://d2f33fmhbh7cs9.cloudfront.net/"
+                    "image/%s/full/%d.%s" % (
+                        self.rhash, self.node.id, self.ext))
+        else:
+            sid = "%05d" % self.node.id
+            p = "/".join(list(sid))
+            return ("http://static.thraxil.org/pomelo_images/"
+                    "scaled/%s/%d.%s" % (
+                        p, self.node.id, self.ext))
 
 
 class Comment(models.Model):
