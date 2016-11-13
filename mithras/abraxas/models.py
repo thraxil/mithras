@@ -267,7 +267,7 @@ class Bookmark(models.Model):
 
 class Image(models.Model):
     node = models.ForeignKey(Node)
-    description = models.TextField()
+    description = models.TextField(blank=True, default="")
     thumb_width = models.IntegerField()
     thumb_height = models.IntegerField()
     height = models.IntegerField()
