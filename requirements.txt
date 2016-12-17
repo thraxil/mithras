@@ -20,7 +20,7 @@ textile==2.3.6
 sqlparse==0.2.2
 
 ipaddress==1.0.17
-Faker==0.7.3
+Faker==0.7.5
 factory_boy==2.7.0
 psutil==5.0.0
 
