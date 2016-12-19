@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .factories import UsersFactory, PostFactory, TagFactory
+from .factories import UsersFactory, PostFactory, TagFactory, BookmarkFactory
 from ..models import (
     class_from_weight, make_slug, get_or_create_tag,
     Tag,
@@ -23,6 +23,19 @@ class PostTest(TestCase):
         np = p.node.p()
         self.assertEqual(p.node.title, "new title")
         self.assertEqual(np.body, "new body")
+
+
+class BookmarkTest(TestCase):
+    def test_str(self):
+        b = BookmarkFactory()
+        self.assertEqual(str(b), b.node.title)
+
+    def test_textile(self):
+        b = BookmarkFactory()
+        self.assertFalse(b.textile())
+        b.format = 'textile'
+        b.save()
+        self.assertTrue(b.textile())
 
 
 class ClassFromWeightTest(TestCase):

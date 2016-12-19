@@ -1,6 +1,6 @@
 import factory
 from mithras.abraxas.models import (
-    Users, Node, Post, Tag
+    Users, Node, Post, Tag, Bookmark
 )
 
 
@@ -36,6 +36,20 @@ class PostFactory(factory.DjangoModelFactory):
     version = 1
     user = factory.SubFactory(UsersFactory)
     format = 'markdown'
+
+
+class BookmarkFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = Bookmark
+
+    node = factory.SubFactory(NodeFactory)
+    description = 'some text for the post'
+    version = 1
+    user = factory.SubFactory(UsersFactory)
+    format = 'markdown'
+    url = 'https://example.com/'
+    via_name = 'somewhere'
+    via_url = 'https://somewhere.example.com/'
 
 
 class TagFactory(factory.DjangoModelFactory):
