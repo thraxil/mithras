@@ -1,5 +1,6 @@
 from django.test import TestCase
-from .factories import UsersFactory, PostFactory, TagFactory, BookmarkFactory
+from .factories import (
+    UsersFactory, PostFactory, TagFactory, BookmarkFactory, ImageFactory)
 from ..models import (
     class_from_weight, make_slug, get_or_create_tag,
     Tag,
@@ -36,6 +37,26 @@ class BookmarkTest(TestCase):
         b.format = 'textile'
         b.save()
         self.assertTrue(b.textile())
+
+
+class ImageTest(TestCase):
+    def test_str(self):
+        i = ImageFactory()
+        self.assertTrue(i.node.title in str(i))
+
+    def test_textile(self):
+        i = ImageFactory()
+        self.assertFalse(i.textile())
+        i.format = 'textile'
+        i.save()
+        self.assertTrue(i.textile())
+
+    def test_scaled_image_url(self):
+        i = ImageFactory()
+        self.assertTrue(i.rhash in i.scaled_image_url())
+        i.rhash = ""
+        i.save()
+        self.assertTrue("pomelo" in i.scaled_image_url())
 
 
 class ClassFromWeightTest(TestCase):
