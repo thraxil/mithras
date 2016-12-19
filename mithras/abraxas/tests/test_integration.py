@@ -50,6 +50,10 @@ class BasicTest(TestCase):
         response = self.c.get(reverse('sitemap'))
         self.assertEqual(response.status_code, 200)
 
+    def test_empty_tags_index(self):
+        response = self.c.get(reverse('tags-index'))
+        self.assertEqual(response.status_code, 200)
+
 
 class CommentsTest(TestCase):
     def setUp(self):

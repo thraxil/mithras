@@ -5,7 +5,7 @@
 
 {% block breadcrumbs %}
 
-<a href="/">//thraxil.org</a>/<a href="/tags/">tags</a>/{{tag.name}}/
+<a href="{% url 'index' %}">//thraxil.org</a>/<a href="{% url 'tags-index' %}">tags</a>/{{tag.name}}/
 {% endblock %}
 
 {% block content %}
