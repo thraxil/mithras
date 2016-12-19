@@ -47,7 +47,7 @@
 
 <div id="wrapper">
 <div id="breadcrumbs"><div id="bcinner">{% block breadcrumbs %}{% endblock %}</div>
-<div id="search"><form action="/search/"
+<div id="search"><form action="{% url 'search' %}"
 		       method="get"><input type="text" name="q"
 		       /><input type="submit" value="search" /></form>
 </div>
