@@ -1,6 +1,8 @@
 from django.test import TestCase
 from .factories import (
-    UsersFactory, PostFactory, TagFactory, BookmarkFactory, ImageFactory)
+    UsersFactory, PostFactory, TagFactory, BookmarkFactory, ImageFactory,
+    NodeFactory,
+)
 from ..models import (
     class_from_weight, make_slug, get_or_create_tag,
     Tag,
@@ -97,3 +99,80 @@ class TestGetOrCreateTag(TestCase):
         get_or_create_tag('foo')
         get_or_create_tag('foo')
         self.assertEqual(Tag.objects.count(), 1)
+
+
+class TestNode(TestCase):
+    def test_p(self):
+        p = PostFactory()
+        self.assertEqual(p, p.node.p())
+
+    def test_b(self):
+        b = BookmarkFactory()
+        self.assertEqual(b, b.node.b())
+
+    def test_i(self):
+        i = ImageFactory()
+        self.assertEqual(i, i.node.i())
+
+    def test_is_post(self):
+        p = NodeFactory(type='post')
+        b = NodeFactory(type='bookmark')
+        i = NodeFactory(type='image')
+
+        self.assertTrue(p.is_post())
+        self.assertFalse(b.is_post())
+        self.assertFalse(i.is_post())
+
+    def test_is_bookmark(self):
+        p = NodeFactory(type='post')
+        b = NodeFactory(type='bookmark')
+        i = NodeFactory(type='image')
+
+        self.assertFalse(p.is_bookmark())
+        self.assertTrue(b.is_bookmark())
+        self.assertFalse(i.is_bookmark())
+
+    def test_is_image(self):
+        p = NodeFactory(type='post')
+        b = NodeFactory(type='bookmark')
+        i = NodeFactory(type='image')
+
+        self.assertFalse(p.is_image())
+        self.assertFalse(b.is_image())
+        self.assertTrue(i.is_image())
+
+    def test_has_comments(self):
+        n = NodeFactory()
+        self.assertFalse(n.has_comments())
+
+    def test_num_comments(self):
+        n = NodeFactory()
+        self.assertEqual(n.num_comments(), 0)
+
+    def test_top_level_comments(self):
+        n = NodeFactory()
+        self.assertEqual(n.top_level_comments().count(), 0)
+
+    def test_has_tags(self):
+        n = NodeFactory()
+        self.assertFalse(n.has_tags())
+
+    def test_tags_string(self):
+        n = NodeFactory()
+        self.assertFalse(n.tags_string(), "")
+
+    def test_add_tag(self):
+        n = NodeFactory()
+        n.add_tag("foo")
+        self.assertEqual(n.get_tags().count(), 1)
+
+    def test_add_tag_from_string(self):
+        n = NodeFactory()
+        n.add_tag_from_string("foo")
+        self.assertEqual(n.get_tags().count(), 1)
+
+    def test_post_count(self):
+        n = NodeFactory()
+        self.assertEqual(n.post_count(), 0)
+        p = PostFactory()
+        self.assertEqual(p.node.post_count(), 1)
