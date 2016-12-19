@@ -196,6 +196,9 @@ def ex_weights(l):
 
 
 def scaled_tags():
+    if Tag.objects.all().count() < 1:
+        return
+
     levels = 5
 
     tags = [(t, t.node_set.all().count())
