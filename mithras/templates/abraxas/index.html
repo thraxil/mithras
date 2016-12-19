@@ -4,13 +4,13 @@
 {% load filterlib %}
 
 {% block breadcrumbs %}
-<a href="/">//thraxil.org</a>/
+<a href="{% url 'index' %}">//thraxil.org</a>/
 {% endblock %}
 
 {% block nav %}
-<a href="/tags/">tags</a>
-<a href="/fields/">fields</a>
-<a href="/users/">users</a>
+<a href="{% url 'tags-index' %}">tags</a>
+<a href="{% url 'fields-index' %}">fields</a>
+<a href="{% url 'users-index' %}">users</a>
 {% endblock %}
 
 {% block content %}

@@ -39,7 +39,7 @@ urlpatterns = [
         views.DeletePendingCommentsView.as_view()),
     url(r'^edit_post/(?P<node_id>\d+)/$', views.EditPostView.as_view()),
     url(r'^search/$', views.search, name='search'),
-    url(r'^users/$', views.UsersView.as_view()),
+    url(r'^users/$', views.UsersView.as_view(), name='users-index'),
     url(r'^users/(?P<username>.*)/feed/$', UserFeed(), name="user-feed"),
     url(r'^users/(?P<username>\w+)/$', views.UserIndexView.as_view(),
         name="user-index"),
@@ -76,9 +76,9 @@ urlpatterns = [
     # user field value
     # user feeds/index.rss
     # user feeds/atom.xml
-    url(r'^tags/$', views.TagsView.as_view()),
+    url(r'^tags/$', views.TagsView.as_view(), name='tags-index'),
     url(r'^tags/(?P<slug>[^/]+)/$', views.TagView.as_view()),
-    url(r'^fields/$', views.fields),
+    url(r'^fields/$', views.fields, name='fields-index'),
     url(r'^fields/(?P<name>[^/]+)/$', views.field),
     url(r'^fields/(?P<name>[^/]+)/(?P<value>.+)/$', views.field_value),
     url(r'^feeds/(?P<url>.*)/$', MainFeed()),
