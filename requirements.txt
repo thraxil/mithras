@@ -19,7 +19,7 @@ python-dateutil==2.6.0
 textile==2.3.6
 sqlparse==0.2.2
 
-ipaddress==1.0.17
+ipaddress==1.0.18
 
 Faker==0.7.7
 
