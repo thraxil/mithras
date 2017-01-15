@@ -227,7 +227,6 @@ class UserTypeMonthIndexView(MonthArchiveView):
             Users, username=self.kwargs['username'])
         context['type'] = self.kwargs['type']
         context['year'] = self.kwargs['year']
-        context['month'] = self.kwargs['month']
         return context
 
 
@@ -250,7 +249,6 @@ class UserTypeDayIndexView(DayArchiveView):
         context['type'] = self.kwargs['type']
         context['year'] = self.kwargs['year']
         context['month'] = self.kwargs['month']
-        context['day'] = self.kwargs['day']
         return context
 
 
