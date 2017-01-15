@@ -2,6 +2,7 @@ import django.contrib.auth.views
 import django.contrib.sitemaps.views
 import mithras.abraxas.views as views
 
+from django.conf import settings
 from django.conf.urls import include, url
 from django.views.generic import TemplateView
 from expvar.views import ExpVarView
@@ -95,3 +96,9 @@ urlpatterns = [
     url('^debug/vars$', ExpVarView.as_view(), name='expvar'),
     url(r'^stats/$', TemplateView.as_view(template_name="stats.html")),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ]
