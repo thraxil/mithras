@@ -182,6 +182,17 @@ class UserIndexView(TemplateView):
         return dict(user=user, posts=p.object_list, paginator=p)
 
 
+class UserTypeIndex(object):
+    model = Node
+    date_field = "created"
+    context_object_name = "nodes"
+
+    def get_queryset(self):
+        return Node.objects.filter(
+            user__username=self.kwargs['username'],
+            type=self.kwargs['type'], status="Publish")
+
+
 class UserTypeIndexView(TemplateView):
     template_name = "abraxas/user_type_index.html"
 
@@ -194,16 +205,8 @@ class UserTypeIndexView(TemplateView):
         return dict(user=user, type=t, years=years)
 
 
-class UserTypeYearIndexView(YearArchiveView):
+class UserTypeYearIndexView(UserTypeIndex, YearArchiveView):
     template_name = "abraxas/user_type_year_index.html"
-    date_field = "created"
-    model = Node
-    context_object_name = 'nodes'
-
-    def get_queryset(self):
-        return Node.objects.filter(
-            user__username=self.kwargs['username'],
-            type=self.kwargs['type'], status="Publish")
 
     def get_context_data(self, **kwargs):
         context = super(UserTypeYearIndexView,
@@ -214,17 +217,9 @@ class UserTypeYearIndexView(YearArchiveView):
         return context
 
 
-class UserTypeMonthIndexView(MonthArchiveView):
+class UserTypeMonthIndexView(UserTypeIndex, MonthArchiveView):
     template_name = "abraxas/user_type_month_index.html"
-    date_field = "created"
-    model = Node
     month_format = '%m'
-    context_object_name = 'nodes'
-
-    def get_queryset(self):
-        return Node.objects.filter(
-            user__username=self.kwargs['username'],
-            type=self.kwargs['type'], status="Publish")
 
     def get_context_data(self, **kwargs):
         context = super(UserTypeMonthIndexView,
@@ -236,17 +231,9 @@ class UserTypeMonthIndexView(MonthArchiveView):
         return context
 
 
-class UserTypeDayIndexView(DayArchiveView):
+class UserTypeDayIndexView(UserTypeIndex, DayArchiveView):
     template_name = "abraxas/user_type_day_index.html"
-    date_field = "created"
-    model = Node
     month_format = '%m'
-    context_object_name = 'nodes'
-
-    def get_queryset(self):
-        return Node.objects.filter(
-            user__username=self.kwargs['username'],
-            type=self.kwargs['type'], status="Publish")
 
     def get_context_data(self, **kwargs):
         context = super(UserTypeDayIndexView, self).get_context_data(**kwargs)
