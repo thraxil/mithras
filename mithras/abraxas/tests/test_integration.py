@@ -25,6 +25,45 @@ class BasicTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(p.node.title in response.content)
 
+    def test_user_year_type_index(self):
+        p = PostFactory()
+        response = self.c.get(
+            reverse('user-type-year-index',
+                    args=[p.node.user.username, 'post',
+                          p.node.created.year])
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_user_type_year_index(self):
+        p = PostFactory()
+        response = self.c.get(
+            reverse('user-type-year-index',
+                    args=[p.node.user.username, 'post',
+                          p.node.created.year])
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_user_type_month_index(self):
+        p = PostFactory()
+        response = self.c.get(
+            reverse('user-type-month-index',
+                    args=[p.node.user.username, 'post',
+                          p.node.created.year,
+                          p.node.created.month])
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_user_type_day_index(self):
+        p = PostFactory()
+        response = self.c.get(
+            reverse('user-type-day-index',
+                    args=[p.node.user.username, 'post',
+                          p.node.created.year,
+                          p.node.created.month,
+                          p.node.created.day])
+        )
+        self.assertEqual(response.status_code, 200)
+
     def test_nonempty_feed(self):
         p = PostFactory()
         response = self.c.get("/feeds/main/")

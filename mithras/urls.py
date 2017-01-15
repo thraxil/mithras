@@ -46,13 +46,16 @@ urlpatterns = [
     url(r'^users/(?P<username>\w+)/(?P<type>\w+)s/$',
         views.UserTypeIndexView.as_view()),
     url(r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/$',
-        views.UserTypeYearIndexView.as_view()),
+        views.UserTypeYearIndexView.as_view(),
+        name='user-type-year-index'),
     url((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
          '(?P<month>\d+)/$'),
-        views.UserTypeMonthIndexView.as_view()),
+        views.UserTypeMonthIndexView.as_view(),
+        name='user-type-month-index'),
     url((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
          r'(?P<month>\d+)/(?P<day>\d+)/$'),
-        views.UserTypeDayIndexView.as_view()),
+        views.UserTypeDayIndexView.as_view(),
+        name='user-type-day-index'),
     url((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
          r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/$'),
         views.NodeView.as_view()),
