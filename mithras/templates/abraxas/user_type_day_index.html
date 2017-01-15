@@ -3,15 +3,15 @@
 
 {% block title %}{{ user.fullname }}/{{ type }}/{{ year }}/{{ month }}{% endblock %}
 {% block breadcrumbs %}
-<a href="/">//thraxil.org</a>/<a href="/users/">users</a>/<a href="{{ user.get_absolute_url }}">{{ user.username }}</a>/<a href="{{ user.get_absolute_url }}{{type}}s/">{{ type }}s</a>/<a href="{{ user.get_absolute_url }}{{type}}s/{{year}}/">{{ year }}</a>/<a href="{{user.get_absolute_url}}{{type}}s/{{year}}/{{month}}/">{{ month}}</a>/{{ day }}/
+<a href="/">//thraxil.org</a>/<a href="/users/">users</a>/<a href="{{ user.get_absolute_url }}">{{ user.username }}</a>/<a href="{{ user.get_absolute_url }}{{type}}s/">{{ type }}s</a>/<a href="{{ user.get_absolute_url }}{{type}}s/{{year}}/">{{ year }}</a>/<a href="{{user.get_absolute_url}}{{type}}s/{{year}}/{{month}}/">{{ month}}</a>/{{ day.day }}/
 {% endblock %}
 
 {% block content %}
 
+    <h1>{{day}}</h1>
 <table>
 {% for node in nodes %}
 <tr><th><a href="{{ node.get_absolute_url }}">{{ node.title }}</a></th>
-<td>{{ node.created|date:"D d M Y" }}</td>
 </tr>
 {% endfor %}
 </table>

@@ -8,6 +8,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.utils.decorators import method_decorator
 from django.views.generic.base import View
 from django.views.generic.base import TemplateView
+from django.views.generic.dates import DayArchiveView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView
 from django.views.generic.list import ListView
@@ -224,22 +225,27 @@ class UserTypeMonthIndexView(TemplateView):
                     month=month, days=days)
 
 
-class UserTypeDayIndexView(TemplateView):
+class UserTypeDayIndexView(DayArchiveView):
     template_name = "abraxas/user_type_day_index.html"
+    date_field = "created"
+    model = Node
+    month_format = '%m'
+    context_object_name = 'nodes'
+
+    def get_queryset(self):
+        return Node.objects.filter(
+            user__username=self.kwargs['username'],
+            type=self.kwargs['type'], status="Publish")
 
     def get_context_data(self, **kwargs):
-        username = kwargs['username']
-        t = kwargs['type']
-        year = kwargs['year']
-        month = kwargs['month']
-        day = kwargs['day']
-        user = get_object_or_404(Users, username=username)
-        nodes = Node.objects.filter(
-            user=user, type=t, status="Publish",
-            created__startswith="%04d-%02d-%02d" % (
-                int(year), int(month), int(day)))
-        return dict(user=user, type=t, year=year, month=month,
-                    day=day, nodes=nodes)
+        context = super(UserTypeDayIndexView, self).get_context_data(**kwargs)
+        context['user'] = get_object_or_404(
+            Users, username=self.kwargs['username'])
+        context['type'] = self.kwargs['type']
+        context['year'] = self.kwargs['year']
+        context['month'] = self.kwargs['month']
+        context['day'] = self.kwargs['day']
+        return context
 
 
 def get_node_or_404(**kwargs):
