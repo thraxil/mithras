@@ -44,3 +44,4 @@ MIDDLEWARE_CLASSES += [ # noqa
 ]
 
 SERVER_EMAIL = 'moderation@thraxil.org'
+USE_TZ = False
