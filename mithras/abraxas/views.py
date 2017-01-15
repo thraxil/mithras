@@ -192,6 +192,9 @@ class UserTypeIndex(object):
             user__username=self.kwargs['username'],
             type=self.kwargs['type'], status="Publish")
 
+    def user(self):
+        return get_object_or_404(Users, username=self.kwargs['username'])
+
 
 class UserTypeIndexView(TemplateView):
     template_name = "abraxas/user_type_index.html"
@@ -211,8 +214,7 @@ class UserTypeYearIndexView(UserTypeIndex, YearArchiveView):
     def get_context_data(self, **kwargs):
         context = super(UserTypeYearIndexView,
                         self).get_context_data(**kwargs)
-        context['user'] = get_object_or_404(
-            Users, username=self.kwargs['username'])
+        context['user'] = self.user()
         context['type'] = self.kwargs['type']
         return context
 
@@ -224,8 +226,7 @@ class UserTypeMonthIndexView(UserTypeIndex, MonthArchiveView):
     def get_context_data(self, **kwargs):
         context = super(UserTypeMonthIndexView,
                         self).get_context_data(**kwargs)
-        context['user'] = get_object_or_404(
-            Users, username=self.kwargs['username'])
+        context['user'] = self.user()
         context['type'] = self.kwargs['type']
         context['year'] = self.kwargs['year']
         return context
@@ -237,8 +238,7 @@ class UserTypeDayIndexView(UserTypeIndex, DayArchiveView):
 
     def get_context_data(self, **kwargs):
         context = super(UserTypeDayIndexView, self).get_context_data(**kwargs)
-        context['user'] = get_object_or_404(
-            Users, username=self.kwargs['username'])
+        context['user'] = self.user()
         context['type'] = self.kwargs['type']
         context['year'] = self.kwargs['year']
         context['month'] = self.kwargs['month']
