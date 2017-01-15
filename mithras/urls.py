@@ -46,7 +46,7 @@ urlpatterns = [
         name="user-index"),
     url(r'^users/(?P<username>\w+)/(?P<type>\w+)s/$',
         views.UserTypeIndexView.as_view()),
-    url(r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/$',
+    url(r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>[0-9]{4})/$',
         views.UserTypeYearIndexView.as_view(),
         name='user-type-year-index'),
     url((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
