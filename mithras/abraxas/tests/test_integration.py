@@ -18,10 +18,34 @@ class BasicTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(p.node.title in response.content)
 
+    def test_index_pagenotinteger(self):
+        p = PostFactory()
+        response = self.c.get(reverse("index") + "?page=foo")
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(p.node.title in response.content)
+
+    def test_index_emptypage(self):
+        p = PostFactory()
+        response = self.c.get(reverse("index") + "?page=10")
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(p.node.title in response.content)
+
+    def test_post_view(self):
+        p = PostFactory()
+        response = self.c.get(p.node.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+
     def test_user_index(self):
         p = PostFactory()
         response = self.c.get(
             reverse("user-index", args=[p.node.user.username]))
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(p.node.title in response.content)
+
+    def test_user_index_noninteger(self):
+        p = PostFactory()
+        response = self.c.get(
+            reverse("user-index", args=[p.node.user.username]) + "?page=foo")
         self.assertEqual(response.status_code, 200)
         self.assertTrue(p.node.title in response.content)
 
@@ -91,6 +115,14 @@ class BasicTest(TestCase):
 
     def test_empty_tags_index(self):
         response = self.c.get(reverse('tags-index'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_search_empty(self):
+        response = self.c.get(reverse('search'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_search(self):
+        response = self.c.get(reverse('search') + "?q=foo")
         self.assertEqual(response.status_code, 200)
 
 

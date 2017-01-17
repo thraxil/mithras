@@ -59,7 +59,7 @@ urlpatterns = [
         name='user-type-day-index'),
     url((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
          r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/$'),
-        views.NodeView.as_view()),
+        views.NodeView.as_view(), name='node-detail'),
     url((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
          r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/add_comment/$'),
         views.add_comment,
