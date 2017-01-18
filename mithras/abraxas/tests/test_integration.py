@@ -1,7 +1,8 @@
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.test.client import Client
-from .factories import PostFactory
+from .factories import PostFactory, CommentFactory
+from ..models import Comment
 
 
 class BasicTest(TestCase):
@@ -35,6 +36,17 @@ class BasicTest(TestCase):
         response = self.c.get(p.node.get_absolute_url())
         self.assertEqual(response.status_code, 200)
 
+    def test_post_view_404(self):
+        response = self.c.get(
+            reverse('node-detail',
+                    args=['username', 'post', '2017', '01', '01', 'not-here']))
+        self.assertEqual(response.status_code, 404)
+
+    def test_comment_detail(self):
+        c = CommentFactory()
+        response = self.c.get(c.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+
     def test_user_index(self):
         p = PostFactory()
         response = self.c.get(
@@ -48,6 +60,14 @@ class BasicTest(TestCase):
             reverse("user-index", args=[p.node.user.username]) + "?page=foo")
         self.assertEqual(response.status_code, 200)
         self.assertTrue(p.node.title in response.content)
+
+    def test_user_type_index(self):
+        p = PostFactory()
+        response = self.c.get(
+            reverse('user-type-index',
+                    args=[p.node.user.username, 'post'])
+        )
+        self.assertEqual(response.status_code, 200)
 
     def test_user_year_type_index(self):
         p = PostFactory()
@@ -146,3 +166,64 @@ class CommentsTest(TestCase):
             )
         )
         self.assertEqual(response.status_code, 200)
+
+    def test_preview_invalid_reply_to(self):
+        p = PostFactory()
+        n = p.node
+        n.comments_allowed = True
+        n.save()
+        response = self.c.post(
+            n.get_absolute_url() + "add_comment/",
+            dict(
+                url="http://foo.example.com/",
+                content="some content",
+                email='foo@example.com',
+                horse='foo bar',
+                name='',
+                reply_to='not a number',
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Comment.objects.all().count(), 0)
+
+    def test_submit(self):
+        p = PostFactory()
+        n = p.node
+        n.comments_allowed = True
+        n.save()
+        response = self.c.post(
+            n.get_absolute_url() + "add_comment/",
+            dict(
+                url="http://foo.example.com/",
+                content="some content",
+                email='foo@example.com',
+                horse='foo bar',
+                name='',
+                submit='submit comment',
+                original_referer=n.get_absolute_url() + "add_comment/",
+            ),
+            HTTP_REFERER=n.get_absolute_url() + "add_comment/",
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Comment.objects.all().count(), 1)
+
+    def test_submit_honeypot(self):
+        p = PostFactory()
+        n = p.node
+        n.comments_allowed = True
+        n.save()
+        response = self.c.post(
+            n.get_absolute_url() + "add_comment/",
+            dict(
+                url="http://foo.example.com/",
+                content="some content",
+                email='foo@example.com',
+                horse='foo bar',
+                name='stupid spammer',
+                submit='submit comment',
+                original_referer=n.get_absolute_url() + "add_comment/",
+            ),
+            HTTP_REFERER=n.get_absolute_url() + "add_comment/",
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Comment.objects.all().count(), 0)

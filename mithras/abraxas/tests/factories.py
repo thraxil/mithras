@@ -1,6 +1,6 @@
 import factory
 from mithras.abraxas.models import (
-    Users, Node, Post, Tag, Bookmark, Image
+    Users, Node, Post, Tag, Bookmark, Image, Comment
 )
 
 
@@ -76,3 +76,13 @@ class TagFactory(factory.DjangoModelFactory):
 
     name = 'example'
     slug = 'example'
+
+
+class CommentFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = Comment
+
+    node = factory.SubFactory(NodeFactory)
+    body = 'here is a comment'
+    status = 'approved'
+    reply_to = 0

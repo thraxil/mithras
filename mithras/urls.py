@@ -45,7 +45,8 @@ urlpatterns = [
     url(r'^users/(?P<username>\w+)/$', views.UserIndexView.as_view(),
         name="user-index"),
     url(r'^users/(?P<username>\w+)/(?P<type>\w+)s/$',
-        views.UserTypeIndexView.as_view()),
+        views.UserTypeIndexView.as_view(),
+        name='user-type-index'),
     url(r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>[0-9]{4})/$',
         views.UserTypeYearIndexView.as_view(),
         name='user-type-year-index'),
@@ -66,10 +67,10 @@ urlpatterns = [
         name="add-comment"),
     url((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
          r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/comments/$'),
-        views.NodeView.as_view()),
+        views.NodeView.as_view(), name='node-comments-detail'),
     # user type year month day slug comments atom
     url((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
-         r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/comments/',
+         r'(?P<month>\d+)/(?P<day>\d+)/(?P<slug>[\w\-]+)/comments/'
          r'(?P<cyear>\d+)-(?P<cmonth>\d+)-(?P<cday>\d+)-(?P<chour>\d+)'
          r'-(?P<cminute>\d+)-(?P<csecond>\d+)/$'),
         views.CommentView.as_view()),
