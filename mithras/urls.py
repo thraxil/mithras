@@ -39,7 +39,7 @@ urlpatterns = [
     url(r'^pending_comments/delete/$',
         views.DeletePendingCommentsView.as_view()),
     url(r'^edit_post/(?P<node_id>\d+)/$', views.EditPostView.as_view()),
-    url(r'^search/$', views.search, name='search'),
+    url(r'^search/$', views.SearchView.as_view(), name='search'),
     url(r'^users/$', views.UsersView.as_view(), name='users-index'),
     url(r'^users/(?P<username>.*)/feed/$', UserFeed(), name="user-feed"),
     url(r'^users/(?P<username>\w+)/$', views.UserIndexView.as_view(),

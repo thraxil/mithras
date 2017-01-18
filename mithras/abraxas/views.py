@@ -41,27 +41,29 @@ class IndexView(TemplateView):
         return dict(posts=p.object_list, paginator=p)
 
 
-def search(request):
-    q = request.GET.get("q", "")
-    nodes = []
-    if q != "":
-        title_matches = list(Node.objects.filter(title__icontains=q))[:50]
-        post_matches = [p.node for p
-                        in Post.objects.filter(body__icontains=q)][:50]
-        bookmark_matches = [
-            p.node for p
-            in Bookmark.objects.filter(
-                description__icontains=q)][:50]
-        image_matches = [
-            p.node for p
-            in Image.objects.filter(
-                description__icontains=q)][:50]
-        nodes = uniquify(title_matches + post_matches + bookmark_matches +
-                         image_matches)
-        nodes.sort(key=lambda x: x.created)
-        nodes.reverse()
-    return render(request, "abraxas/search_results.html",
-                  dict(q=q, nodes=nodes))
+class SearchView(TemplateView):
+    template_name = "abraxas/search_results.html"
+
+    def get_context_data(self):
+        q = self.request.GET.get("q", "")
+        nodes = []
+        if q != "":
+            title_matches = list(Node.objects.filter(title__icontains=q))[:50]
+            post_matches = [p.node for p
+                            in Post.objects.filter(body__icontains=q)][:50]
+            bookmark_matches = [
+                p.node for p
+                in Bookmark.objects.filter(
+                    description__icontains=q)][:50]
+            image_matches = [
+                p.node for p
+                in Image.objects.filter(
+                    description__icontains=q)][:50]
+            nodes = uniquify(title_matches + post_matches + bookmark_matches +
+                             image_matches)
+            nodes.sort(key=lambda x: x.created)
+            nodes.reverse()
+        return dict(q=q, nodes=nodes)
 
 
 class BrowsePostsView(LoggedInMixin, TemplateView):
