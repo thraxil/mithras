@@ -37,7 +37,7 @@ django-smoketest==1.0.0
 django-debug-toolbar==1.6
 django-waffle==0.11.1
 django-jenkins==0.110.0
-django-extensions==1.7.6
+django-extensions==1.7.7
 django-expvar==0.2.1
 django-expvar-cmdline==0.1.0
 django-expvar-psutil==0.1.0
