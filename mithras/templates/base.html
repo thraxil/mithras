@@ -1,3 +1,4 @@
+{% load bootstrap3 %}
 {% load compress %}
 <html>
 <head><title>thraxil.org: {% block title %}{% endblock %}</title>
@@ -8,12 +9,12 @@
     <link href="https://www.linkedin.com/in/thraxil" rel="me">
     
   <meta name=viewport content="width=device-width, initial-scale=1">
-  {% compress js %}
-  <script src="{{STATIC_URL}}dist/bootstrap.js"></script>
-  {% endcompress %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript jquery=1 %}
 
   {% compress css %}
   <link rel="stylesheet" href="{{STATIC_URL}}css/masthead.css"/>
+  <link rel="stylesheet" href="{{STATIC_URL}}css/site.css"/>  
   {% endcompress %}
 {% block css %}{% endblock %}
 

@@ -16,9 +16,3 @@ $(JS_SENTINAL): package.json
 	rm -rf $(NODE_MODULES)
 	npm install
 	touch $(JS_SENTINAL)
-
-$(WP_SENTINAL): $(JS_SENTINAL) $(JS_FILES) webpack.*.config.js bootstrap.config.* media/css/site.css
-	$(WEBPACK) --config $(WEBPACK_CONFIG)
-	touch $@
-
-webpack: $(WP_SENTINAL)

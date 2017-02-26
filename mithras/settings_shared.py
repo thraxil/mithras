@@ -37,6 +37,7 @@ INSTALLED_APPS += [  # noqa
     'expvar',
     'expvarcmdline',
     'expvarpsutil',
+    'bootstrap3',
 ]
 
 MIDDLEWARE_CLASSES += [ # noqa
