@@ -1,6 +1,5 @@
 from django.db import models
 import re
-from django.template import Context
 from django.template.loader import get_template
 import math
 
@@ -359,7 +358,7 @@ class Comment(models.Model):
         chunks = []
         for reply in self.replies():
             template = get_template("abraxas/replies.html")
-            c = Context(dict(comment=reply))
+            c = dict(comment=reply)
             chunks.append(template.render(c))
         return "".join(chunks)
 
