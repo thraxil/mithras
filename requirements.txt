@@ -1,4 +1,4 @@
-Django==1.11
+Django==1.11.2
 Markdown==2.6.8
 psycopg2==2.7
 coverage==4.4
