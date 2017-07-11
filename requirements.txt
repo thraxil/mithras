@@ -14,7 +14,7 @@ gunicorn==19.7.1
 django-statsd-mozilla==0.3.16
 six==1.10.0
 boto==2.48.0
-python-dateutil==2.6.0
+python-dateutil==2.6.1
 pytz==2017.2
 
 textile==2.3.12
