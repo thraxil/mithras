@@ -17,7 +17,7 @@ boto==2.48.0
 python-dateutil==2.6.1
 pytz==2017.2
 
-textile==2.3.12
+textile==2.3.15
 sqlparse==0.2.3
 
 ipaddress==1.0.18
