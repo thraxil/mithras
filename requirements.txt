@@ -24,7 +24,7 @@ ipaddress==1.0.18
 
 Faker==0.7.18
 
-factory_boy==2.8.1
+factory_boy==2.9.0
 
 psutil==5.2.2
 
