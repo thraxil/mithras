@@ -18,7 +18,7 @@ python-dateutil==2.6.1
 pytz==2017.2
 
 textile==2.3.12
-sqlparse==0.2.3
+sqlparse==0.2.4
 
 ipaddress==1.0.18
 
