@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Node, Image, Post, Bookmark, Comment, Users, MetaField, Tag
+from .models import Node, Image, Post, Bookmark, Comment, Users, MetaField, Tag
 
 
 class NodeAdmin(admin.ModelAdmin):

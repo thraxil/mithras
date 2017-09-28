@@ -2,8 +2,8 @@
 VE ?= ./ve
 MANAGE ?= ./manage.py
 FLAKE8 ?= $(VE)/bin/flake8
-SYS_PYTHON ?= python
-PIP ?= $(VE)/bin/pip
+SYS_PYTHON ?= python3
+PIP ?= $(VE)/bin/pip3
 SENTINAL ?= $(VE)/sentinal
 PYPI_URL ?= https://pypi.ccnmtl.columbia.edu/
 WHEEL_VERSION ?= 0.29.0

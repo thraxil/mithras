@@ -17,19 +17,19 @@ class BasicTest(TestCase):
         p = PostFactory()
         response = self.c.get(reverse("index"))
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(p.node.title in response.content)
+        self.assertTrue(p.node.title in str(response.content))
 
     def test_index_pagenotinteger(self):
         p = PostFactory()
         response = self.c.get(reverse("index") + "?page=foo")
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(p.node.title in response.content)
+        self.assertTrue(p.node.title in str(response.content))
 
     def test_index_emptypage(self):
         p = PostFactory()
         response = self.c.get(reverse("index") + "?page=10")
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(p.node.title in response.content)
+        self.assertTrue(p.node.title in str(response.content))
 
     def test_post_view(self):
         p = PostFactory()
@@ -52,14 +52,14 @@ class BasicTest(TestCase):
         response = self.c.get(
             reverse("user-index", args=[p.node.user.username]))
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(p.node.title in response.content)
+        self.assertTrue(p.node.title in str(response.content))
 
     def test_user_index_noninteger(self):
         p = PostFactory()
         response = self.c.get(
             reverse("user-index", args=[p.node.user.username]) + "?page=foo")
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(p.node.title in response.content)
+        self.assertTrue(p.node.title in str(response.content))
 
     def test_user_type_index(self):
         p = PostFactory()
@@ -112,14 +112,14 @@ class BasicTest(TestCase):
         p = PostFactory()
         response = self.c.get("/feeds/main/")
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(p.node.title in response.content)
+        self.assertTrue(p.node.title in str(response.content))
 
     def test_user_feed(self):
         p = PostFactory()
         response = self.c.get(
             reverse("user-feed", args=[p.node.user.username]))
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(p.node.title in response.content)
+        self.assertTrue(p.node.title in str(response.content))
 
     def test_smoketest(self):
         response = self.c.get("/smoketest/")
