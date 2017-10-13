@@ -23,11 +23,7 @@
                     {{ post.created|date:"D d M Y" }} 
                     | comments: {{ post.num_comments}}
                 </p>
-                {% if p.textile %}
-                    {{ p.body|textile }}
-                {% else %}
-                    {{ p.body|cmarkdown:"codehilite"|safe }}
-                {% endif %}
+                {{ p.body|cmarkdown:"codehilite"|safe }}
                 {% with tags=post.get_tags %}
                 {% if tags %}<div class="tags">
                     TAGS: {% for tag in tags %}

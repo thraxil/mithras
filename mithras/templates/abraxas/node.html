@@ -23,11 +23,7 @@ history
 {{ node.created|date:"D d M Y H:i:s" }}</p>
 
 {% if node.is_post %}
-{% if node.p.textile %}
-{{ node.p.body|textile }}
-{% else %}
 {{ node.p.body|cmarkdown:"codehilite"|safe }}
-{% endif %}
 {% endif %}
 
 {% if node.is_bookmark %}
