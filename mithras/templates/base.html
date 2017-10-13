@@ -18,14 +18,6 @@
   {% endcompress %}
 {% block css %}{% endblock %}
 
-<script type="text/javascript">
-  ;(function() {
-    var dfrr = document.createElement('script'); dfrr.type = 'text/javascript'; dfrr.async = true;
-    dfrr.src = 'https://deferer.s3.amazonaws.com/1.0.0/deferer.min.js';
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(dfrr, s);
-  })();
-</script>
 <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 {% block js %}{% endblock %}
 <link href="/feeds/main/" type="application/atom+xml" rel="alternate" title="Atom feed for thraxil.org" />

@@ -13,7 +13,7 @@
 
 <div class="comment">
 <p class="byline">{{ comment.author_name }} - <a href="{{ comment.get_absolute_url}}">{{ comment.created }}</a></p>
-{{ comment.body|textile }}
+{{ comment.body|markdown }}
 
 {% if comment.has_replies %}
 {{ comment.replies_html|safe }}
@@ -27,7 +27,7 @@
 <input type="hidden" name="reply_to" value="{{ comment.id }}" />
 <textarea name="content" id="comment-textarea"></textarea><br />
 <p style="font-size: .8em;">formatting is
-  with <a href="http://hobix.com/textile/">Textile</a> syntax.
+  with Markdown syntax.
 Comments are not displayed until they are approved by a
   moderator. Moderators will not approve unless the comment
   contributes value to the discussion.

@@ -1,10 +1,10 @@
 language: python
 python:
-  - "2.7"
+  - "3.5"
 install:
-  - pip install -r requirements.txt
-  - pip install coveralls
+  - pip3 install -r requirements.txt
+  - pip3 install coveralls
 script:
-  - python manage.py test mithras
+  - python3 manage.py test mithras
   - coverage run --source=mithras manage.py test mithras
 after_success: coveralls

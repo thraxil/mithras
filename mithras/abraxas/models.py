@@ -149,8 +149,7 @@ class Node(models.Model):
 
     def update_post(self, title, body, user, tags):
         Post.objects.create(node=self, body=body,
-                            version=self.post_count() + 1, user=user,
-                            format="markdown")
+                            version=self.post_count() + 1, user=user)
         self.set_tags(tags)
         self.title = title
         self.status = "Publish"
@@ -234,16 +233,12 @@ class Post(models.Model):
     modified = models.DateTimeField(auto_now=True)
     version = models.IntegerField()
     user = models.ForeignKey(Users)
-    format = models.CharField(max_length=256)
 
     class Meta:
         db_table = u'post'
 
     def __str__(self):
         return self.node.title
-
-    def textile(self):
-        return self.format == "textile"
 
 
 class Bookmark(models.Model):
@@ -255,16 +250,12 @@ class Bookmark(models.Model):
     version = models.IntegerField()
     via_url = models.CharField(max_length=256)
     user = models.ForeignKey(Users)
-    format = models.CharField(max_length=256)
 
     class Meta:
         db_table = u'bookmark'
 
     def __str__(self):
         return self.node.title
-
-    def textile(self):
-        return self.format == "textile"
 
 
 class Image(models.Model):
@@ -278,7 +269,6 @@ class Image(models.Model):
     version = models.IntegerField()
     modified = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(Users)
-    format = models.CharField(max_length=256)
     rhash = models.CharField(max_length=256, default="")
 
     class Meta:
@@ -287,9 +277,6 @@ class Image(models.Model):
     def __str__(self):
         return "Image %d - Node %d - %s" % (self.id, self.node.id,
                                             self.node.title)
-
-    def textile(self):
-        return self.format == "textile"
 
     def scaled_image_url(self):
         if self.rhash != "":

@@ -35,7 +35,6 @@ class PostFactory(factory.DjangoModelFactory):
     body = 'some text for the post'
     version = 1
     user = factory.SubFactory(UsersFactory)
-    format = 'markdown'
 
 
 class BookmarkFactory(factory.DjangoModelFactory):
@@ -46,7 +45,6 @@ class BookmarkFactory(factory.DjangoModelFactory):
     description = 'some text for the post'
     version = 1
     user = factory.SubFactory(UsersFactory)
-    format = 'markdown'
     url = 'https://example.com/'
     via_name = 'somewhere'
     via_url = 'https://somewhere.example.com/'
@@ -60,7 +58,6 @@ class ImageFactory(factory.DjangoModelFactory):
     description = 'some text for the post'
     version = 1
     user = factory.SubFactory(UsersFactory)
-    format = 'markdown'
 
     thumb_width = 100
     thumb_height = 100

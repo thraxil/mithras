@@ -33,25 +33,11 @@ class BookmarkTest(TestCase):
         b = BookmarkFactory()
         self.assertEqual(str(b), b.node.title)
 
-    def test_textile(self):
-        b = BookmarkFactory()
-        self.assertFalse(b.textile())
-        b.format = 'textile'
-        b.save()
-        self.assertTrue(b.textile())
-
 
 class ImageTest(TestCase):
     def test_str(self):
         i = ImageFactory()
         self.assertTrue(i.node.title in str(i))
-
-    def test_textile(self):
-        i = ImageFactory()
-        self.assertFalse(i.textile())
-        i.format = 'textile'
-        i.save()
-        self.assertTrue(i.textile())
 
     def test_scaled_image_url(self):
         i = ImageFactory()

@@ -13,8 +13,8 @@ from django.views.generic.dates import (DayArchiveView, MonthArchiveView,
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView
 from django.views.generic.list import ListView
-from models import Node, Post, Bookmark, Image, Users, Comment, MetaField, Tag
-from models import newest_posts, all_pending_comments, make_slug, scaled_tags
+from .models import Node, Post, Bookmark, Image, Users, Comment, MetaField, Tag
+from .models import newest_posts, all_pending_comments, make_slug, scaled_tags
 
 
 def uniquify(lst):
@@ -152,8 +152,7 @@ class AddPostView(LoggedInMixin, View):
             node.title = title
             node.slug = make_slug(title)
             Post.objects.create(node=node, body=body,
-                                version=node.post_count() + 1, user=user,
-                                format="markdown")
+                                version=node.post_count() + 1, user=user)
             node.status = "Publish"
             node.save()
             cache.clear()

@@ -1,6 +1,6 @@
-Django==1.11.4
-Markdown==2.6.8
-psycopg2==2.7.3
+Django==1.11.6
+Markdown==2.6.9
+psycopg2==2.7.3.1
 coverage==4.4.1
 pyflakes==1.6.0
 pep8==1.7.0
@@ -11,38 +11,38 @@ pycodestyle==2.3.1
 flake8==3.4.1
 statsd==3.2.1
 gunicorn==19.7.1
-django-statsd-mozilla==0.3.16
-six==1.10.0
+django-statsd-mozilla==0.4.0
+six==1.11.0
 boto==2.48.0
 python-dateutil==2.6.1
 pytz==2017.2
 
 textile==2.3.16
-sqlparse==0.2.3
+
+sqlparse==0.2.4
 
 ipaddress==1.0.18
 
-Faker==0.7.18
+Faker==0.8.4
 
 factory_boy==2.9.2
 
-psutil==5.2.2
+psutil==5.4.0
 
 django-bootstrap3==9.0.0
 django-bootstrap-form==3.3
 django-markwhat==1.5.1
 django-appconf==1.0.2
-django-compressor==2.1.1
-django-storages-redux==1.3.3
+django-compressor==2.2
+django-storages==1.6.5
 django-cacheds3storage==0.1.2
 django-smoketest==1.1.0
 django-debug-toolbar==1.8
 django-waffle==0.12.0
 django-jenkins==0.110.0
-django-extensions==1.8.1
 django-expvar==0.2.1
 django-expvar-cmdline==0.1.0
 django-expvar-psutil==0.1.0
 opbeat==3.5.2
 
-thraxilsettings==1.2.1
+thraxilsettings==2.1.0
