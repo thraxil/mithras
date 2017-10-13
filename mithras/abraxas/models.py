@@ -242,9 +242,6 @@ class Post(models.Model):
     def __str__(self):
         return self.node.title
 
-    def textile(self):
-        return self.format == "textile"
-
 
 class Bookmark(models.Model):
     node = models.ForeignKey(Node)
@@ -262,9 +259,6 @@ class Bookmark(models.Model):
 
     def __str__(self):
         return self.node.title
-
-    def textile(self):
-        return self.format == "textile"
 
 
 class Image(models.Model):
@@ -287,9 +281,6 @@ class Image(models.Model):
     def __str__(self):
         return "Image %d - Node %d - %s" % (self.id, self.node.id,
                                             self.node.title)
-
-    def textile(self):
-        return self.format == "textile"
 
     def scaled_image_url(self):
         if self.rhash != "":
