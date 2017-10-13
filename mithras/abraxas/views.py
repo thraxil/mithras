@@ -152,8 +152,7 @@ class AddPostView(LoggedInMixin, View):
             node.title = title
             node.slug = make_slug(title)
             Post.objects.create(node=node, body=body,
-                                version=node.post_count() + 1, user=user,
-                                format="markdown")
+                                version=node.post_count() + 1, user=user)
             node.status = "Publish"
             node.save()
             cache.clear()

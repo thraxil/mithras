@@ -149,8 +149,7 @@ class Node(models.Model):
 
     def update_post(self, title, body, user, tags):
         Post.objects.create(node=self, body=body,
-                            version=self.post_count() + 1, user=user,
-                            format="markdown")
+                            version=self.post_count() + 1, user=user)
         self.set_tags(tags)
         self.title = title
         self.status = "Publish"
@@ -234,7 +233,6 @@ class Post(models.Model):
     modified = models.DateTimeField(auto_now=True)
     version = models.IntegerField()
     user = models.ForeignKey(Users)
-    format = models.CharField(max_length=256)
 
     class Meta:
         db_table = u'post'
@@ -252,7 +250,6 @@ class Bookmark(models.Model):
     version = models.IntegerField()
     via_url = models.CharField(max_length=256)
     user = models.ForeignKey(Users)
-    format = models.CharField(max_length=256)
 
     class Meta:
         db_table = u'bookmark'
@@ -272,7 +269,6 @@ class Image(models.Model):
     version = models.IntegerField()
     modified = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(Users)
-    format = models.CharField(max_length=256)
     rhash = models.CharField(max_length=256, default="")
 
     class Meta:
