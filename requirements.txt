@@ -23,6 +23,8 @@ sqlparse==0.2.4
 
 ipaddress==1.0.18
 
+text-unidecode==1.0
+
 Faker==0.8.6
 
 factory_boy==2.9.2
