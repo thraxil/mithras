@@ -15,7 +15,7 @@ django-statsd-mozilla==0.4.0
 six==1.11.0
 boto==2.48.0
 python-dateutil==2.6.1
-pytz==2017.2
+pytz==2017.3
 
 textile==2.3.16
 
