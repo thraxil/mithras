@@ -45,4 +45,4 @@ django-expvar-cmdline==0.1.0
 django-expvar-psutil==0.1.0
 opbeat==3.5.3
 
-thraxilsettings==2.1.0
+thraxilsettings==3.0.0
