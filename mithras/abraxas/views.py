@@ -433,7 +433,7 @@ def add_comment(request, username, type, year, month, day, slug):
 
 
 def determine_comment_status(request):
-    if not request.user.is_anonymous():
+    if not request.user.is_anonymous:
         return "approved"
     return "pending"
 

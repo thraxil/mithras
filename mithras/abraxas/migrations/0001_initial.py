@@ -101,7 +101,7 @@ class Migration(migrations.Migration):
                 ('modified', models.DateTimeField(auto_now=True)),
                 ('version', models.IntegerField()),
                 ('format', models.CharField(max_length=256)),
-                ('node', models.ForeignKey(to='abraxas.Node')),
+                ('node', models.ForeignKey(to='abraxas.Node', on_delete=models.CASCADE)),
             ],
             options={
                 'db_table': 'post',
@@ -138,7 +138,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='post',
             name='user',
-            field=models.ForeignKey(to='abraxas.Users'),
+            field=models.ForeignKey(to='abraxas.Users', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -150,43 +150,43 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='node',
             name='user',
-            field=models.ForeignKey(to='abraxas.Users'),
+            field=models.ForeignKey(to='abraxas.Users', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='metafield',
             name='node',
-            field=models.ForeignKey(to='abraxas.Node'),
+            field=models.ForeignKey(to='abraxas.Node', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='image',
             name='node',
-            field=models.ForeignKey(to='abraxas.Node'),
+            field=models.ForeignKey(to='abraxas.Node', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='image',
             name='user',
-            field=models.ForeignKey(to='abraxas.Users'),
+            field=models.ForeignKey(to='abraxas.Users', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='comment',
             name='node',
-            field=models.ForeignKey(to='abraxas.Node'),
+            field=models.ForeignKey(to='abraxas.Node', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='bookmark',
             name='node',
-            field=models.ForeignKey(to='abraxas.Node'),
+            field=models.ForeignKey(to='abraxas.Node', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='bookmark',
             name='user',
-            field=models.ForeignKey(to='abraxas.Users'),
+            field=models.ForeignKey(to='abraxas.Users', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]

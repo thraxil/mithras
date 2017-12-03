@@ -93,7 +93,7 @@ urlpatterns = [
     url(r'^login/$',
         django.contrib.auth.views.login,
         {'template_name': 'admin/login.html'}),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
     url('^debug/vars$', ExpVarView.as_view(), name='expvar'),
     url(r'^stats/$', TemplateView.as_view(template_name="stats.html")),
 ]
