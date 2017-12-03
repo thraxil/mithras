@@ -79,7 +79,7 @@ class Node(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=256)
     modified = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(Users)
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
     type = models.CharField(max_length=8, db_index=True)
     tags = models.ManyToManyField(Tag, blank=True)
 
@@ -216,7 +216,7 @@ def scaled_tags():
 
 
 class MetaField(models.Model):
-    node = models.ForeignKey(Node)
+    node = models.ForeignKey(Node, on_delete=models.CASCADE)
     field_value = models.CharField(max_length=256)
     field_name = models.CharField(max_length=256)
 
@@ -228,11 +228,11 @@ class MetaField(models.Model):
 
 
 class Post(models.Model):
-    node = models.ForeignKey(Node)
+    node = models.ForeignKey(Node, on_delete=models.CASCADE)
     body = models.TextField()
     modified = models.DateTimeField(auto_now=True)
     version = models.IntegerField()
-    user = models.ForeignKey(Users)
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
 
     class Meta:
         db_table = u'post'
@@ -242,14 +242,14 @@ class Post(models.Model):
 
 
 class Bookmark(models.Model):
-    node = models.ForeignKey(Node)
+    node = models.ForeignKey(Node, on_delete=models.CASCADE)
     description = models.TextField()
     url = models.CharField(max_length=256)
     via_name = models.CharField(max_length=256)
     modified = models.DateTimeField(auto_now=True)
     version = models.IntegerField()
     via_url = models.CharField(max_length=256)
-    user = models.ForeignKey(Users)
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
 
     class Meta:
         db_table = u'bookmark'
@@ -259,7 +259,7 @@ class Bookmark(models.Model):
 
 
 class Image(models.Model):
-    node = models.ForeignKey(Node)
+    node = models.ForeignKey(Node, on_delete=models.CASCADE)
     description = models.TextField(blank=True, default="")
     thumb_width = models.IntegerField()
     thumb_height = models.IntegerField()
@@ -268,7 +268,7 @@ class Image(models.Model):
     ext = models.CharField(max_length=3)
     version = models.IntegerField()
     modified = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(Users)
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
     rhash = models.CharField(max_length=256, default="")
 
     class Meta:
@@ -292,7 +292,7 @@ class Image(models.Model):
 
 
 class Comment(models.Model):
-    node = models.ForeignKey(Node)
+    node = models.ForeignKey(Node, on_delete=models.CASCADE)
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     author_email = models.CharField(max_length=256, blank=True)
