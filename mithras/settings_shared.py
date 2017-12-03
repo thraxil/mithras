@@ -40,7 +40,7 @@ INSTALLED_APPS += [  # noqa
     'bootstrap3',
 ]
 
-MIDDLEWARE_CLASSES += [ # noqa
+MIDDLEWARE += [ # noqa
     'django.contrib.messages.middleware.MessageMiddleware',
 ]
 
