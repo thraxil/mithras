@@ -1,5 +1,5 @@
 Django==2.0
-Markdown==2.6.9
+Markdown==2.6.10
 psycopg2==2.7.3.2
 coverage==4.4.2
 pyflakes==1.6.0
