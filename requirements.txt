@@ -19,7 +19,7 @@ pytz==2017.3
 
 sqlparse==0.2.4
 
-ipaddress==1.0.18
+ipaddress==1.0.19
 
 text-unidecode==1.1
 
