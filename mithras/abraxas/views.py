@@ -178,7 +178,7 @@ class UserIndexView(TemplateView):
         paginator = Paginator(user.newest_posts(), 10)
         try:
             p = paginator.page(self.request.GET.get('page', '1'))
-        except PageNotAnInteger:
+        except (PageNotAnInteger, EmptyPage):
             p = paginator.page('1')
         return dict(user=user, posts=p.object_list, paginator=p)
 
