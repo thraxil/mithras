@@ -11,7 +11,6 @@
 env.APP = APP
 env.REPO = REPO
 env.ADMIN_EMAIL = ADMIN_EMAIL
-env.GIT_COMMIT = GIT_COMMIT
 
 def hosts = HOSTS.split(" ")
 
@@ -133,7 +132,7 @@ try {
                 sh '''curl ${SENTRY_URL} \
   -X POST \
   -H "Content-Type: application/json" \
-  -d "{\"version\": \"${GIT_COMMIT}\"}"'''
+  -d "{\"version\": \"${env.GIT_COMMIT}\"}"'''
             }
         }
     }
