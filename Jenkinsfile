@@ -129,11 +129,11 @@ try {
     if (sentry) {
         node {
             stage("Sentry") {
-                GIT_COMMIT_HASH = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
-                sh '''curl ${SENTRY_URL} \
+                sh '''COMMIT=$(git log -n 1 --pretty=format:'%H')
+  curl ${SENTRY_URL} \
   -X POST \
   -H "Content-Type: application/json" \
-  -d "{\"version\": \"${GIT_COMMIT_HASH}\"}"'''
+  -d "{\"version\": \"${COMMIT}\"}"'''
             }
         }
     }
