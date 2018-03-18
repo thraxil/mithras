@@ -132,7 +132,7 @@ try {
                 sh '''curl ${SENTRY_URL} \
   -X POST \
   -H "Content-Type: application/json" \
-  -d "{\"version\": `git rev-parse --abbrev-ref HEAD`}"'''
+  -d "{\"version\": \"${GIT_COMMIT}\"}"'''
             }
         }
     }
