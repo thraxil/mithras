@@ -11,6 +11,7 @@
 env.APP = APP
 env.REPO = REPO
 env.ADMIN_EMAIL = ADMIN_EMAIL
+env.GIT_COMMIT = GIT_COMMIT
 
 def hosts = HOSTS.split(" ")
 
