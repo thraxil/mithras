@@ -133,7 +133,8 @@ try {
   curl ${SENTRY_URL} \
   -X POST \
   -H "Content-Type: application/json" \
-  -d '{"version": "${COMMIT}"}''''
+  -d "{\\\"version\\\": \\\"${COMMIT}\\\"}"
+   '''
             }
         }
     }
