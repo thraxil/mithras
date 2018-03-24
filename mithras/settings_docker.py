@@ -3,7 +3,6 @@ from .settings_shared import *
 from thraxilsettings.docker import common
 import os.path
 import os
-import raven
 
 app = 'mithras'
 base = os.path.dirname(__file__)
@@ -17,10 +16,3 @@ locals().update(
         STATIC_ROOT=STATIC_ROOT,
         MIDDLEWARE=MIDDLEWARE,
     ))
-
-RAVEN_DSN = os.environ.get('RAVEN_DSN', None)
-
-if RAVEN_DSN:
-    RAVEN_CONFIG = {
-        'dsn': RAVEN_DSN,
-    }

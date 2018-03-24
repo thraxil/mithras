@@ -38,7 +38,6 @@ INSTALLED_APPS += [  # noqa
     'expvarcmdline',
     'expvarpsutil',
     'bootstrap3',
-    'raven.contrib.django.raven_compat',
 ]
 
 MIDDLEWARE += [ # noqa
