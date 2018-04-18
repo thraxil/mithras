@@ -43,6 +43,6 @@ django-jenkins==0.110.0
 django-expvar==0.2.1
 django-expvar-cmdline==0.1.0
 django-expvar-psutil==0.1.0
-raven==6.6.0
+raven==6.7.0
 
 thraxilsettings==3.1.0
