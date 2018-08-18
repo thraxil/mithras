@@ -1,4 +1,4 @@
-import django.contrib.auth.views
+import django.contrib.auth.views as auth_views
 import django.contrib.sitemaps.views
 import mithras.abraxas.views as views
 
@@ -87,12 +87,9 @@ urlpatterns = [
     url(r'^fields/(?P<name>[^/]+)/$', views.field),
     url(r'^fields/(?P<name>[^/]+)/(?P<value>.+)/$', views.field_value),
     url(r'^feeds/(?P<url>.*)/$', MainFeed()),
-    url(r'^logout/$',
-        view=django.contrib.auth.logout,
-        name='logout'),
-    url(r'^login/$',
-        django.contrib.auth.views.login,
-        {'template_name': 'admin/login.html'}),
+    url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
+    url(r'^login/$', auth_views.LoginView.as_view(
+        template_name='admin/login.html')),
     url(r'^admin/', admin.site.urls),
     url('^debug/vars$', ExpVarView.as_view(), name='expvar'),
     url(r'^stats/$', TemplateView.as_view(template_name="stats.html")),
