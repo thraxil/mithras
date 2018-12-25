@@ -46,3 +46,9 @@ django-expvar-psutil==0.1.0
 raven==6.10.0
 
 thraxilsettings==3.1.0
+
+google-api-core==1.7.0
+google-auth==1.6.2
+protobuf==3.6.1
+googleapis-common-protos==1.5.5
+opencensus==0.1.10
