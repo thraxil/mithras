@@ -14,7 +14,7 @@ from mithras.abraxas.models import Node
 admin.autodiscover()
 
 node_info_dict = {
-    'queryset': Node.objects.all(),
+    'queryset': Node.objects.all().order_by("-created"),
     'date_field': 'modified',
 }
 sitemaps = {
