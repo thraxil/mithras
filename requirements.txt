@@ -32,7 +32,7 @@ psutil==5.5.0
 django-bootstrap3==11.0.0
 django-bootstrap-form==3.4
 django-markwhat==1.6.1
-django-appconf==1.0.2
+django-appconf==1.0.3
 django-compressor==2.2
 django-storages==1.7.1
 django-cacheds3storage==0.1.2
