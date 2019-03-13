@@ -1,5 +1,6 @@
 Django==2.1.7
 Markdown==2.6.11
+
 psycopg2-binary==2.7.7
 
 coverage==4.5.3
@@ -9,7 +10,8 @@ pyflakes==2.1.1
 pep8==1.7.1
 mccabe==0.6.1
 enum34==1.1.6
-configparser==3.7.1
+
+configparser==3.7.3
 
 flake8==3.7.7
 
@@ -53,11 +55,11 @@ raven==6.10.0
 
 thraxilsettings==3.1.0
 
-google-api-core==1.7.0
-
 protobuf==3.7.0
 
 google-auth==1.6.3
+
+google-api-core==1.8.0
 
 googleapis-common-protos==1.5.8
 
