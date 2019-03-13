@@ -51,7 +51,7 @@ urlpatterns = [
         views.UserTypeYearIndexView.as_view(),
         name='user-type-year-index'),
     url((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
-         '(?P<month>\d+)/$'),
+         r'(?P<month>\d+)/$'),
         views.UserTypeMonthIndexView.as_view(),
         name='user-type-month-index'),
     url((r'^users/(?P<username>\w+)/(?P<type>\w+)s/(?P<year>\d+)/'
