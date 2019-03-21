@@ -40,12 +40,12 @@ INSTALLED_APPS += [  # noqa
     'expvarpsutil',
     'bootstrap3',
 
-    'opencensus.trace.ext.django',
+    'opencensus.ext.django',
 ]
 
 MIDDLEWARE += [ # noqa
     'django.contrib.messages.middleware.MessageMiddleware',
-    'opencensus.trace.ext.django.middleware.OpencensusMiddleware',
+    'opencensus.ext.django.middleware.OpencensusMiddleware',
 ]
 
 OPENCENSUS_TRACE = {
