@@ -65,3 +65,15 @@ googleapis-common-protos==1.5.9
 
 opencensus==0.3.1
 opencensus-ext-django==0.1.0
+
+phonenumbers==8.10.8
+django-formtools==2.1
+django-phonenumber-field==2.3.1
+django-two-factor-auth==1.8.0
+django-otp==0.5.2
+YubiOTP==0.2.2
+django-otp-yubikey==0.5.0
+qrcode==6.1
+Babel==2.6.0
+YubiOTP==0.2.2
+pycryptodome==3.8.1
