@@ -10,6 +10,7 @@ from mithras.abraxas.feeds import MainFeed, UserFeed
 from django.contrib import admin
 from django.contrib.sitemaps import GenericSitemap
 from mithras.abraxas.models import Node
+from two_factor.urls import urlpatterns as tf_urls
 
 admin.autodiscover()
 
@@ -24,6 +25,7 @@ sitemaps = {
 feeds = dict(main=MainFeed)
 
 urlpatterns = [
+    url(r'', include(tf_urls)),
     url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^sitemap\.xml$',
         django.contrib.sitemaps.views.sitemap,
