@@ -64,7 +64,8 @@ google-api-core==1.9.0
 googleapis-common-protos==1.5.9
 
 opencensus==0.4.0
-opencensus-ext-django==0.1.0
+
+opencensus-ext-django==0.2.0
 
 phonenumbers==8.10.9
 django-formtools==2.1
