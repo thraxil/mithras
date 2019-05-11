@@ -10,7 +10,7 @@ action "branch cleanup" {
 
 workflow "run tests" {
   on = "push"
-  resolves = ["docker push"]
+  resolves = ["deploy"]
 }
 
 action "Build docker image" {
@@ -34,4 +34,19 @@ action "docker push" {
   needs = ["docker login"]
   uses = "actions/docker/cli@master"
   args = ["push", "thraxil/mithras:$GITHUB_SHA"]
+}
+
+action "deploy" {
+  needs = "docker push"
+	uses = "thraxil/django-deploy-action@master"
+	secrets = [
+     "PRIVATE_KEY",
+		 "PUBLIC_KEY",
+		 "SENTRY_URL",
+  ]
+	env = {
+    USER = "anders"
+		APP = "mithras"
+		WEB_HOSTS = "10.136.34.96 10.136.76.24"
+  }
 }
