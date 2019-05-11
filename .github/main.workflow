@@ -47,6 +47,6 @@ action "deploy" {
 	env = {
     USER = "anders"
 		APP = "mithras"
-		WEB_HOSTS = "10.136.34.96 10.136.76.24"
+		WEB_HOSTS = "174.138.40.31 174.138.34.34"
   }
 }
