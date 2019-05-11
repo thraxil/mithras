@@ -78,3 +78,5 @@ LOGIN_URL = 'two_factor:login'
 
 # this one is optional
 LOGIN_REDIRECT_URL = 'two_factor:profile'
+
+SECURE_BROWSER_XSS_FILTER = True
