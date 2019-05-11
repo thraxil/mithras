@@ -15,7 +15,7 @@ workflow "run tests" {
 
 action "Build docker image" {
   uses = "actions/docker/cli@master"
-  args = "build -t thraxil/mithras ."
+  args = "build -t thraxil/mithras:$GITHUB_SHA ."
 }
 
 action "Deploy branch filter" {
@@ -33,5 +33,5 @@ action "docker login" {
 action "docker push" {
   needs = ["docker login"]
   uses = "actions/docker/cli@master"
-  args = ["push", "thraxil/mithras"]
+  args = ["push", "thraxil/mithras:$GITHUB_SHA"]
 }
