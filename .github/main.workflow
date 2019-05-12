@@ -52,13 +52,13 @@ workflow "run tests" {
 
 action "sentry release" {
 #  needs = ["sentry new release"]
-	uses = "juankaram/sentry@master"
+	uses = "juankaram/sentry-release@master"
 	secrets = [
     "SENTRY_AUTH_TOKEN"
   ]
-	args = ["releases new --finalize ${GITHUB_SHA}"]
 	env = {
     SENTRY_ORG = "thraxil"
 		SENTRY_PROJECT = "mithras"
+		ENVIRONMENT = "production"
   }
 }
