@@ -10,7 +10,7 @@ action "branch cleanup" {
 
 workflow "run tests" {
   on = "push"
-  resolves = ["deploy"]
+  resolves = ["sentry release"]
 }
 
 action "Build docker image" {
@@ -42,11 +42,23 @@ action "deploy" {
 	secrets = [
      "PRIVATE_KEY",
 		 "PUBLIC_KEY",
-		 "SENTRY_URL",
   ]
 	env = {
     SSH_USER = "anders"
 		APP = "mithras"
 		WEB_HOSTS = "174.138.40.31 174.138.34.34"
   }
+}
+
+action "sentry release" {
+  needs = ["deploy"]
+	uses = "actions/bin/curl@master"
+	secrets = [
+    "SENTRY_URL"
+  ]
+	args = [
+	  "${SENTRY_URL}",
+		"-X", "POST",
+		"-H", "Content-Type: application/json",
+		"-d", "{\"version\": \"${GITHUB_SHA}\"}"]
 }
