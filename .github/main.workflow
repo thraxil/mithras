@@ -52,13 +52,13 @@ workflow "run tests" {
 
 action "sentry release" {
 #  needs = ["deploy"]
-	uses = "actions/bin/curl@master"
+	uses = "juankaram/sentry@master"
 	secrets = [
-    "SENTRY_URL"
+    "SENTRY_AUTH_TOKEN"
   ]
-	args = [
-	  "$SENTRY_URL",
-		"-X", "POST",
-		"-H", "\"Content-Type: application/json\"",
-		"-d", "{\"version\": \"$GITHUB_SHA\"}"]
+	args = "releases propose-version"
+	env = {
+    SENTRY_ORG = "thraxil"
+		SENTRY_PROJECT = "mithras"
+  }
 }
