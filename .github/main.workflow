@@ -41,12 +41,12 @@ action "deploy" {
 	uses = "thraxil/django-deploy-action@master"
 	secrets = [
      "PRIVATE_KEY",
-		 "PUBLIC_KEY",
+		 "KNOWN_HOSTS",
+		 "WEB_HOSTS",
   ]
 	env = {
     SSH_USER = "anders"
 		APP = "mithras"
-		WEB_HOSTS = "174.138.40.31 174.138.34.34"
   }
 }
 
