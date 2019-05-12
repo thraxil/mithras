@@ -38,27 +38,27 @@ action "docker push" {
 
 action "deploy" {
   needs = "docker push"
-	uses = "thraxil/django-deploy-action@master"
-	secrets = [
+  uses = "thraxil/django-deploy-action@master"
+  secrets = [
      "PRIVATE_KEY",
-		 "KNOWN_HOSTS",
-		 "WEB_HOSTS",
+     "KNOWN_HOSTS",
+     "WEB_HOSTS",
   ]
-	env = {
+  env = {
     SSH_USER = "anders"
-		APP = "mithras"
+    APP = "mithras"
   }
 }
 
 action "sentry release" {
   needs = ["deploy"]
-	uses = "juankaram/sentry-release@master"
-	secrets = [
+  uses = "juankaram/sentry-release@master"
+  secrets = [
     "SENTRY_AUTH_TOKEN"
   ]
-	env = {
+  env = {
     SENTRY_ORG = "thraxil"
-		SENTRY_PROJECT = "mithras"
-		ENVIRONMENT = "production"
+    SENTRY_PROJECT = "mithras"
+    ENVIRONMENT = "production"
   }
 }
