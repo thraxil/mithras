@@ -60,5 +60,5 @@ action "sentry release" {
 	  "$SENTRY_URL",
 		"-X", "POST",
 		"-H", "\"Content-Type: application/json\"",
-		"-d", "\"{\"version\": \"$GITHUB_SHA\"}\""]
+		"-d", "'{"version": "$GITHUB_SHA"}'"]
 }
