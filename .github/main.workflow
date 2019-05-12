@@ -50,26 +50,13 @@ workflow "run tests" {
 #   }
 # }
 
-action "sentry new release" {
-#  needs = ["deploy"]
-	uses = "juankaram/sentry@master"
-	secrets = [
-    "SENTRY_AUTH_TOKEN"
-  ]
-	args = ["releases", "new", "$GITHUB_SHA"]
-	env = {
-    SENTRY_ORG = "thraxil"
-		SENTRY_PROJECT = "mithras"
-  }
-}
-
 action "sentry release" {
-  needs = ["sentry new release"]
+#  needs = ["sentry new release"]
 	uses = "juankaram/sentry@master"
 	secrets = [
     "SENTRY_AUTH_TOKEN"
   ]
-	args = ["releases", "finalize", "$GITHUB_SHA"]	
+	args = ["releases new ${GITHUB_SHA} --finalize"]
 	env = {
     SENTRY_ORG = "thraxil"
 		SENTRY_PROJECT = "mithras"
