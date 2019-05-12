@@ -56,7 +56,7 @@ action "sentry release" {
 	secrets = [
     "SENTRY_AUTH_TOKEN"
   ]
-	args = ["releases new ${GITHUB_SHA} --finalize"]
+	args = ["releases new --finalize ${GITHUB_SHA}"]
 	env = {
     SENTRY_ORG = "thraxil"
 		SENTRY_PROJECT = "mithras"
