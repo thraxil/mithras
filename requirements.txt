@@ -68,7 +68,7 @@ opencensus-ext-django==0.2.0
 
 phonenumbers==8.10.11
 django-formtools==2.1
-django-phonenumber-field==2.4.0
+django-phonenumber-field==3.0.0
 django-two-factor-auth==1.8.0
 django-otp==0.6.0
 YubiOTP==0.2.2
