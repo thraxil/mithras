@@ -1,5 +1,5 @@
-Django==2.2.1
-Markdown==2.6.11 # pyup: <3.0
+Django==2.2.2
+Markdown==3.1.1 # pyup: <3.0
 
 psycopg2-binary==2.8.2
 
@@ -11,7 +11,7 @@ pep8==1.7.1
 mccabe==0.6.1
 enum34==1.1.6
 
-configparser==3.7.4
+configparser==3.8.0
 
 flake8==3.7.7
 
@@ -41,7 +41,7 @@ django-bootstrap3==11.0.0
 django-bootstrap-form==3.4
 django-markwhat==1.6.1
 django-appconf==1.0.3
-django-compressor==2.2
+django-compressor==2.3
 django-storages==1.7.1
 django-cacheds3storage==0.1.2
 django-smoketest==1.1.0
@@ -55,18 +55,18 @@ raven==6.10.0
 
 thraxilsettings==3.1.1
 
-protobuf==3.7.1
+protobuf==3.8.0
 
 google-auth==1.6.3
 
 google-api-core==1.11.1
 
-googleapis-common-protos==1.5.10
+googleapis-common-protos==1.6.0
 
-opencensus==0.3.1
-opencensus-ext-django==0.2.0
+opencensus==0.6.0
+opencensus-ext-django==0.3.1
 
-phonenumbers==8.10.11
+phonenumbers==8.10.13
 django-formtools==2.1
 django-phonenumber-field==3.0.1
 django-two-factor-auth==1.8.0
@@ -74,6 +74,6 @@ django-otp==0.6.0
 YubiOTP==0.2.2
 django-otp-yubikey==0.5.0
 qrcode==6.1
-Babel==2.6.0
+Babel==2.7.0
 YubiOTP==0.2.2
-pycryptodome==3.8.1
+pycryptodome==3.8.2
