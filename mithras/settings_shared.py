@@ -1,7 +1,6 @@
 # Django settings for mithras project.
 import os.path
 from thraxilsettings.shared import common
-from opencensus.trace import config_integration
 
 app = 'mithras'
 base = os.path.dirname(__file__)
@@ -40,7 +39,6 @@ INSTALLED_APPS += [  # noqa
     'expvarpsutil',
     'bootstrap3',
 
-    'opencensus.ext.django',
     'django_otp',
     'django_otp.plugins.otp_static',
     'django_otp.plugins.otp_totp',
@@ -50,26 +48,8 @@ INSTALLED_APPS += [  # noqa
 
 MIDDLEWARE += [ # noqa
     'django.contrib.messages.middleware.MessageMiddleware',
-    'opencensus.ext.django.middleware.OpencensusMiddleware',
     'django_otp.middleware.OTPMiddleware',
 ]
-
-OPENCENSUS_TRACE = {
-    'SAMPLER': 'opencensus.trace.samplers.always_on.AlwaysOnSampler',
-    'EXPORTER': 'opencensus.trace.exporters.print_exporter.PrintExporter',
-    #    'PROPAGATOR':
-    #    'opencensus.trace.propagation.google_cloud_format.'
-    #    'GoogleCloudFormatPropagator',
-}
-
-OPENCENSUS_TRACE_PARAMS = {
-    'SAMPLING_RATE': 0.5,
-    'SERVICE_NAME': 'mithras',
-}
-
-integration = ['postgresql']
-
-config_integration.trace_integrations(integration)
 
 SERVER_EMAIL = 'moderation@thraxil.org'
 USE_TZ = False
