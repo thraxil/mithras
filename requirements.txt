@@ -63,7 +63,7 @@ google-api-core==1.14.2
 
 googleapis-common-protos==1.6.0
 
-phonenumbers==8.10.15
+phonenumbers==8.10.16
 django-formtools==2.1
 django-phonenumber-field==3.0.1
 django-two-factor-auth==1.9.1
