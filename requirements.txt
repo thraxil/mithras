@@ -67,7 +67,7 @@ phonenumbers==8.10.18
 django-formtools==2.1
 django-phonenumber-field==3.0.1
 django-two-factor-auth==1.9.1
-django-otp==0.6.0
+django-otp==0.7.1
 YubiOTP==0.2.2.post1
 django-otp-yubikey==0.5.0
 qrcode==6.1
