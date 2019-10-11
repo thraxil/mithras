@@ -9,18 +9,14 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Build docker image
-      uses: actions/docker/cli@master
-      with:
-        args: build -t thraxil/mithras:${{ github.sha }} .
+      run: docker build -t thraxil/mithras:${{ github.sha }} .
     - name: docker login
-      uses: actions/docker/login@master
+      run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       env:
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     - name: docker push
-      uses: actions/docker/cli@master
-      with:
-        args: push thraxil/mithras:${{ github.sha }}
+      run: docker push thraxil/mithras:${{ github.sha }}
     - name: deploy
       uses: thraxil/django-deploy-action@master
       env:
@@ -29,6 +25,8 @@ jobs:
         PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
         SSH_USER: anders
         WEB_HOSTS: ${{ secrets.WEB_HOSTS }}
+        CELERY_HOSTS: ${{ secrets.CELERY_HOSTS }}
+        BEAT_HOSTS: ${{ secrets.BEAT_HOSTS }}
     - name: sentry release
       uses: juankaram/sentry-release@master
       env:
