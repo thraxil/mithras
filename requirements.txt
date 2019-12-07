@@ -65,7 +65,7 @@ googleapis-common-protos==1.6.0
 
 phonenumbers==8.11.0
 django-formtools==2.1
-django-phonenumber-field==3.0.1
+django-phonenumber-field==4.0.0
 django-two-factor-auth==1.9.1
 django-otp==0.7.4
 YubiOTP==0.2.2.post1
