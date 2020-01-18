@@ -1,4 +1,4 @@
-Django==2.2.7
+Django==2.2.8
 Markdown==2.6.11 # pyup: <3.0
 
 psycopg2-binary==2.8.4
@@ -31,13 +31,13 @@ ipaddress==1.0.23
 
 text-unidecode==1.3
 
-Faker==2.0.4
+Faker==3.0.0
 
 factory_boy==2.12.0
 
 psutil==5.6.7
 
-django-bootstrap3==11.1.0
+django-bootstrap3==12.0.3
 django-bootstrap-form==3.4
 django-markwhat==1.6.2
 django-appconf==1.0.3
@@ -55,18 +55,22 @@ raven==6.10.0
 
 thraxilsettings==3.1.1
 
-protobuf==3.11.0
+protobuf==3.11.2
 
-google-auth==1.7.1
+google-auth==1.8.2
 
 google-api-core==1.14.3
 
 googleapis-common-protos==1.6.0
 
 phonenumbers==8.11.0
-django-formtools==2.1
+
 django-phonenumber-field==4.0.0
-django-two-factor-auth==1.9.1
+
+django-formtools==2.2
+
+django-two-factor-auth==1.10.0
+
 django-otp==0.7.4
 YubiOTP==0.2.2.post1
 django-otp-yubikey==0.5.2
