@@ -37,7 +37,7 @@ factory_boy==2.12.0
 
 psutil==5.6.7
 
-django-bootstrap3==12.0.1
+django-bootstrap3==12.0.3
 django-bootstrap-form==3.4
 django-markwhat==1.6.2
 django-appconf==1.0.3
@@ -55,7 +55,7 @@ raven==6.10.0
 
 thraxilsettings==3.1.1
 
-protobuf==3.11.1
+protobuf==3.11.2
 
 google-auth==1.8.2
 
@@ -64,10 +64,15 @@ google-api-core==1.14.3
 googleapis-common-protos==1.6.0
 
 phonenumbers==8.11.2
+
+django-phonenumber-field==4.0.0
+
 django-formtools==2.2
-django-phonenumber-field==3.0.1
+
 django-two-factor-auth==1.10.0
-django-otp==0.7.4
+
+django-otp==0.7.5
+
 YubiOTP==0.2.2.post1
 django-otp-yubikey==0.5.2
 qrcode==6.1
