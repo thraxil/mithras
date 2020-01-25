@@ -3,7 +3,9 @@ from django.conf import settings
 import beeline
 
 
-class MyAppConfig(AppConfig):
+class AbraxasConfig(AppConfig):
+    name = 'mithras.abraxas'
+
     def ready(self):
         if settings.HONEYCOMB_WRITEKEY and settings.HONEYCOMB_DATASET:
             beeline.init(
