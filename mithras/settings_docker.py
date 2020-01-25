@@ -16,3 +16,6 @@ locals().update(
         STATIC_ROOT=STATIC_ROOT,
         MIDDLEWARE=MIDDLEWARE,
     ))
+
+HONEYCOMB_WRITEKEY = os.environ.get('HONEYCOMB_WRITEKEY')
+HONEYCOMB_DATASET = os.environ.get('HONEYCOMB_DATASET')

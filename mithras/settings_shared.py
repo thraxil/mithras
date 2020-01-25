@@ -49,6 +49,7 @@ INSTALLED_APPS += [  # noqa
 MIDDLEWARE += [ # noqa
     'django.contrib.messages.middleware.MessageMiddleware',
     'django_otp.middleware.OTPMiddleware',
+    'beeline.middleware.django.HoneyMiddleware',
 ]
 
 SERVER_EMAIL = 'moderation@thraxil.org'
@@ -60,3 +61,7 @@ LOGIN_URL = 'two_factor:login'
 LOGIN_REDIRECT_URL = 'two_factor:profile'
 
 SECURE_BROWSER_XSS_FILTER = True
+
+# default off
+HONEYCOMB_WRITEKEY = None
+HONEYCOMB_DATASET = None

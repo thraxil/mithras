@@ -83,3 +83,5 @@ Babel==2.8.0
 pycryptodome==3.9.4
 
 YubiOTP==0.2.2.post1
+
+honeycomb-beeline==2.11.3
