@@ -9,7 +9,7 @@ pyflakes==2.1.1
 
 pep8==1.7.1
 mccabe==0.6.1
-enum34==1.1.6
+enum34==1.1.8
 
 configparser==4.0.2
 
