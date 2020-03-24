@@ -84,4 +84,4 @@ pycryptodome==3.9.7
 
 YubiOTP==0.2.2.post1
 
-honeycomb-beeline==2.11.3
+honeycomb-beeline==2.12.1
