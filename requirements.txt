@@ -11,7 +11,7 @@ pep8==1.7.1
 mccabe==0.6.1
 enum34==1.1.9
 
-configparser==4.0.2
+configparser==5.0.0
 
 flake8==3.7.9
 
