@@ -63,7 +63,7 @@ google-auth==1.16.0
 
 google-api-core==1.17.0
 
-googleapis-common-protos==1.51.0
+googleapis-common-protos==1.52.0
 
 phonenumbers==8.12.4
 
