@@ -189,8 +189,8 @@ def class_from_weight(w, thresholds):
     return 1
 
 
-def ex_weights(l):
-    return [int(w) for (t, w) in l]
+def ex_weights(lst):
+    return [int(w) for (t, w) in lst]
 
 
 def scaled_tags():
