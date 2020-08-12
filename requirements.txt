@@ -34,7 +34,7 @@ text-unidecode==1.3
 
 Faker==4.1.1
 
-factory_boy==2.12.0
+factory_boy==3.0.0
 
 psutil==5.7.2
 
