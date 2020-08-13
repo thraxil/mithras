@@ -77,7 +77,7 @@ django-two-factor-auth==1.12.1
 django-otp==1.0.0
 
 YubiOTP==0.2.2.post1
-django-otp-yubikey==0.6.0
+django-otp-yubikey==1.0.0
 qrcode==6.1
 Babel==2.8.0
 
