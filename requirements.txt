@@ -76,14 +76,14 @@ django-two-factor-auth==1.12.1
 
 django-otp==0.9.4
 
-YubiOTP==0.2.2.post1
+YubiOTP==1.0.0.post1
 django-otp-yubikey==0.6.0
 qrcode==6.1
 Babel==2.8.0
 
 pycryptodome==3.9.8
 
-YubiOTP==0.2.2.post1
+YubiOTP==1.0.0.post1
 
 libhoney==1.9.0
 
