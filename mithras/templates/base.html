@@ -1,24 +1,23 @@
 {% load bootstrap3 %}
 {% load compress %}
 <html>
-<head><title>thraxil.org: {% block title %}{% endblock %}</title>
+    <head><title>thraxil.org: {% block title %}{% endblock %}</title>
 
-    <link href="https://twitter.com/thraxil" rel="me">
-    <link href="https://github.com/thraxil" rel="me">
-    <link href="mailto:anders@columbia.edu" rel="me">
-    <link href="https://www.linkedin.com/in/thraxil" rel="me">
-    
-  <meta name=viewport content="width=device-width, initial-scale=1">
-  {% bootstrap_css %}
-  {% bootstrap_javascript jquery=1 %}
+        <link href="https://twitter.com/thraxil" rel="me">
+        <link href="https://github.com/thraxil" rel="me">
+        <link href="mailto:anders@columbia.edu" rel="me">
+        <link href="https://www.linkedin.com/in/thraxil" rel="me">
+        
+        <meta name=viewport content="width=device-width, initial-scale=1">
+        {% bootstrap_css %}
+        {% bootstrap_javascript jquery=1 %}
 
-  {% compress css %}
-  <link rel="stylesheet" href="{{STATIC_URL}}css/masthead.css"/>
-  <link rel="stylesheet" href="{{STATIC_URL}}css/site.css"/>  
+        {% compress css %}
+        <link rel="stylesheet" href="{{STATIC_URL}}css/masthead.css"/>
+        <link rel="stylesheet" href="{{STATIC_URL}}css/site.css"/>  
   {% endcompress %}
-{% block css %}{% endblock %}
-
-<script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  {% block css %}{% endblock %}
+  <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 {% block js %}{% endblock %}
 <link href="/feeds/main/" type="application/atom+xml" rel="alternate" title="Atom feed for thraxil.org" />
 {% block feeds %}{% endblock %}
