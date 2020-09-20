@@ -56,7 +56,7 @@ django-expvar-cmdline==0.1.0
 django-expvar-psutil==0.1.0
 raven==6.10.0
 
-thraxilsettings==3.2.2
+thraxilsettings==3.3.0
 
 protobuf==3.13.0
 
