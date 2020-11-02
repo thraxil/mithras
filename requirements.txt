@@ -24,7 +24,7 @@ django-statsd-mozilla==0.4.0
 six==1.15.0
 boto3==1.16.9
 python-dateutil==2.8.1
-pytz==2020.1
+pytz==2020.4
 
 sqlparse==0.4.1
 
