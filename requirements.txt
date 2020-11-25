@@ -87,7 +87,7 @@ YubiOTP==0.2.2.post1
 
 libhoney==1.10.0
 
-honeycomb-beeline==2.15.0
+honeycomb-beeline==2.16.0
 
 requests==2.25.0
 
