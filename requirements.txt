@@ -95,7 +95,7 @@ urllib3==1.26.2
 
 chardet==3.0.4
 
-certifi==2020.11.8
+certifi==2020.12.5
 
 idna==2.10
 
