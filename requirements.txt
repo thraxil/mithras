@@ -91,7 +91,7 @@ honeycomb-beeline==2.16.1
 
 requests==2.25.1
 
-urllib3==1.26.2
+urllib3==1.26.3
 
 chardet==4.0.0
 
