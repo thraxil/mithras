@@ -12,7 +12,7 @@ mccabe==0.6.1
 
 configparser==5.0.2
 
-flake8==3.9.1
+flake8==3.9.2
 
 asgiref==3.3.4
 
