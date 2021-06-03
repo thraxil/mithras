@@ -58,7 +58,7 @@ raven==6.10.0
 
 thraxilsettings==3.3.1
 
-protobuf==3.17.1
+protobuf==3.17.2
 
 google-auth==1.30.1
 
