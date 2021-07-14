@@ -89,7 +89,7 @@ libhoney==1.10.0
 
 honeycomb-beeline==2.17.0
 
-requests==2.25.1
+requests==2.26.0
 
 urllib3==1.26.6
 
