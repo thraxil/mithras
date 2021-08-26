@@ -99,6 +99,6 @@ certifi==2021.5.30
 
 idna==3.2
 
-importlib-metadata==4.6.4
+importlib-metadata==4.7.1
 
 zipp==3.5.0
