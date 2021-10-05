@@ -32,7 +32,7 @@ ipaddress==1.0.23
 
 text-unidecode==1.3
 
-Faker==8.14.0
+Faker==8.16.0
 
 factory_boy==2.12.0
 
