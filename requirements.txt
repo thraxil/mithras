@@ -16,7 +16,7 @@ flake8==3.9.2
 
 asgiref==3.4.1
 
-pycodestyle==2.6.0
+pycodestyle==2.8.0
 
 statsd==3.3.0
 gunicorn==20.1.0
