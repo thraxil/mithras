@@ -4,7 +4,7 @@ from mithras.abraxas.models import (
 )
 
 
-class UsersFactory(factory.DjangoModelFactory):
+class UsersFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Users
 
@@ -16,7 +16,7 @@ class UsersFactory(factory.DjangoModelFactory):
     css = ''
 
 
-class NodeFactory(factory.DjangoModelFactory):
+class NodeFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Node
 
@@ -27,7 +27,7 @@ class NodeFactory(factory.DjangoModelFactory):
     type = 'post'
 
 
-class PostFactory(factory.DjangoModelFactory):
+class PostFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Post
 
@@ -37,7 +37,7 @@ class PostFactory(factory.DjangoModelFactory):
     user = factory.SubFactory(UsersFactory)
 
 
-class BookmarkFactory(factory.DjangoModelFactory):
+class BookmarkFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Bookmark
 
@@ -50,7 +50,7 @@ class BookmarkFactory(factory.DjangoModelFactory):
     via_url = 'https://somewhere.example.com/'
 
 
-class ImageFactory(factory.DjangoModelFactory):
+class ImageFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Image
 
@@ -67,7 +67,7 @@ class ImageFactory(factory.DjangoModelFactory):
     rhash = 'wert1234523452345'
 
 
-class TagFactory(factory.DjangoModelFactory):
+class TagFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Tag
 
@@ -75,7 +75,7 @@ class TagFactory(factory.DjangoModelFactory):
     slug = 'example'
 
 
-class CommentFactory(factory.DjangoModelFactory):
+class CommentFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Comment
 
