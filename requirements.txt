@@ -64,7 +64,7 @@ google-auth==2.3.3
 
 google-api-core==2.3.0
 
-googleapis-common-protos==1.53.0
+googleapis-common-protos==1.54.0
 
 phonenumbers==8.12.39
 
