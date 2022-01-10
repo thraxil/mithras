@@ -48,7 +48,7 @@ django-cacheds3storage==0.2.2
 django-smoketest==1.1.2
 
 django-debug-toolbar==3.2.4
-django-waffle==2.2.1
+django-waffle==2.3.0
 
 django-jenkins==0.110.0
 django-expvar==0.2.1
