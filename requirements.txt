@@ -85,7 +85,7 @@ pycryptodome==3.12.0
 
 YubiOTP==0.2.2.post1
 
-libhoney==1.11.2
+libhoney==2.0.0
 
 honeycomb-beeline==2.18.0
 
