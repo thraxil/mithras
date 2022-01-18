@@ -72,7 +72,7 @@ django-phonenumber-field==6.0.0
 
 django-formtools==2.3
 
-django-two-factor-auth==1.13.1
+django-two-factor-auth==1.13.2
 
 django-otp==1.1.3
 
