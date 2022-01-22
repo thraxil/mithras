@@ -14,7 +14,7 @@ configparser==5.2.0
 
 flake8==4.0.1
 
-asgiref==3.4.1
+asgiref==3.5.0
 
 pycodestyle==2.8.0
 
