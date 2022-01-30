@@ -81,7 +81,7 @@ django-otp-yubikey==1.0.1
 qrcode==7.3
 Babel==2.9.1
 
-pycryptodome==3.13.0
+pycryptodome==3.14.0
 
 YubiOTP==0.2.2.post1
 
