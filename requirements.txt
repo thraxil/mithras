@@ -68,7 +68,7 @@ googleapis-common-protos==1.54.0
 
 phonenumbers==8.12.43
 
-django-phonenumber-field==6.0.0
+django-phonenumber-field==6.1.0
 
 django-formtools==2.3
 
