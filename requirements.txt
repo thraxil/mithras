@@ -62,7 +62,7 @@ protobuf==3.19.4
 
 google-auth==2.6.0
 
-google-api-core==2.4.0
+google-api-core==2.6.0
 
 googleapis-common-protos==1.55.0
 
