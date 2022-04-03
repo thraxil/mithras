@@ -101,4 +101,4 @@ idna==3.3
 
 importlib-metadata==4.11.3
 
-zipp==3.7.0
+zipp==3.8.0
