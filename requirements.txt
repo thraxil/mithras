@@ -99,6 +99,6 @@ certifi==2022.5.18.1
 
 idna==3.3
 
-importlib-metadata==4.11.3
+importlib-metadata==4.11.4
 
 zipp==3.8.0
