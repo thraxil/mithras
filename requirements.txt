@@ -66,7 +66,7 @@ google-api-core==2.7.3
 
 googleapis-common-protos==1.56.1
 
-phonenumbers==8.12.48
+phonenumbers==8.12.49
 
 django-phonenumber-field==6.1.0
 
