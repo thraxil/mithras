@@ -38,7 +38,7 @@ factory_boy==3.2.1
 
 psutil==5.9.1
 
-django-bootstrap3==21.2
+django-bootstrap3==22.1
 django-bootstrap-form==3.4
 django-markwhat==1.6.2
 django-appconf==1.0.5
