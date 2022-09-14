@@ -97,7 +97,7 @@ chardet==5.0.0
 
 certifi==2022.6.15.1
 
-idna==3.3
+idna==3.4
 
 importlib-metadata==4.12.0
 
