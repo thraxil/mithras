@@ -36,7 +36,7 @@ Faker==15.1.1
 
 factory_boy==3.2.1
 
-psutil==5.9.2
+psutil==5.9.3
 
 django-bootstrap3==22.1
 django-bootstrap-form==3.4
