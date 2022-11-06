@@ -4,7 +4,6 @@ import mithras.abraxas.views as views
 
 from django.conf import settings
 from django.conf.urls import include, url
-from django.views.generic import TemplateView
 from expvar.views import ExpVarView
 from mithras.abraxas.feeds import MainFeed, UserFeed
 from django.contrib import admin
@@ -94,7 +93,6 @@ urlpatterns = [
         template_name='admin/login.html')),
     url(r'^admin/', admin.site.urls),
     url('^debug/vars$', ExpVarView.as_view(), name='expvar'),
-    url(r'^stats/$', TemplateView.as_view(template_name="stats.html")),
 ]
 
 if settings.DEBUG:
