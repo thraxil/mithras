@@ -58,7 +58,7 @@ thraxilsettings==4.0.1
 
 protobuf==3.18.3
 
-google-auth==2.13.0
+google-auth==2.14.1
 
 google-api-core==2.8.2
 
