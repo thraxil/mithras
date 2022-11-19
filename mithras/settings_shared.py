@@ -38,27 +38,15 @@ INSTALLED_APPS += [  # noqa
     'expvarcmdline',
     'expvarpsutil',
     'bootstrap3',
-
-    'django_otp',
-    'django_otp.plugins.otp_static',
-    'django_otp.plugins.otp_totp',
-    'two_factor',
-    'otp_yubikey',
 ]
 
 MIDDLEWARE += [ # noqa
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django_otp.middleware.OTPMiddleware',
     'beeline.middleware.django.HoneyMiddleware',
 ]
 
 SERVER_EMAIL = 'moderation@thraxil.org'
 USE_TZ = False
-
-LOGIN_URL = 'two_factor:login'
-
-# this one is optional
-LOGIN_REDIRECT_URL = 'two_factor:profile'
 
 SECURE_BROWSER_XSS_FILTER = True
 

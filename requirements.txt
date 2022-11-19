@@ -64,24 +64,9 @@ google-api-core==2.8.2
 
 googleapis-common-protos==1.56.2
 
-phonenumbers==8.13.0
-
-django-phonenumber-field==6.4.0
-
 django-formtools==2.4
 
-django-two-factor-auth==1.14.0
-
-django-otp==1.1.3
-
-YubiOTP==0.2.2.post1
-django-otp-yubikey==1.0.1
-qrcode==7.3
-Babel==2.10.3
-
 pycryptodome==3.14.1
-
-YubiOTP==0.2.2.post1
 
 libhoney==2.3.0
 

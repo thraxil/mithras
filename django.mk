@@ -10,7 +10,7 @@ coverage: $(SENTINAL) flake8
 $(SENTINAL): $(REQUIREMENTS)
 	rm -rf $(VE)
 	$(SYS_PYTHON) -m venv $(VE)
-	$(PIP) install --no-deps --requirement $(REQUIREMENTS)
+	$(PIP) install --requirement $(REQUIREMENTS)
 	touch $(SENTINAL)
 
 flake8: $(SENTINAL)
