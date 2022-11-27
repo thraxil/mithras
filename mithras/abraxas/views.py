@@ -131,7 +131,7 @@ class AddPostView(LoggedInMixin, View):
     def get_node(self, request, title, user):
         if request.POST.get("node_id", "") == "":
             return Node.objects.create(title=title, slug=make_slug(title),
-                                       type="post", comments_allowed=True,
+                                       type="post", comments_allowed=False,
                                        user=user, status="Draft")
         else:
             return get_object_or_404(Node, id=request.POST["node_id"])
