@@ -62,7 +62,7 @@ google-auth==2.15.0
 
 google-api-core==2.8.2
 
-googleapis-common-protos==1.56.2
+googleapis-common-protos==1.57.1
 
 django-formtools==2.4
 
