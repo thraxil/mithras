@@ -70,7 +70,7 @@ pycryptodome==3.16.0
 
 libhoney==2.3.0
 
-honeycomb-beeline==3.4.2
+honeycomb-beeline==3.5.1
 
 requests==2.28.2
 
