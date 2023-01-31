@@ -4,3 +4,5 @@ ve
 reports
 Jenkinsfile
 .github
+shell.nix
+.envrc
