@@ -5,6 +5,12 @@ from django.template.defaultfilters import stringfilter
 register = template.Library()
 
 
+def expand(e):
+    if e == "codehilite":
+        return "markdown.extensions.codehilite"
+    return e
+
+
 @register.filter(name="cmarkdown")
 @stringfilter
 def cmarkdown(value, arg=""):
@@ -17,18 +23,11 @@ def cmarkdown(value, arg=""):
 
     Usage::
 
-        {{ object.text|markdown }}
-        {{ object.text|markdown:"save" }}
-        {{ object.text|markdown:"codehilite" }}
-        {{ object.text|markdown:"save,codehilite" }}
+        {{ object.text|cmarkdown:"codehilite" }}
 
     This code is taken from
     http://www.freewisdom.org/projects/python-markdown/Django
     """
     extensions = arg.split(",")
-    if len(extensions) > 0 and extensions[0] == "safe":
-        extensions = extensions[1:]
-        safe_mode = True
-    else:
-        safe_mode = False
-    return markdown.markdown(value, extensions, safe_mode=safe_mode)
+    expanded_extensions = [expand(e) for e in extensions]
+    return markdown.markdown(value, extensions=expanded_extensions)

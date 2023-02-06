@@ -1,5 +1,5 @@
 Django==4.1.6
-Markdown==2.6.11 # pyup: <3.0
+Markdown==3.4.1
 
 psycopg2-binary==2.9.5
 
