@@ -1,12 +1,8 @@
 from django.test import TestCase
-from .factories import (
-    UsersFactory, PostFactory, TagFactory, BookmarkFactory, ImageFactory,
-    NodeFactory,
-)
-from ..models import (
-    class_from_weight, make_slug, get_or_create_tag,
-    Tag,
-)
+
+from ..models import Tag, class_from_weight, get_or_create_tag, make_slug
+from .factories import (BookmarkFactory, ImageFactory, NodeFactory,
+                        PostFactory, TagFactory, UsersFactory)
 
 
 class UsersTest(TestCase):
@@ -49,8 +45,13 @@ class ImageTest(TestCase):
 
 class ClassFromWeightTest(TestCase):
     def test_zero(self):
-        thresholds = [1.0, 2.9925557394776896, 8.955389853880861,
-                      26.799503306491435, 80.19900743499228]
+        thresholds = [
+            1.0,
+            2.9925557394776896,
+            8.955389853880861,
+            26.799503306491435,
+            80.19900743499228,
+        ]
         self.assertEqual(class_from_weight(0, thresholds), 1.0)
 
 
@@ -61,7 +62,7 @@ class TagTest(TestCase):
 
     def test_unicode(self):
         t = TagFactory(name="example")
-        self.assertEqual(str(t), 'example')
+        self.assertEqual(str(t), "example")
 
     def test_clear_if_empty(self):
         t = TagFactory()
@@ -78,12 +79,12 @@ class MakeSlugTest(TestCase):
 
 class TestGetOrCreateTag(TestCase):
     def test_none(self):
-        get_or_create_tag('foo')
+        get_or_create_tag("foo")
         self.assertEqual(Tag.objects.count(), 1)
 
     def test_existing(self):
-        get_or_create_tag('foo')
-        get_or_create_tag('foo')
+        get_or_create_tag("foo")
+        get_or_create_tag("foo")
         self.assertEqual(Tag.objects.count(), 1)
 
 
@@ -101,27 +102,27 @@ class TestNode(TestCase):
         self.assertEqual(i, i.node.i())
 
     def test_is_post(self):
-        p = NodeFactory(type='post')
-        b = NodeFactory(type='bookmark')
-        i = NodeFactory(type='image')
+        p = NodeFactory(type="post")
+        b = NodeFactory(type="bookmark")
+        i = NodeFactory(type="image")
 
         self.assertTrue(p.is_post())
         self.assertFalse(b.is_post())
         self.assertFalse(i.is_post())
 
     def test_is_bookmark(self):
-        p = NodeFactory(type='post')
-        b = NodeFactory(type='bookmark')
-        i = NodeFactory(type='image')
+        p = NodeFactory(type="post")
+        b = NodeFactory(type="bookmark")
+        i = NodeFactory(type="image")
 
         self.assertFalse(p.is_bookmark())
         self.assertTrue(b.is_bookmark())
         self.assertFalse(i.is_bookmark())
 
     def test_is_image(self):
-        p = NodeFactory(type='post')
-        b = NodeFactory(type='bookmark')
-        i = NodeFactory(type='image')
+        p = NodeFactory(type="post")
+        b = NodeFactory(type="bookmark")
+        i = NodeFactory(type="image")
 
         self.assertFalse(p.is_image())
         self.assertFalse(b.is_image())

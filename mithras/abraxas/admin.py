@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Node, Image, Post, Bookmark, Comment, Users, MetaField, Tag
+
+from .models import Bookmark, Comment, Image, MetaField, Node, Post, Tag, Users
 
 
 class NodeAdmin(admin.ModelAdmin):
@@ -39,8 +40,8 @@ admin.site.register(Bookmark, BookmarkAdmin)
 
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'approved', 'author_name', 'preview', 'remove')
-    list_filter = ('status',)
+    list_display = ("__str__", "approved", "author_name", "preview", "remove")
+    list_filter = ("status",)
 
 
 admin.site.register(Comment, CommentAdmin)

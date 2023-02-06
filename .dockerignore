@@ -6,3 +6,4 @@ Jenkinsfile
 .github
 shell.nix
 .envrc
+.tox

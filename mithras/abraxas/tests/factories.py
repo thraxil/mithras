@@ -1,7 +1,7 @@
 import factory
-from mithras.abraxas.models import (
-    Users, Node, Post, Tag, Bookmark, Image, Comment
-)
+
+from mithras.abraxas.models import (Bookmark, Comment, Image, Node, Post, Tag,
+                                    Users)
 
 
 class UsersFactory(factory.django.DjangoModelFactory):
@@ -9,22 +9,22 @@ class UsersFactory(factory.django.DjangoModelFactory):
         model = Users
 
     username = factory.Sequence(lambda n: "testuser%d" % n)
-    email = 'test@example.com'
-    fullname = 'test user'
-    password = 'foo'
-    bio = 'a bio'
-    css = ''
+    email = "test@example.com"
+    fullname = "test user"
+    password = "foo"
+    bio = "a bio"
+    css = ""
 
 
 class NodeFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Node
 
-    slug = 'foo'
-    status = 'Publish'
-    title = 'Foo'
+    slug = "foo"
+    status = "Publish"
+    title = "Foo"
     user = factory.SubFactory(UsersFactory)
-    type = 'post'
+    type = "post"
 
 
 class PostFactory(factory.django.DjangoModelFactory):
@@ -32,7 +32,7 @@ class PostFactory(factory.django.DjangoModelFactory):
         model = Post
 
     node = factory.SubFactory(NodeFactory)
-    body = 'some text for the post'
+    body = "some text for the post"
     version = 1
     user = factory.SubFactory(UsersFactory)
 
@@ -42,12 +42,12 @@ class BookmarkFactory(factory.django.DjangoModelFactory):
         model = Bookmark
 
     node = factory.SubFactory(NodeFactory)
-    description = 'some text for the post'
+    description = "some text for the post"
     version = 1
     user = factory.SubFactory(UsersFactory)
-    url = 'https://example.com/'
-    via_name = 'somewhere'
-    via_url = 'https://somewhere.example.com/'
+    url = "https://example.com/"
+    via_name = "somewhere"
+    via_url = "https://somewhere.example.com/"
 
 
 class ImageFactory(factory.django.DjangoModelFactory):
@@ -55,7 +55,7 @@ class ImageFactory(factory.django.DjangoModelFactory):
         model = Image
 
     node = factory.SubFactory(NodeFactory)
-    description = 'some text for the post'
+    description = "some text for the post"
     version = 1
     user = factory.SubFactory(UsersFactory)
 
@@ -63,16 +63,16 @@ class ImageFactory(factory.django.DjangoModelFactory):
     thumb_height = 100
     height = 1024
     width = 1024
-    ext = '.jpg'
-    rhash = 'wert1234523452345'
+    ext = ".jpg"
+    rhash = "wert1234523452345"
 
 
 class TagFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Tag
 
-    name = 'example'
-    slug = 'example'
+    name = "example"
+    slug = "example"
 
 
 class CommentFactory(factory.django.DjangoModelFactory):
@@ -80,6 +80,6 @@ class CommentFactory(factory.django.DjangoModelFactory):
         model = Comment
 
     node = factory.SubFactory(NodeFactory)
-    body = 'here is a comment'
-    status = 'approved'
+    body = "here is a comment"
+    status = "approved"
     reply_to = 0

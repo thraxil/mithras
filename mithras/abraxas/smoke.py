@@ -1,5 +1,6 @@
-from smoketest import SmokeTest
 from django.contrib.auth.models import User
+from smoketest import SmokeTest
+
 from .check_migrations import migrations_have_applied
 
 

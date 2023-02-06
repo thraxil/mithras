@@ -1,13 +1,13 @@
+import markdown
 from django import template
 from django.template.defaultfilters import stringfilter
-import markdown
 
 register = template.Library()
 
 
-@register.filter(name='cmarkdown')
+@register.filter(name="cmarkdown")
 @stringfilter
-def cmarkdown(value, arg=''):
+def cmarkdown(value, arg=""):
     """
     Filter to create HTML out of Markdown, using custom extensions.
 

@@ -1,10 +1,12 @@
 # flake8: noqa
-from .settings_shared import *
-from thraxilsettings.docker import common
-import os.path
 import os
+import os.path
 
-app = 'mithras'
+from thraxilsettings.docker import common
+
+from .settings_shared import *
+
+app = "mithras"
 base = os.path.dirname(__file__)
 
 locals().update(
@@ -15,7 +17,8 @@ locals().update(
         INSTALLED_APPS=INSTALLED_APPS,
         STATIC_ROOT=STATIC_ROOT,
         MIDDLEWARE=MIDDLEWARE,
-    ))
+    )
+)
 
-HONEYCOMB_WRITEKEY = os.environ.get('HONEYCOMB_WRITEKEY')
-HONEYCOMB_DATASET = os.environ.get('HONEYCOMB_DATASET')
+HONEYCOMB_WRITEKEY = os.environ.get("HONEYCOMB_WRITEKEY")
+HONEYCOMB_DATASET = os.environ.get("HONEYCOMB_DATASET")

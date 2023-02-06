@@ -1,1 +1,1 @@
-default_app_config = 'mithras.abraxas.apps.AbraxasConfig'
+default_app_config = "mithras.abraxas.apps.AbraxasConfig"

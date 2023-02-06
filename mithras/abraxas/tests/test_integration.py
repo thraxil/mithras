@@ -1,8 +1,9 @@
 from django.test import TestCase
 from django.test.client import Client
 from django.urls import reverse
-from .factories import PostFactory, CommentFactory
+
 from ..models import Comment
+from .factories import CommentFactory, PostFactory
 
 
 class BasicTest(TestCase):
@@ -38,8 +39,11 @@ class BasicTest(TestCase):
 
     def test_post_view_404(self):
         response = self.c.get(
-            reverse('node-detail',
-                    args=['username', 'post', '2017', '01', '01', 'not-here']))
+            reverse(
+                "node-detail",
+                args=["username", "post", "2017", "01", "01", "not-here"],
+            )
+        )
         self.assertEqual(response.status_code, 404)
 
     def test_comment_detail(self):
@@ -50,61 +54,74 @@ class BasicTest(TestCase):
     def test_user_index(self):
         p = PostFactory()
         response = self.c.get(
-            reverse("user-index", args=[p.node.user.username]))
+            reverse("user-index", args=[p.node.user.username])
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTrue(p.node.title in str(response.content))
 
     def test_user_index_noninteger(self):
         p = PostFactory()
         response = self.c.get(
-            reverse("user-index", args=[p.node.user.username]) + "?page=foo")
+            reverse("user-index", args=[p.node.user.username]) + "?page=foo"
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTrue(p.node.title in str(response.content))
 
     def test_user_type_index(self):
         p = PostFactory()
         response = self.c.get(
-            reverse('user-type-index',
-                    args=[p.node.user.username, 'post'])
+            reverse("user-type-index", args=[p.node.user.username, "post"])
         )
         self.assertEqual(response.status_code, 200)
 
     def test_user_year_type_index(self):
         p = PostFactory()
         response = self.c.get(
-            reverse('user-type-year-index',
-                    args=[p.node.user.username, 'post',
-                          p.node.created.year])
+            reverse(
+                "user-type-year-index",
+                args=[p.node.user.username, "post", p.node.created.year],
+            )
         )
         self.assertEqual(response.status_code, 200)
 
     def test_user_type_year_index(self):
         p = PostFactory()
         response = self.c.get(
-            reverse('user-type-year-index',
-                    args=[p.node.user.username, 'post',
-                          p.node.created.year])
+            reverse(
+                "user-type-year-index",
+                args=[p.node.user.username, "post", p.node.created.year],
+            )
         )
         self.assertEqual(response.status_code, 200)
 
     def test_user_type_month_index(self):
         p = PostFactory()
         response = self.c.get(
-            reverse('user-type-month-index',
-                    args=[p.node.user.username, 'post',
-                          p.node.created.year,
-                          p.node.created.month])
+            reverse(
+                "user-type-month-index",
+                args=[
+                    p.node.user.username,
+                    "post",
+                    p.node.created.year,
+                    p.node.created.month,
+                ],
+            )
         )
         self.assertEqual(response.status_code, 200)
 
     def test_user_type_day_index(self):
         p = PostFactory()
         response = self.c.get(
-            reverse('user-type-day-index',
-                    args=[p.node.user.username, 'post',
-                          p.node.created.year,
-                          p.node.created.month,
-                          p.node.created.day])
+            reverse(
+                "user-type-day-index",
+                args=[
+                    p.node.user.username,
+                    "post",
+                    p.node.created.year,
+                    p.node.created.month,
+                    p.node.created.day,
+                ],
+            )
         )
         self.assertEqual(response.status_code, 200)
 
@@ -117,7 +134,8 @@ class BasicTest(TestCase):
     def test_user_feed(self):
         p = PostFactory()
         response = self.c.get(
-            reverse("user-feed", args=[p.node.user.username]))
+            reverse("user-feed", args=[p.node.user.username])
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTrue(p.node.title in str(response.content))
 
@@ -126,23 +144,23 @@ class BasicTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_expvar(self):
-        response = self.c.get(reverse('expvar'))
+        response = self.c.get(reverse("expvar"))
         self.assertEqual(response.status_code, 200)
 
     def test_sitemap(self):
-        response = self.c.get(reverse('sitemap'))
+        response = self.c.get(reverse("sitemap"))
         self.assertEqual(response.status_code, 200)
 
     def test_empty_tags_index(self):
-        response = self.c.get(reverse('tags-index'))
+        response = self.c.get(reverse("tags-index"))
         self.assertEqual(response.status_code, 200)
 
     def test_search_empty(self):
-        response = self.c.get(reverse('search'))
+        response = self.c.get(reverse("search"))
         self.assertEqual(response.status_code, 200)
 
     def test_search(self):
-        response = self.c.get(reverse('search') + "?q=foo")
+        response = self.c.get(reverse("search") + "?q=foo")
         self.assertEqual(response.status_code, 200)
 
 
@@ -160,10 +178,10 @@ class CommentsTest(TestCase):
             dict(
                 url="http://foo.example.com/",
                 content="some content",
-                email='foo@example.com',
-                horse='foo bar',
-                name='',
-            )
+                email="foo@example.com",
+                horse="foo bar",
+                name="",
+            ),
         )
         self.assertEqual(response.status_code, 200)
 
@@ -177,11 +195,11 @@ class CommentsTest(TestCase):
             dict(
                 url="http://foo.example.com/",
                 content="some content",
-                email='foo@example.com',
-                horse='foo bar',
-                name='',
-                reply_to='not a number',
-            )
+                email="foo@example.com",
+                horse="foo bar",
+                name="",
+                reply_to="not a number",
+            ),
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Comment.objects.all().count(), 0)
@@ -196,10 +214,10 @@ class CommentsTest(TestCase):
             dict(
                 url="http://foo.example.com/",
                 content="some content",
-                email='foo@example.com',
-                horse='foo bar',
-                name='',
-                submit='submit comment',
+                email="foo@example.com",
+                horse="foo bar",
+                name="",
+                submit="submit comment",
                 original_referer=n.get_absolute_url() + "add_comment/",
             ),
             HTTP_REFERER=n.get_absolute_url() + "add_comment/",
@@ -217,10 +235,10 @@ class CommentsTest(TestCase):
             dict(
                 url="http://foo.example.com/",
                 content="some content",
-                email='foo@example.com',
-                horse='foo bar',
-                name='stupid spammer',
-                submit='submit comment',
+                email="foo@example.com",
+                horse="foo bar",
+                name="stupid spammer",
+                submit="submit comment",
                 original_referer=n.get_absolute_url() + "add_comment/",
             ),
             HTTP_REFERER=n.get_absolute_url() + "add_comment/",

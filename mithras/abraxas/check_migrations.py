@@ -1,5 +1,6 @@
 from django.db import DEFAULT_DB_ALIAS, connections
 from django.db.migrations.loader import MigrationLoader
+
 """ idea from this article:
 
 http://tech.octopus.energy/news/2016/05/05/django-elb-health-checks.html
