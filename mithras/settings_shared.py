@@ -27,6 +27,7 @@ TEMPLATES = [
         "OPTIONS": {
             "context_processors": [
                 "django.contrib.auth.context_processors.auth",
+                "django.template.context_processors.request",
                 "django.template.context_processors.debug",
                 "django.template.context_processors.media",
                 "django.template.context_processors.static",
@@ -59,3 +60,5 @@ SECURE_BROWSER_XSS_FILTER = True
 # default off
 HONEYCOMB_WRITEKEY = None
 HONEYCOMB_DATASET = None
+
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
