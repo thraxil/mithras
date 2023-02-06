@@ -14,8 +14,8 @@
 
 {% for node in nodes %}
 <h2><a href="{{node.get_absolute_url}}">{{ node.title }}</a>
-{% ifequal node.type "bookmark" %} [bookmark]{% endifequal %}
-{% ifequal node.type "image" %} [image]{% endifequal %}
+{% if node.type == "bookmark" %} [bookmark]{% endif %}
+{% if node.type == "image" %} [image]{% endif %}
 </h2>
 
 <p class="byline">by <a href="{{node.user.get_absolute_url}}">{{ node.user.fullname }}</a>

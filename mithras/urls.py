@@ -1,9 +1,9 @@
 import django.contrib.auth.views as auth_views
 import django.contrib.sitemaps.views
 from django.conf import settings
-from django.conf.urls import include, re_path
 from django.contrib import admin
 from django.contrib.sitemaps import GenericSitemap
+from django.urls import include, re_path
 from expvar.views import ExpVarView
 
 import mithras.abraxas.views as views
