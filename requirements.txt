@@ -38,7 +38,7 @@ psutil==5.9.4
 
 django-bootstrap3==22.2
 django-bootstrap-form==3.4
-django-markwhat==1.6.2
+
 django-appconf==1.0.5
 django-compressor==4.0
 django-storages==1.13.2
@@ -53,7 +53,7 @@ django-expvar-cmdline==0.1.0
 django-expvar-psutil==0.1.0
 raven==6.10.0
 
-thraxilsettings==4.1.0
+thraxilsettings==5.0.0
 
 protobuf==3.18.3
 
