@@ -8,7 +8,12 @@ base = os.path.dirname(__file__)
 
 locals().update(common(app=app, base=base))
 
-ALLOWED_HOSTS += [".thraxil.org", "thraxil.org", "127.0.0.1"]  # noqa
+ALLOWED_HOSTS += [  # noqa
+    ".thraxil.org",
+    "thraxil.org",
+    "mithras.fly.dev",
+    "127.0.0.1",
+]  # noqa
 
 MEDIA_ROOT = "/var/www/thraxil/uploads/"
 

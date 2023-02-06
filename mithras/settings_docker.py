@@ -2,9 +2,9 @@
 import os
 import os.path
 
-from thraxilsettings.docker import common
+from .settings_shared import *  # isort:skip
+from thraxilsettings.docker import common  # isort:skip
 
-from .settings_shared import *
 
 app = "mithras"
 base = os.path.dirname(__file__)
