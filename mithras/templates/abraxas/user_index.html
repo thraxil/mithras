@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load markup %}
+
 {% load filterlib %}
 
 {% block title %}{{ user.fullname }}{% endblock %}
@@ -20,11 +20,11 @@ archives |
 
 {% block content %}
 
-<div id="bio">
-<h2>{{ user.fullname }}</h2>
-{% if user.bio %}
+    <div id="bio">
+        <h2>{{ user.fullname }}</h2>
+        {% if user.bio %}
 
-{{ user.bio|markdown }}
+            {{ user.bio|cmarkdown:"codehilite"|safe }}
 {% endif %}
 </div>
 

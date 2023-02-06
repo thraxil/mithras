@@ -1,15 +1,15 @@
 {% extends "base.html" %}
-{% load markup %}
+{% load filterlib %}
 {% block js %}<script type="text/javascript" src="{{STATIC_URL}}dist/comments.js"></script>{% endblock %}
 {% block content %}
 {% if node.comments_allowed %}
 
-<h1>Preview of Comment:</h1>
-<p style="color: red">This is only a preview. If you're OK with
-  the formatting, you must hit the Submit link below. Otherwise, make
-  changes and hit Preview again. </p>
+    <h1>Preview of Comment:</h1>
+    <p style="color: red">This is only a preview. If you're OK with
+        the formatting, you must hit the Submit link below. Otherwise, make
+        changes and hit Preview again. </p>
 
-{{ content|markdown }}
+    {{ content|cmarkdown:"codehilite"|safe }}
 
 
 <div id="comment-form">

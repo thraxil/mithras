@@ -1,19 +1,19 @@
 {% extends "base.html" %}
-{% load markup %}
+{% load filterlib %}
 {% block js %}<script type="text/javascript" src="{{STATIC_URL}}dist/comments.js"></script>{% endblock %}
 {% block breadcrumbs %}
 
-<a href="/">//thraxil.org</a>/<a href="/users/">users</a>/<a href="{{ node.user.get_absolute_url }}">{{ node.user.username }}</a>/<a href="{{ node.user.get_absolute_url }}{{node.type}}s/">{{ node.type }}s</a>/<a href="{{ node.user.get_absolute_url }}{{node.type}}s/{{node.created.year}}/">{{ node.created.year }}</a>/<a href="{{node.user.get_absolute_url}}{{node.type}}s/{{node.created.year}}/{{node.created.month}}/">{{ node.created.month}}</a>/<a href="{{node.user.get_absolute_url}}{{node.type}}s/{{node.created.year}}/{{node.created.month}}/{{node.created.day}}/">{{ node.created.day }}</a>/<a href="{{node.get_absolute_url}}">{{node.slug}}</a>/comments/{{comment.created}}/
+    <a href="/">//thraxil.org</a>/<a href="/users/">users</a>/<a href="{{ node.user.get_absolute_url }}">{{ node.user.username }}</a>/<a href="{{ node.user.get_absolute_url }}{{node.type}}s/">{{ node.type }}s</a>/<a href="{{ node.user.get_absolute_url }}{{node.type}}s/{{node.created.year}}/">{{ node.created.year }}</a>/<a href="{{node.user.get_absolute_url}}{{node.type}}s/{{node.created.year}}/{{node.created.month}}/">{{ node.created.month}}</a>/<a href="{{node.user.get_absolute_url}}{{node.type}}s/{{node.created.year}}/{{node.created.month}}/{{node.created.day}}/">{{ node.created.day }}</a>/<a href="{{node.get_absolute_url}}">{{node.slug}}</a>/comments/{{comment.created}}/
 {% endblock %}
 
 
 {% block content %}
 
-<h2>Reply to: <a href="{{node.get_absolute_url}}">{{ node.title }}</a></h2>
+    <h2>Reply to: <a href="{{node.get_absolute_url}}">{{ node.title }}</a></h2>
 
-<div class="comment">
-<p class="byline">{{ comment.author_name }} - <a href="{{ comment.get_absolute_url}}">{{ comment.created }}</a></p>
-{{ comment.body|markdown }}
+    <div class="comment">
+        <p class="byline">{{ comment.author_name }} - <a href="{{ comment.get_absolute_url}}">{{ comment.created }}</a></p>
+        {{ comment.body|cmarkdown:"codehilite"|safe }}
 
 {% if comment.has_replies %}
 {{ comment.replies_html|safe }}

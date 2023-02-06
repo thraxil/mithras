@@ -1,7 +1,7 @@
-{% load markup %}
+{% load filterlib %}
 <div class="comment">
-<p class="byline"> {% if comment.has_author_url %}<a href="{{comment.author_url}}">{% endif %}{{ comment.author_name }}{% if comment.has_author_url %}</a>{% endif %} - <a href="{{ comment.get_absolute_url}}">{{ comment.created|date:"D d M Y H:i:s" }}</a></p>
-{{ comment.body|markdown }}
+    <p class="byline"> {% if comment.has_author_url %}<a href="{{comment.author_url}}">{% endif %}{{ comment.author_name }}{% if comment.has_author_url %}</a>{% endif %} - <a href="{{ comment.get_absolute_url}}">{{ comment.created|date:"D d M Y H:i:s" }}</a></p>
+    {{ comment.body|cmarkdown:"codehilite"|safe }}
 
 {% if comment.has_replies %}
 {{ comment.replies_html|safe }}

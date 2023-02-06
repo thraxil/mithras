@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load filterlib %}
-{% load markup %}
+
 {% block title %}{{ node.title }}{% endblock %}
 {% block js %}<script type="text/javascript" src="{{STATIC_URL}}dist/comments.js"></script>{% endblock %}
 
@@ -18,42 +18,42 @@ history
 
 {% block content %}
 
-<h2>{{ node.title }}</h2>
-<p class="byline">by <a href="{{node.user.get_absolute_url}}">{{ node.user.fullname }}</a>
-{{ node.created|date:"D d M Y H:i:s" }}</p>
+    <h2>{{ node.title }}</h2>
+    <p class="byline">by <a href="{{node.user.get_absolute_url}}">{{ node.user.fullname }}</a>
+        {{ node.created|date:"D d M Y H:i:s" }}</p>
 
-{% if node.is_post %}
-{{ node.p.body|cmarkdown:"codehilite"|safe }}
-{% endif %}
+    {% if node.is_post %}
+        {{ node.p.body|cmarkdown:"codehilite"|safe }}
+    {% endif %}
 
-{% if node.is_bookmark %}
-<p>Link: <a href="{{ node.b.url }}">{{ node.b.url}}</a></p>
+    {% if node.is_bookmark %}
+        <p>Link: <a href="{{ node.b.url }}">{{ node.b.url}}</a></p>
 
-{{ node.b.description|markdown }}
-{% endif %}
+        {{ node.b.description|cmarkdown:"codehilite"|safe }}
+    {% endif %}
 
-{% if node.is_image %}
-<p><img src="{{ node.i.scaled_image_url }}"/></p>
+    {% if node.is_image %}
+        <p><img src="{{ node.i.scaled_image_url }}"/></p>
 
-{{ node.i.description|markdown }}
-{% endif %}
+        {{ node.i.description|cmarkdown:"codehilite"|safe }}
+    {% endif %}
 
-{% if node.has_tags %}
-<div class="tags">
-TAGS: {% for tag in node.get_tags %}
-<a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
-{% endfor %}
-</div>
-{% endif %}
+    {% if node.has_tags %}
+        <div class="tags">
+            TAGS: {% for tag in node.get_tags %}
+            <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>
+            {% endfor %}
+        </div>
+    {% endif %}
 
-{% if node.has_comments %}
-<div id="comments">
-<h3>comments</h3>
-{% for comment in node.top_level_comments %}
+    {% if node.has_comments %}
+        <div id="comments">
+            <h3>comments</h3>
+            {% for comment in node.top_level_comments %}
 
-<div class="comment">
-<p class="byline"> {% if comment.has_author_url %}<a href="{{comment.author_url}}">{% endif %}{{ comment.author_name }}{% if comment.has_author_url %}</a>{% endif %} - <a href="{{ comment.get_absolute_url}}">{{ comment.created|date:"D d M Y H:i:s" }}</a></p>
-{{ comment.body|markdown }}
+                <div class="comment">
+                    <p class="byline"> {% if comment.has_author_url %}<a href="{{comment.author_url}}">{% endif %}{{ comment.author_name }}{% if comment.has_author_url %}</a>{% endif %} - <a href="{{ comment.get_absolute_url}}">{{ comment.created|date:"D d M Y H:i:s" }}</a></p>
+                    {{ comment.body|cmarkdown:"codehilite"|safe }}
 
 
 {% if comment.has_replies %}
