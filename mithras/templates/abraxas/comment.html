@@ -21,10 +21,11 @@
 </div>
 
 {% if node.comments_allowed %}
-<div id="comment-form">
-<form action="{{ node.get_absolute_url }}add_comment/"
-      method="post" onsubmit="return commentSubmit()">
-<input type="hidden" name="reply_to" value="{{ comment.id }}" />
+    <div id="comment-form">
+        <form action="{{ node.get_absolute_url }}add_comment/"
+              method="post" onsubmit="return commentSubmit()">
+            {% csrf_token %}
+            <input type="hidden" name="reply_to" value="{{ comment.id }}" />
 <textarea name="content" id="comment-textarea"></textarea><br />
 <p style="font-size: .8em;">formatting is
   with Markdown syntax.

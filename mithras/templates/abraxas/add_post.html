@@ -12,8 +12,9 @@
 
 {% block content %}
 
-<form action="." method="post">
-{% if node_id %}<input type="hidden" name="node_id" value="{{node_id}}" />{% endif %}
+    <form action="." method="post">
+        {% csrf_token %}
+        {% if node_id %}<input type="hidden" name="node_id" value="{{node_id}}" />{% endif %}
 <table>
 <tr>
   <th>title</th>

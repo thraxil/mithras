@@ -6,14 +6,14 @@
 
 {% block breadcrumbs %}
 
-<a href="/">//thraxil.org</a>/<a href="/users/">users</a>/<a href="{{ node.user.get_absolute_url }}">{{ node.user.username }}</a>/<a href="{{ node.user.get_absolute_url }}{{node.type}}s/">{{ node.type }}s</a>/<a href="{{ node.user.get_absolute_url }}{{node.type}}s/{{node.created.year}}/">{{ node.created.year }}</a>/<a href="{{node.user.get_absolute_url}}{{node.type}}s/{{node.created.year}}/{{node.created.month}}/">{{ node.created.month}}</a>/<a href="{{node.user.get_absolute_url}}{{node.type}}s/{{node.created.year}}/{{node.created.month}}/{{node.created.day}}/">{{ node.created.day }}</a>/{{node.slug}}/
+    <a href="/">//thraxil.org</a>/<a href="/users/">users</a>/<a href="{{ node.user.get_absolute_url }}">{{ node.user.username }}</a>/<a href="{{ node.user.get_absolute_url }}{{node.type}}s/">{{ node.type }}s</a>/<a href="{{ node.user.get_absolute_url }}{{node.type}}s/{{node.created.year}}/">{{ node.created.year }}</a>/<a href="{{node.user.get_absolute_url}}{{node.type}}s/{{node.created.year}}/{{node.created.month}}/">{{ node.created.month}}</a>/<a href="{{node.user.get_absolute_url}}{{node.type}}s/{{node.created.year}}/{{node.created.month}}/{{node.created.day}}/">{{ node.created.day }}</a>/{{node.slug}}/
 {% endblock %}
 
 {% block nav %}
-{% if not request.user.is_anonymous %}
-<a href="/edit_post/{{node.id}}/">edit</a>|
-{% endif %}
-history
+    {% if not request.user.is_anonymous %}
+        <a href="/edit_post/{{node.id}}/">edit</a>|
+    {% endif %}
+    history
 {% endblock %}
 
 {% block content %}
@@ -56,50 +56,50 @@ history
                     {{ comment.body|cmarkdown:"codehilite"|safe }}
 
 
-{% if comment.has_replies %}
-{{ comment.replies_html|safe }}
-{% endif %}
+                    {% if comment.has_replies %}
+                        {{ comment.replies_html|safe }}
+                    {% endif %}
 
-</div>
-{% endfor %}
-</div>
-{% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 
-{% if node.comments_allowed %}
-<div id="comment-form">
-<form action="{{ node.get_absolute_url }}add_comment/"
-      method="post" onsubmit="return commentSubmit()">
+    {% if node.comments_allowed %}
+        <div id="comment-form">
+            <form action="{{ node.get_absolute_url }}add_comment/"
+                  method="post" onsubmit="return commentSubmit()">
+                {% csrf_token %}
+                <input type="text" name="name" value=""
+		       placeholder="if you can see this, leave it blank"
+		       id="name-decoy"
+                />
 
-<input type="text" name="name" value=""
-			 placeholder="if you can see this, leave it blank"
-			 id="name-decoy"
-/>
+                <textarea name="content" id="comment-textarea"></textarea><br />
+                <p style="font-size: .8em;">formatting is
+                    with Markdown syntax. Comments are not displayed until they are approved by a
+                    moderator. Moderators will not approve unless the comment
+                    contributes value to the discussion.</p>
+                <table>
+                    <tr><th>name</th><td><input type="text" name="horse"
+			                        id="comment-name"/></td><td>required</td></tr>
+                    <tr><th>email</th><td><input type="text" name="email"
+			                         id="comment-email"/></td><td>required</td></tr>
+                    <tr><th>url</th><td><input type="text" name="url"
+			                       id="comment-url"/></td><td></td></tr>
+                    <tr><th></th><td><input type="checkbox" checked="checked"
+                                            name="remember" id="comment-remember"
+                                     />
+                        remember info?
+                    </td><td></td></tr>
+                </table><br />
+                <input type="submit" value="preview comment" />
+            </form>
+        </div>
+        <div class="clear"></div>
+    {% endif %}
 
-<textarea name="content" id="comment-textarea"></textarea><br />
-<p style="font-size: .8em;">formatting is
-  with Markdown syntax. Comments are not displayed until they are approved by a
-  moderator. Moderators will not approve unless the comment
-  contributes value to the discussion.</p>
-<table>
-<tr><th>name</th><td><input type="text" name="horse"
-			    id="comment-name"/></td><td>required</td></tr>
-<tr><th>email</th><td><input type="text" name="email"
-			     id="comment-email"/></td><td>required</td></tr>
-<tr><th>url</th><td><input type="text" name="url"
-			   id="comment-url"/></td><td></td></tr>
-<tr><th></th><td><input type="checkbox" checked="checked"
-                                 name="remember" id="comment-remember"
-                                 />
-remember info?
-</td><td></td></tr>
-</table><br />
-<input type="submit" value="preview comment" />
-</form>
-</div>
-<div class="clear"></div>
-{% endif %}
-
-</div>
+        </div>
 
 
 {% endblock %}

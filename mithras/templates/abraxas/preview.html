@@ -12,10 +12,11 @@
     {{ content|cmarkdown:"codehilite"|safe }}
 
 
-<div id="comment-form">
-<form action="{{ node.get_absolute_url }}add_comment/"
-      method="post" onsubmit="return commentSubmit()">
-<input type="hidden" name="original_referer" value="{{ original_referer }}" />
+    <div id="comment-form">
+        <form action="{{ node.get_absolute_url }}add_comment/"
+              method="post" onsubmit="return commentSubmit()">
+            {% csrf_token %}
+            <input type="hidden" name="original_referer" value="{{ original_referer }}" />
 <input type="hidden" name="reply_to" value="{{ reply_to }}" />
 <input type="text" name="name" value=""
 			 placeholder="if you can see this, leave it blank"

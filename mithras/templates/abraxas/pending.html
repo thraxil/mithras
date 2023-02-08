@@ -9,8 +9,9 @@
 {% endblock %}
 
 {% block content %}
-<form action="delete/" method="post">
-<input type="submit" value="delete all pending comments" />
+    <form action="delete/" method="post">
+        {% csrf_token %}
+        <input type="submit" value="delete all pending comments" />
 </form>
 
 <table>
