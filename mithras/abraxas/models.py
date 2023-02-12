@@ -59,12 +59,6 @@ def get_or_create_tag(name):
         return Tag.objects.create(name=name, slug=make_slug(name))
 
 
-def tag_cloud():
-    """eventually, we'll scale the cloud. for now,
-    just return list of all tags"""
-    return Tag.objects.all().order_by("name")
-
-
 def clear_unused_tags():
     for t in Tag.objects.all():
         t.clear_if_empty()
