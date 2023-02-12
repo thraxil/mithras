@@ -11,9 +11,7 @@ class UsersFactory(factory.django.DjangoModelFactory):
     username = factory.Sequence(lambda n: "testuser%d" % n)
     email = "test@example.com"
     fullname = "test user"
-    password = "foo"
     bio = "a bio"
-    css = ""
 
 
 class NodeFactory(factory.django.DjangoModelFactory):
